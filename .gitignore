@@ -1,6 +1,11 @@
 # Omnet files and folders
 omnetpp-5.0/
 
+# Veins files and folders, except Protocolos
+#veins-4.4/
+veins-4.4/
+
+
 # Prerequisites
 *.d
 
