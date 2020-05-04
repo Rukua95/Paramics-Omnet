@@ -2,8 +2,29 @@
 omnetpp-5.0/
 
 # Veins files and folders, except Protocolos
-#veins-4.4/
-veins-4.4/
+!veins-4.4/
+
+veins-4.4/*
+!veins-4.4/examples/
+
+!veins-4.4/src/
+
+veins-4.4/src/*
+!veins-4.4/src/veins/
+
+veins-4.4/src/veins/*
+!veins-4.4/src/veins/modules/
+
+veins-4.4/src/veins/modules/*
+!veins-4.4/src/veins/modules/application/
+
+veins-4.4/src/veins/modules/application/*
+!veins-4.4/src/veins/modules/application/Protocolos
+
+!veins-4.4/src/veins/modules/messages/
+
+veins-4.4/src/veins/modules/messages/*
+!veins-4.4/src/veins/modules/messages/NodeInfoMessage.msg
 
 
 # Prerequisites
