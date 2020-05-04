@@ -1,0 +1,11 @@
+api coefficients 7
+
+False "Enable VMS Route Guidance"
+3.0 "Minimum delay needed to active VMS" range 0.1 to 40.0 precision 0
+4 "Decision point - Driver Agression" range 1 to 8 precision 0
+4 "Decision point - Driver Awareness" range 1 to 8 precision 0
+4 "Decision point - VMS Trust" range 1 to 8 precision 0
+3.0 "Mean acceptable delay - Familier Drivers" range 0.1 to 40.0 precision 1
+5.0 "Mean acceptable delay - Unfamilier Drivers" range 0.1 to 40.0 precision 1
+
+

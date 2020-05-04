@@ -1,0 +1,152 @@
+## Author Victor
+## Created Date mar 19. ene 17:09:31 2010
+## Modified Date lun 5. abr 16:13:00 2010
+## Modified By Victor
+## Network C:\Users\Victor\Documents\CI69F - Trabajo de Titulo\Paramics\Escenario 2 PM 2011
+## Notes 
+Bounding Box -70266.9 m -732765.1 m -68109.5 m -731073.8 m
+node            2 at -69289.75 m, -732083.94 m,      0.00 m   junction  non blocking 100 
+node            3 at -69219.38 m, -732045.63 m,      0.00 m   junction 
+node            4 at -69158.48 m, -732020.56 m,      0.00 m   junction 
+node            5 at -69082.98 m, -731936.75 m,      0.00 m   junction 
+node            6 at -69091.39 m, -731987.56 m,      0.00 m   junction  non blocking 100 
+node            7 at -68931.20 m, -731908.94 m,      0.00 m   junction  non blocking 100 
+node            8 at -68797.13 m, -731850.13 m,      0.00 m   junction  non blocking 100 
+node            9 at -69248.36 m, -732146.25 m,      0.00 m   junction  non blocking 100 
+node           11 at -69150.30 m, -732030.38 m,      0.00 m   junction 
+node           15 at -69420.90 m, -731749.63 m,      0.00 m   junction 
+node           16 at -69427.55 m, -731700.69 m,      0.00 m   junction  non blocking 100 
+node           17 at -69504.53 m, -731763.38 m,      0.00 m   junction  non blocking 100 
+node           18 at -69638.85 m, -731886.06 m,      0.00 m   junction  non blocking 100 
+node           19 at -69800.28 m, -731725.50 m,      0.00 m   junction 
+node           20 at -69586.71 m, -732041.13 m,      0.00 m   junction  non blocking 100 
+node           21 at -69531.45 m, -732111.13 m,      0.00 m   junction 
+node           22 at -69460.63 m, -732214.69 m,      0.00 m   junction  non blocking 100 
+node           23 at -69431.73 m, -732294.88 m,      0.00 m   junction  non blocking 100 
+node           24 at -69340.22 m, -731598.44 m,      0.00 m   junction  non blocking 100 
+node           25 at -69379.09 m, -731589.44 m,      0.00 m   junction 
+node           26 at -69190.75 m, -731895.25 m,      0.00 m   junction 
+node           28 at -69154.73 m, -731911.50 m,      0.00 m   junction 
+node           29 at -69116.93 m, -731948.00 m,      0.00 m   junction 
+node           30 at -69090.11 m, -732015.88 m,      0.00 m   junction 
+node           27 at -69050.16 m, -732120.06 m,      0.00 m   junction 
+node           31 at -69181.61 m, -731564.69 m,      0.00 m   junction  non blocking 100 
+node           32 at -69327.20 m, -731578.44 m,      0.00 m   junction  non blocking 100 
+node           33 at -69624.65 m, -731532.94 m,      0.00 m   junction  non blocking 100 
+node           34 at -69417.31 m, -731659.25 m,      0.00 m   junction 
+node           36 at -69399.95 m, -731671.13 m,      0.00 m   junction 
+node           38 at -69577.02 m, -732303.44 m,      0.00 m   junction 
+node           39 at -69528.37 m, -732383.06 m,      0.00 m   junction 
+node           40 at -69018.27 m, -731741.25 m,      0.00 m   junction  non blocking 100 
+node           41 at -68687.54 m, -731780.50 m,      0.00 m   junction  non blocking 100 
+node           43 at -68946.02 m, -731722.94 m,      0.00 m   junction 
+node           44 at -68928.44 m, -731769.19 m,      0.00 m   junction 
+node           45 at -68821.09 m, -731803.06 m,      0.00 m   junction 
+node           46 at -68731.85 m, -732045.19 m,      0.00 m   junction 
+node           47 at -68866.03 m, -732105.31 m,      0.00 m   junction 
+node           48 at -68546.63 m, -731736.50 m,      0.00 m   junction 
+node           51 at -68877.95 m, -731713.13 m,      0.00 m   junction 
+node           53 at -68879.45 m, -731689.75 m,      0.00 m   junction 
+node           54 at -68999.98 m, -731668.13 m,      0.00 m   junction  non blocking 100 
+node           57 at -69686.74 m, -731601.00 m,      0.00 m   junction 
+node           60 at -69531.01 m, -731430.56 m,      0.00 m   junction 
+node           63 at -68952.16 m, -731563.50 m,      0.00 m   junction  non blocking 100 
+node           35 at -69446.88 m, -731697.06 m,      0.00 m   junction 
+node           64 at -69398.20 m, -731624.38 m,      0.00 m   junction 
+node           65 at -69314.20 m, -731553.50 m,      0.00 m   junction 
+node           66 at -69337.88 m, -731545.75 m,      0.00 m   junction 
+node           67 at -69326.05 m, -731549.63 m,      0.00 m   junction 
+node           68 at -69265.52 m, -731358.13 m,      0.00 m   junction 
+node           69 at -69329.20 m, -731534.19 m,      0.00 m   junction 
+node           70 at -69259.44 m, -731382.56 m,      0.00 m   junction 
+node           72 at -69102.36 m, -731460.00 m,      0.00 m   junction 
+node           73 at -68730.90 m, -731672.19 m,      0.00 m   junction 
+node           78 at -69384.70 m, -732447.06 m,      0.00 m   junction 
+node           79 at -69708.25 m, -731517.13 m,      0.00 m   junction 
+node           80 at -69710.96 m, -731506.50 m,      0.00 m   junction 
+node           61 at -69762.03 m, -731475.56 m,      0.00 m   junction 
+node           84 at -69207.10 m, -732259.38 m,      0.00 m   junction 
+node           83 at -68526.26 m, -731943.69 m,      0.00 m   junction 
+node           50 at -68944.61 m, -731685.19 m,      0.00 m   junction 
+node           55 at -69370.41 m, -732488.44 m,      0.00 m   junction 
+node           56 at -69196.50 m, -732296.50 m,      0.00 m   junction 
+node           62 at -69032.48 m, -732175.75 m,      0.00 m   junction 
+node           91 at -68836.09 m, -732186.31 m,      0.00 m   junction 
+node           92 at -68714.39 m, -732095.06 m,      0.00 m   junction 
+node          100 at -69240.45 m, -731275.50 m,      0.00 m   junction 
+node          101 at -69256.52 m, -731307.94 m,      0.00 m   junction 
+node          102 at -69417.64 m, -731306.50 m,      0.00 m   junction 
+node           98 at -69063.49 m, -731404.94 m,      0.00 m   junction 
+node           81 at -69741.30 m, -731509.75 m,      0.00 m   junction 
+node           82 at -69654.77 m, -731532.38 m,      0.00 m   junction 
+node           99 at -69644.05 m, -731540.88 m,      0.00 m   ramp 
+node          103 at -69821.91 m, -731409.38 m,      0.00 m   junction 
+node          104 at -69763.84 m, -731505.19 m,      0.00 m   junction 
+node           37 at -69418.24 m, -731878.38 m,      0.00 m   junction  non blocking 100 
+node           14 at -69358.20 m, -731800.00 m,      0.00 m   junction  non blocking 100 
+node          112 at -69315.68 m, -731745.88 m,      0.00 m   junction 
+node           13 at -69155.40 m, -731820.13 m,    -15.00 m   junction 
+node          113 at -69037.52 m, -731642.31 m,      0.00 m   junction 
+node          114 at -69138.12 m, -731582.50 m,      0.00 m   junction 
+node          119 at -68949.26 m, -731705.06 m,    -15.00 m   junction 
+node          120 at -69263.40 m, -731768.69 m,    -12.00 m   junction 
+node          121 at -69130.90 m, -731859.63 m,    -12.00 m   junction 
+node          122 at -69169.60 m, -731851.63 m,    -12.00 m   junction 
+node           85 at -68738.27 m, -731639.94 m,      0.00 m   junction 
+node           71 at -68310.36 m, -731655.38 m,      0.00 m   junction 
+node           74 at -68929.87 m, -731481.75 m,      0.00 m   junction 
+node           12 at -68466.80 m, -732005.69 m,      0.00 m   junction 
+node           42 at -69658.13 m, -732511.50 m,      0.00 m   junction  non blocking 100 
+node           75 at -69695.08 m, -732407.94 m,      0.00 m   junction  non blocking 100 
+node           87 at -69517.12 m, -731978.19 m,      0.00 m   junction 
+node           88 at -69484.65 m, -731924.31 m,     -5.00 m   junction 
+node           93 at -69427.84 m, -731884.81 m,     -5.00 m   junction 
+node           94 at -68834.04 m, -731726.88 m,      0.00 m   junction 
+node           49 at -69275.46 m, -731150.69 m,      0.00 m   junction 
+node           52 at -69007.24 m, -732241.63 m,      0.00 m   junction 
+node           89 at -69212.76 m, -731606.13 m,      0.00 m   junction  non blocking 100 
+node           90 at -69167.45 m, -731629.81 m,      0.00 m   junction 
+node           95 at -69383.50 m, -731832.88 m,     -5.00 m   junction 
+node            1 at -69194.63 m, -731666.06 m,      0.00 m   junction 
+node           96 at -69151.35 m, -731610.56 m,      0.00 m   junction 
+node           97 at -69127.15 m, -731625.13 m,      0.00 m   junction 
+node          105 at -69089.80 m, -731646.19 m,     -5.00 m   junction 
+node          106 at -69059.80 m, -731685.81 m,     -5.00 m   junction 
+node          107 at -69113.40 m, -731659.13 m,     -5.00 m   junction 
+node           10 at -69015.98 m, -731952.81 m,      0.00 m   junction 
+node          108 at -68580.05 m, -731625.31 m,      0.00 m   junction 
+node          109 at -68604.53 m, -731564.44 m,      0.00 m   junction 
+node          111 at -68405.48 m, -732187.69 m,      0.00 m   junction 
+node          115 at -68286.62 m, -732153.69 m,      0.00 m   junction 
+node          116 at -68374.34 m, -732281.19 m,      0.00 m   junction 
+node          117 at -68207.59 m, -732222.50 m,      0.00 m   junction 
+node          118 at -68242.67 m, -731636.69 m,      0.00 m   junction 
+node          123 at -68742.83 m, -731823.19 m,      0.00 m   junction 
+node          124 at -69812.35 m, -732605.63 m,      0.00 m   junction 
+node          125 at -69846.16 m, -732575.44 m,      0.00 m   junction 
+node          126 at -69882.84 m, -732643.06 m,      0.00 m   junction 
+node          127 at -69895.06 m, -732630.81 m,      0.00 m   junction 
+node          128 at -69617.14 m, -732632.94 m,      0.00 m   junction 
+node          129 at -69597.52 m, -732688.25 m,      0.00 m   junction 
+node          130 at -69847.88 m, -732220.25 m,      0.00 m   junction  non blocking 100 
+node          131 at -70026.42 m, -732298.88 m,      0.00 m   junction 
+node          132 at -70096.55 m, -732316.56 m,      0.00 m   junction 
+node          133 at -69917.65 m, -732082.56 m,      0.00 m   junction  non blocking 100 
+node          134 at -69984.15 m, -731925.69 m,      0.00 m   junction  non blocking 100 
+node          135 at -70069.63 m, -732015.50 m,      0.00 m   junction 
+node          136 at -70113.90 m, -732064.88 m,      0.00 m   junction 
+node          137 at -70098.63 m, -732154.94 m,      0.00 m   junction 
+node          138 at -70168.85 m, -732183.44 m,      0.00 m   junction 
+node          139 at -70033.11 m, -731830.31 m,      0.00 m   junction 
+node          140 at -70056.09 m, -731782.13 m,      0.00 m   junction 
+node           58 at -68886.47 m, -731747.94 m,      0.00 m   junction 
+node           59 at -68916.53 m, -731758.81 m,      0.00 m   junction 
+node           76 at -69210.50 m, -731689.38 m,     -5.00 m   junction 
+node           77 at -69312.38 m, -732200.19 m,      0.00 m   junction 
+node           86 at -68614.43 m, -731761.63 m,      0.00 m   junction 
+node          110 at -68453.34 m, -731703.25 m,      0.00 m   junction 
+node          141 at -68918.97 m, -731441.19 m,      0.00 m   junction 
+node          142 at -69562.16 m, -731547.69 m,      0.00 m   junction 
+node          143 at -69083.50 m, -731757.88 m,    -15.00 m   junction 
+node          144 at -69080.20 m, -731801.63 m,    -15.00 m   junction 
+node          145 at -69375.19 m, -732149.31 m,      0.00 m   junction 

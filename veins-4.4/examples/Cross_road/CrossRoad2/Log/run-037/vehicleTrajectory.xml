@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ParamicsVehicleTrajectoryExport Enabled="0" End="00:00:00" Start="00:00:00" Type="0">
+    <Filter Sample_X="1" Sample_Y="1" UseVehicleId="0">
+        <Vehicle_IDs></Vehicle_IDs>
+        <VTypes></VTypes>
+        <Links></Links>
+        <Origins></Origins>
+        <Destinations></Destinations>
+    </Filter>
+    <Options>
+        <CSV Acceleration="1" Bearing="1" Curved="1" Destination="1" Gradient="1" Lane="1" Lanes="1" Length="1" Link="1" LinkGradient="1" LinkId="1" LinkLength="1" LinkSpeed="1" Origin="1" Radius="1" ReportTimeAsString="0" ReportWholeSeconds="0" ReportZCoord="1" SamplePeriod="00:01:00" Separator="44" Speed="1" Type="1"/>
+        <TRJ SamplePeriod="00:01:00" UnitsFormat="1"/>
+        <SIM ViewMode="0"/>
+        <PHEM ExportRoadGraph="1" SamplePeriod="00:01:00" Separator="59"/>
+    </Options>
+</ParamicsVehicleTrajectoryExport>

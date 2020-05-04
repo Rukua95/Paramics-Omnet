@@ -1,0 +1,22 @@
+vehicle types
+
+type 1 car 	
+	top speed 100.00 kph crawl speed 80.50 kph 
+	name "Car"
+	matrix 1 proportion 100.000 perturbation 25.0 familiarity 85.00
+
+type 12 OGV1 	
+	top speed 105.00 kph crawl speed 48.30 kph 
+	name "OGV1"
+	matrix 1 proportion 0.000 perturbation 0.0 familiarity 85.00
+
+type 15 bus 	length 16.00 m 	top speed 65.00 kph pcus 3.00 crawl speed 48.30 kph colour 0x0000ff00 
+	name "Bus" 
+	capacity 160 entry doors 1 exit doors 3 
+	fixed route 
+
+type 16 minibus 	length 8.00 m 	pcus 2.00 crawl speed 64.40 kph colour 0x0000aaff 
+	name "Minibus" 
+	capacity 48 entry doors 1 exit doors 1 
+	fixed route 
+

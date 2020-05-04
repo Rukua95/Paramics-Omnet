@@ -1,0 +1,44 @@
+## Author Victor
+## Created Date vie 5. feb 12:11:51 2010
+## Modified Date lun 5. abr 16:13:00 2010
+## Modified By Victor
+## Network C:\Users\Victor\Documents\CI69F - Trabajo de Titulo\Paramics\Escenario 2 PM 2011
+## Notes 
+busstops
+
+1 42:39 68.6 m "PT stop 6" zone 32.000000 m
+2 9:11 38.2 m "PT stop 23" zone 32.000000 m
+3 7:8 25.4 m "PT stop 7" zone 32.000000 m
+4 38:75 25.6 m "PT stop 7" zone 32.000000 m
+5 21:20 13.5 m "PT stop 8" zone 10.000000 m
+6 7:8 78.3 m "PT stop 10" zone 32.000000 m
+7 8:7 85.5 m "PT stop 11" zone 32.000000 m
+8 8:7 36.6 m "PT stop 12" zone 32.000000 m
+9 118:71 17.0 m "PT stop 30" 
+10 4:2 34.0 m "PT stop 16" zone 32.000000 m
+11 3:2 37.5 m "PT stop 17" zone 32.000000 m
+12 4:3 19.1 m "PT stop 16" zone 32.000000 m
+13 17:16 22.9 m "PT stop 18" zone 10.000000 m
+14 53:50 49.8 m "PT stop 19" zone 32.315796 m
+15 41:53 38.6 m "PT stop 20" zone 30.000000 m
+16 40:5 34.0 m "PT stop 22" zone 30.000000 m
+17 40:5 88.3 m "PT stop 23" zone 30.000000 m
+18 115:117 49.4 m "PT stop 32" 
+19 117:115 49.8 m "PT stop 33" 
+20 71:118 53.9 m "PT stop 31" 
+21 60:33 16.1 m "PT stop 29" zone 10.000000 m
+22 19:134 55.1 m "PT stop 32" zone 16.000000 m
+23 52:62 21.7 m "PT stop 30" 
+24 84:56 17.5 m "PT stop 33" 
+25 141:74 11.3 m "PT stop 31" 
+26 39:23 45.9 m "PT stop 28" zone 32.000000 m
+27 77:9 59.2 m "PT stop 29" zone 31.995316 m
+28 74:141 24.0 m "PT stop 32" 
+29 135:136 26.7 m "PT stop 33" 
+30 70:100 16.1 m "PT stop 32" 
+31 138:137 29.9 m "PT stop 34" 
+32 126:124 40.8 m "PT stop 35" 
+33 125:127 32.7 m "PT stop 36" 
+34 49:102 9.3 m "PT stop 35" 
+35 133:18 30.0 m "PT stop 37" zone 10.000000 m
+36 22:38 39.4 m "PT stop 37" zone 32.000000 m

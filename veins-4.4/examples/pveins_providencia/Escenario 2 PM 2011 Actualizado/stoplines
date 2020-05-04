@@ -1,0 +1,71 @@
+## Author Victor
+## Created Date mié 10. feb 19:31:38 2010
+## Modified Date lun 5. abr 16:13:00 2010
+## Modified By Victor
+## Network C:\Users\Victor\Documents\CI69F - Trabajo de Titulo\Paramics\Escenario 2 PM 2011
+## Notes 
+Control Points 810
+Stop Lines
+#348 at -68935.9 m -731734.6 m lane 1 bearing 0.349 end 44:43 
+#349 at -68940.0 m -731735.8 m lane 2 bearing 0.349 end 44:43 
+#351 at -69013.8 m -731719.1 m lane 1 bearing 2.566 end 50:40 
+#352 at -69018.7 m -731717.7 m lane 3 bearing 2.880 end 54:40 
+#353 at -69022.2 m -731716.6 m lane 2 bearing 2.880 end 54:40 
+#354 at -69011.4 m -731720.6 m lane 2 bearing 2.566 end 50:40 
+#355 at -69006.2 m -731724.2 m lane 4 bearing 2.566 end 50:40 
+#356 at -69008.9 m -731722.3 m lane 3 bearing 2.566 end 50:40 
+#374 at -68945.8 m -731679.1 m lane 3 bearing 1.484 end 53:50 
+#375 at -68948.4 m -731675.3 m lane 2 bearing 1.484 end 53:50 
+#376 at -68952.0 m -731671.3 m lane 1 bearing 1.484 end 53:50 
+#377 at -68943.9 m -731683.9 m lane 4 bearing 1.805 end 53:50 
+#379 at -68966.7 m -731676.4 m lane 3 bearing 1.257 start 50:54
+#380 at -68962.0 m -731673.6 m lane 2 bearing 1.257 start 50:54
+#381 at -68961.2 m -731670.4 m lane 1 bearing 1.257 start 50:54
+#419 at -69519.6 m -731973.8 m lane 1 bearing 2.356 end 88:87 
+#420 at -69517.7 m -731975.9 m lane 2 bearing 2.356 end 88:87 
+#421 at -69511.7 m -731977.8 m lane 1 bearing -0.785 start 87:88
+#422 at -69518.8 m -731983.9 m lane 3 bearing -0.715 end 20:87 
+#423 at -69516.9 m -731986.4 m lane 2 bearing -0.920 end 20:87 
+#424 at -69515.0 m -731988.9 m lane 1 bearing -0.870 end 20:87 
+#442 at -69025.9 m -731715.8 m lane 1 bearing 2.950 end 54:40 
+#447 at -69513.2 m -731774.4 m lane 3 bearing -0.820 end 18:17 
+#448 at -69510.8 m -731776.4 m lane 2 bearing -0.820 end 18:17 
+#449 at -69508.3 m -731778.7 m lane 1 bearing -0.820 end 18:17 
+#465 at -69283.6 m -732079.1 m lane 3 bearing 2.059 end 3:2 
+#466 at -69285.0 m -732076.8 m lane 2 bearing 2.059 end 3:2 
+#467 at -69286.2 m -732074.4 m lane 1 bearing 2.059 end 3:2 
+#600 at -69687.4 m -732419.9 m lane 2 bearing 0.332 end 42:75 
+#601 at -69683.8 m -732417.6 m lane 1 bearing 0.332 end 42:75 
+#629 at -68697.9 m -731807.8 m lane 1 bearing -0.908 end 123:41 
+#630 at -68699.3 m -731805.1 m lane 2 bearing -0.908 end 123:41 
+#631 at -68701.6 m -731802.0 m lane 3 bearing -0.908 end 123:41 
+#632 at -68666.6 m -731798.4 m lane 1 bearing 0.768 end 83:41 
+#633 at -68669.8 m -731800.2 m lane 2 bearing 0.768 end 83:41 
+#634 at -68672.7 m -731801.8 m lane 3 bearing 0.768 end 83:41 
+#635 at -68675.4 m -731803.9 m lane 4 bearing 0.768 end 83:41 
+#678 at -69336.6 m -731612.6 m lane 1 bearing -0.663 end 36:24 
+#679 at -69339.6 m -731611.2 m lane 2 bearing -0.663 end 36:24 
+#680 at -69343.5 m -731610.3 m lane 3 bearing -0.663 end 36:24 
+#681 at -69346.5 m -731608.9 m lane 4 bearing -0.663 end 36:24 
+#682 at -69332.1 m -731588.8 m lane 4 bearing -0.576 end 24:32 
+#683 at -69327.6 m -731586.6 m lane 3 bearing -0.576 end 24:32 
+#684 at -69323.3 m -731585.1 m lane 2 bearing -0.576 end 24:32 
+#685 at -69318.9 m -731584.4 m lane 1 bearing -0.576 end 24:32 
+#704 at -69475.4 m -731934.7 m lane 2 bearing 2.335 end 93:88 
+#705 at -69477.4 m -731932.4 m lane 1 bearing 2.336 end 93:88 
+#706 at -69435.0 m -731884.3 m lane 1 bearing 2.401 start 93:88
+#707 at -69433.3 m -731886.8 m lane 2 bearing 2.415 start 93:88
+#745 at -69412.0 m -731305.2 m lane 1 bearing 1.553 end 101:102 
+#746 at -69413.3 m -731299.6 m lane 3 bearing 2.391 end 49:102 
+#747 at -69416.0 m -731297.9 m lane 2 bearing 2.391 end 49:102 
+#748 at -69418.6 m -731296.1 m lane 1 bearing 2.391 end 49:102 
+#776 at -69278.2 m -732080.6 m lane 1 bearing 2.007 end 4:2 
+#778 at -69514.0 m -731976.5 m lane 2 bearing -0.724 start 87:88
+#779 at -69476.4 m -731939.1 m lane 2 bearing -0.656 end 87:88 
+#780 at -69474.2 m -731940.1 m lane 1 bearing -0.648 end 87:88 
+#781 at -69470.5 m -731933.6 m lane 2 bearing -0.697 start 88:93
+#782 at -69468.2 m -731934.9 m lane 1 bearing -0.714 start 88:93
+#783 at -69427.3 m -731889.9 m lane 1 bearing -0.906 end 88:93 
+#784 at -69429.0 m -731887.4 m lane 2 bearing -0.879 end 88:93 
+#785 at -69507.2 m -731982.4 m lane 1 bearing -0.788 start 87:37
+#786 at -69509.1 m -731980.3 m lane 2 bearing -0.768 start 87:37

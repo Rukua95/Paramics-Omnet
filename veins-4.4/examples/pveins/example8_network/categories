@@ -1,0 +1,21 @@
+categories 1 to 4
+
+category 1  lanes 1  speed 70 kph  width 4.0 m  colour 0x000000ff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 2  lanes 2  speed 70 kph  width 8.0 m  colour 0x000000ff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 3  lanes 2  speed 95 kph  width 8.0 m  colour 0x000000ff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 4  lanes 3  speed 95 kph  width 11.0 m  colour 0x000000ff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m

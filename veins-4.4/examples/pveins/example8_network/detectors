@@ -1,0 +1,8 @@
+## Author thi-s
+## Created Date Friday-October-25-2019 23-43-12
+## Modified Date Wednesday-November-6-2019 23-29-06
+## Modified By thi-s
+## Network C:/users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/pveins/example8_network
+## Notes 
+loop "1" at 416.4 m on link 9:23 length 4.0 m mode presence
+loop "2" at 421.3 m on link 5:3 length 4.0 m mode presence

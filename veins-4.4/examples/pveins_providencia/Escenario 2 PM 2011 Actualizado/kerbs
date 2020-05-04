@@ -1,0 +1,720 @@
+## Author Victor
+## Created Date mar 19. ene 17:36:59 2010
+## Modified Date lun 5. abr 16:13:00 2010
+## Modified By Victor
+## Network C:\Users\Victor\Documents\CI69F - Trabajo de Titulo\Paramics\Escenario 2 PM 2011
+## Notes 
+Control Points 810 
+Kerb Points
+#1 at -68991.5 m -731673.2 m kerb start 54:50
+#2 at -69171.5 m -732022.3 m kerb start 4:2
+#3 at -69148.3 m -732010.9 m kerb end 3:4
+#4 at -69286.5 m -732073.1 m kerb end 3:2
+#5 at -69282.9 m -732079.4 m kerb start 2:3
+#6 at -69149.9 m -732015.6 m kerb end 2:4
+#7 at -69081.7 m -731999.5 m kerb end 27:6
+#8 at -69087.1 m -732001.3 m kerb start 6:27
+#9 at -69042.6 m -732112.4 m kerb start 27:6
+#10 at -69046.3 m -732113.1 m kerb end 6:27
+#11 at -69059.3 m -732120.2 m kerb end 30:27
+#12 at -69054.5 m -732118.4 m inside kerb end 30:27
+#13 at -69090.1 m -732016.0 m inside kerb start 30:27
+#14 at -69094.9 m -732017.8 m kerb start 30:27
+#15 at -69054.4 m -732118.6 m inside kerb start 27:30
+#16 at -69048.1 m -732114.8 m kerb start 27:30
+#17 at -69084.5 m -732014.4 m kerb end 27:30
+#18 at -69090.1 m -732016.0 m inside kerb end 27:30
+#19 at -69048.1 m -732114.9 m kerb end 6:27
+#20 at -69110.0 m -731995.1 m kerb start 6:11
+#21 at -69104.9 m -732006.1 m kerb end 11:6
+#22 at -69143.7 m -732040.9 m kerb start 11:6
+#23 at -69086.2 m -732009.8 m kerb start 30:29
+#24 at -69091.2 m -732012.0 m inside kerb end 29:30
+#25 at -69096.4 m -732014.1 m kerb end 29:30
+#26 at -69151.3 m -732012.3 m kerb end 3:4
+#27 at -69091.2 m -732012.1 m inside kerb start 30:29
+#31 at -69117.1 m -731997.4 m kerb start 4:6
+#32 at -69097.3 m -731987.9 m kerb end 4:6
+#34 at -69184.3 m -731895.8 m inside kerb end 28:26
+#35 at -69181.6 m -731890.7 m kerb end 28:26
+#36 at -69184.3 m -731895.8 m inside kerb start 26:28
+#37 at -69184.4 m -731901.7 m kerb start 26:28
+#38 at -69157.4 m -731910.4 m inside kerb end 26:28
+#39 at -69161.2 m -731914.8 m kerb end 26:28
+#40 at -69486.6 m -731765.3 m kerb start 17:16
+#41 at -69491.5 m -731757.6 m kerb end 16:17
+#42 at -69436.8 m -731711.9 m kerb start 16:17
+#43 at -69419.0 m -731717.2 m kerb end 15:16
+#44 at -69414.8 m -731738.4 m kerb start 15:16
+#46 at -69403.6 m -731671.3 m kerb start 36:34
+#47 at -69406.4 m -731676.1 m kerb end 34:36
+#48 at -69416.5 m -731662.4 m kerb end 36:34
+#49 at -69421.6 m -731665.3 m kerb start 34:36
+#50 at -69406.4 m -731678.4 m kerb start 36:16
+#51 at -69398.5 m -731684.3 m kerb end 16:36
+#52 at -69413.1 m -731701.5 m kerb start 16:36
+#53 at -69421.3 m -731694.4 m kerb end 36:16
+#55 at -69327.8 m -731574.6 m kerb start 32:25
+#56 at -69309.5 m -731570.2 m kerb start 32:31
+#57 at -69303.2 m -731559.9 m kerb end 31:32
+#58 at -69194.1 m -731563.8 m kerb end 32:31
+#59 at -69188.4 m -731556.1 m kerb start 31:32
+#60 at -69333.8 m -731610.3 m kerb end 36:24
+#61 at -69344.8 m -731608.9 m kerb start 24:36
+#62 at -69195.6 m -731565.9 m kerb end 32:31
+#63 at -69588.0 m -732018.8 m kerb start 20:18
+#65 at -69598.6 m -732019.6 m kerb end 18:20
+#66 at -69634.1 m -731910.9 m kerb start 18:20
+#67 at -69626.7 m -731899.0 m kerb end 20:18
+#68 at -69535.3 m -732105.6 m kerb start 21:22
+#69 at -69531.1 m -732101.3 m kerb end 22:21
+#70 at -69540.5 m -732088.6 m kerb start 21:20
+#71 at -69546.7 m -732095.2 m kerb end 20:21
+#72 at -69571.1 m -732046.3 m kerb end 21:20
+#73 at -69578.1 m -732051.2 m kerb start 20:21
+#74 at -69463.2 m -732193.4 m kerb start 22:21
+#75 at -69469.0 m -732197.0 m kerb end 21:22
+#76 at -69423.9 m -732285.3 m kerb start 23:22
+#77 at -69449.7 m -732212.3 m kerb end 23:22
+#78 at -69457.0 m -732217.8 m kerb start 22:23
+#79 at -69432.5 m -732290.4 m kerb end 22:23
+#80 at -68801.6 m -731842.6 m kerb end 45:8
+#81 at -68795.4 m -731838.6 m kerb start 8:45
+#82 at -68999.2 m -731669.3 m kerb end 40:54
+#83 at -68822.2 m -731802.4 m kerb end 44:45
+#84 at -68819.6 m -731796.3 m kerb start 45:44
+#85 at -68820.2 m -731803.5 m kerb start 45:8
+#86 at -68919.5 m -731765.5 m kerb end 45:44
+#87 at -68921.8 m -731771.6 m kerb start 44:45
+#88 at -68940.3 m -731740.6 m kerb start 43:44
+#89 at -68934.5 m -731733.4 m kerb end 44:43
+#90 at -68932.7 m -731760.4 m kerb end 43:44
+#91 at -68926.4 m -731758.0 m kerb start 44:43
+#92 at -69121.6 m -731951.1 m kerb end 28:29
+#93 at -69118.5 m -731946.4 m inside kerb end 28:29
+#94 at -69111.8 m -731945.4 m kerb end 30:29
+#95 at -69293.9 m -732097.3 m kerb start 2:9
+#96 at -69287.2 m -732092.2 m kerb end 9:2
+#97 at -69260.0 m -732147.8 m kerb end 2:9
+#98 at -69252.9 m -732142.1 m kerb start 9:2
+#99 at -69433.1 m -732319.5 m kerb end 39:23
+#100 at -69436.9 m -732306.6 m kerb start 23:39
+#101 at -69523.5 m -732380.2 m kerb end 23:39
+#102 at -69196.0 m -731566.3 m kerb end 32:31
+#103 at -69309.1 m -731569.1 m kerb start 32:31
+#104 at -69308.6 m -731568.5 m kerb start 32:31
+#105 at -69308.6 m -731568.8 m kerb start 32:31
+#106 at -69196.0 m -731566.5 m kerb end 32:31
+#107 at -69452.6 m -731687.1 m kerb end 34:35
+#108 at -69431.7 m -731660.5 m kerb start 34:35
+#109 at -69423.3 m -731666.4 m kerb end 35:34
+#110 at -69408.2 m -731629.1 m kerb start 64:34
+#111 at -69422.6 m -731648.8 m kerb end 64:34
+#112 at -69398.9 m -731637.5 m kerb end 34:64
+#113 at -69414.9 m -731655.1 m kerb start 34:64
+#114 at -69396.5 m -731630.6 m kerb start 64:25
+#115 at -69403.5 m -731623.2 m kerb end 25:64
+#116 at -69389.1 m -731604.6 m kerb start 25:64
+#117 at -69381.4 m -731608.1 m kerb end 64:25
+#118 at -69413.7 m -731655.9 m kerb start 34:64
+#119 at -69398.1 m -731638.1 m kerb end 34:64
+#120 at -69379.4 m -731604.5 m kerb end 64:25
+#121 at -69414.5 m -731655.6 m kerb start 34:64
+#122 at -69398.9 m -731635.3 m kerb end 34:64
+#123 at -69379.5 m -731605.1 m kerb end 64:25
+#124 at -69396.0 m -731627.9 m kerb start 64:25
+#125 at -69397.9 m -731635.0 m kerb end 34:64
+#126 at -69348.8 m -731603.9 m kerb end 25:24
+#127 at -69340.5 m -731599.8 m kerb start 24:25
+#128 at -69378.2 m -731596.2 m kerb start 25:24
+#129 at -69344.5 m -731598.7 m kerb start 24:25
+#130 at -69367.0 m -731584.8 m kerb start 25:66
+#131 at -69370.7 m -731580.2 m kerb end 66:25
+#132 at -69345.2 m -731545.9 m kerb start 66:25
+#133 at -69340.0 m -731548.3 m kerb end 25:66
+#136 at -69326.6 m -731545.8 m kerb end 66:67
+#137 at -69335.0 m -731546.3 m kerb start 66:67
+#138 at -69331.1 m -731539.5 m kerb start 67:66
+#139 at -69320.9 m -731540.4 m kerb end 65:67
+#140 at -69326.5 m -731545.9 m kerb start 67:65
+#141 at -69337.5 m -731541.0 m kerb end 67:66
+#142 at -69326.5 m -731545.9 m kerb start 67:65
+#143 at -69336.6 m -731546.5 m kerb start 66:67
+#145 at -69327.3 m -731539.4 m kerb end 69:67
+#146 at -69329.9 m -731545.0 m kerb end 66:67
+#147 at -69324.0 m -731538.4 m kerb start 67:69
+#148 at -69321.8 m -731547.6 m kerb start 67:65
+#149 at -69325.2 m -731546.2 m kerb start 67:65
+#150 at -69340.0 m -731538.8 m kerb end 69:66
+#151 at -69337.1 m -731540.3 m kerb start 66:69
+#152 at -69333.5 m -731530.3 m kerb start 69:66
+#153 at -69333.2 m -731534.7 m kerb end 66:69
+#154 at -69330.8 m -731531.8 m kerb end 66:69
+#155 at -69329.5 m -731534.6 m kerb start 69:67
+#156 at -69328.7 m -731539.2 m kerb end 69:67
+#157 at -69325.9 m -731532.4 m kerb end 67:69
+#158 at -69329.7 m -731534.2 m kerb start 69:67
+#159 at -69305.9 m -731558.6 m kerb start 32:65
+#160 at -69300.4 m -731546.8 m kerb start 65:70
+#161 at -69309.5 m -731542.6 m kerb end 70:65
+#162 at -69302.9 m -731552.5 m kerb end 32:65
+#163 at -69315.8 m -731552.1 m kerb start 65:32
+#164 at -69318.2 m -731559.2 m kerb end 65:32
+#165 at -69306.5 m -731568.9 m kerb start 32:31
+#166 at -69340.7 m -731597.4 m kerb end 32:24
+#167 at -69325.9 m -731598.2 m kerb start 24:32
+#168 at -69331.0 m -731584.9 m kerb start 32:24
+#169 at -69315.2 m -731580.6 m kerb end 24:32
+#170 at -69334.6 m -731584.9 m kerb end 25:32
+#171 at -69332.4 m -731586.3 m kerb start 32:24
+#172 at -69318.5 m -731559.1 m kerb end 65:32
+#173 at -69739.5 m -731497.2 m kerb start 61:80
+#174 at -69737.4 m -731491.7 m inside kerb start 61:80
+#175 at -69737.5 m -731491.7 m inside kerb end 80:61
+#176 at -69734.5 m -731486.3 m kerb end 80:61
+#177 at -69638.8 m -731528.8 m inside kerb start 33:80
+#178 at -69633.8 m -731523.8 m kerb start 33:80
+#179 at -69641.8 m -731534.5 m kerb end 80:33
+#180 at -69615.8 m -731523.1 m kerb start 33:60
+#181 at -69789.3 m -731712.8 m kerb start 19:57
+#182 at -69795.7 m -731706.6 m kerb end 57:19
+#183 at -69632.0 m -731874.3 m kerb start 18:19
+#184 at -69639.9 m -731880.3 m kerb end 19:18
+#185 at -69790.6 m -731720.4 m kerb end 18:19
+#186 at -69795.5 m -731726.7 m kerb start 19:18
+#187 at -69424.8 m -732321.6 m kerb start 23:78
+#188 at -69415.7 m -732315.6 m kerb end 78:23
+#189 at -69379.8 m -732421.4 m kerb start 78:23
+#190 at -69404.1 m -732391.3 m kerb end 23:78
+#192 at -69247.2 m -732171.2 m kerb start 9:84
+#193 at -69240.9 m -732166.0 m kerb end 84:9
+#194 at -69217.8 m -732255.8 m kerb end 9:84
+#195 at -69209.1 m -732251.8 m kerb start 84:9
+#196 at -69472.0 m -732206.3 m kerb start 22:38
+#197 at -69464.8 m -732215.8 m kerb end 38:22
+#198 at -69110.6 m -731996.3 m kerb start 6:11
+#199 at -69126.9 m -731989.6 m kerb start 6:4
+#200 at -69154.2 m -732004.4 m kerb end 6:4
+#201 at -69097.3 m -731988.8 m kerb end 4:6
+#202 at -69116.5 m -731997.8 m kerb start 4:6
+#203 at -69111.0 m -731997.2 m kerb start 6:11
+#204 at -69154.4 m -732035.3 m kerb end 6:11
+#205 at -69155.6 m -732035.7 m kerb end 6:11
+#206 at -69112.1 m -731997.3 m kerb start 6:11
+#207 at -69145.6 m -732009.2 m kerb end 3:4
+#208 at -69028.3 m -731716.6 m kerb end 54:40
+#209 at -69020.7 m -731724.4 m kerb start 40:54
+#210 at -69009.3 m -731666.7 m kerb start 54:40
+#212 at -69019.5 m -731722.3 m kerb start 40:54
+#213 at -69009.1 m -731728.8 m kerb start 40:50
+#214 at -69015.7 m -731719.4 m kerb end 50:40
+#215 at -69005.1 m -731738.4 m kerb end 43:40
+#216 at -69000.0 m -731751.1 m kerb start 40:43
+#217 at -69002.9 m -731758.7 m kerb end 7:40
+#218 at -69013.4 m -731763.3 m kerb start 40:7
+#219 at -69017.4 m -731720.9 m kerb start 40:54
+#220 at -68879.6 m -731692.8 m kerb end 50:53
+#221 at -68987.0 m -731662.6 m kerb end 50:54
+#222 at -68966.9 m -731667.5 m kerb start 50:54
+#223 at -68972.5 m -731677.1 m kerb end 54:50
+#224 at -68875.1 m -731680.9 m kerb start 53:50
+#225 at -68942.9 m -731671.8 m kerb end 53:50
+#226 at -68945.1 m -731686.1 m kerb start 50:53
+#227 at -68878.3 m -731692.5 m kerb end 50:53
+#228 at -68878.1 m -731692.1 m kerb end 50:53
+#229 at -69043.0 m -731767.8 m kerb start 40:5
+#230 at -69032.0 m -731771.8 m kerb end 5:40
+#231 at -69002.1 m -731740.3 m kerb end 43:40
+#232 at -68926.8 m -731718.0 m kerb end 51:43
+#233 at -68924.8 m -731726.8 m kerb start 43:51
+#234 at -68885.4 m -731722.7 m kerb end 43:51
+#235 at -68886.8 m -731713.5 m kerb start 51:43
+#236 at -68948.6 m -731903.1 m kerb end 40:7
+#237 at -68938.3 m -731897.4 m kerb start 7:40
+#238 at -68953.7 m -731567.3 m inside kerb start 63:54
+#240 at -68996.6 m -731642.6 m kerb end 63:54
+#241 at -68988.4 m -731647.3 m inside kerb start 54:63
+#242 at -68988.4 m -731647.3 m inside kerb end 63:54
+#243 at -69056.9 m -732127.1 m kerb start 27:62
+#244 at -69048.9 m -732131.6 m inside kerb start 27:62
+#245 at -69038.3 m -732177.8 m kerb end 27:62
+#246 at -69040.8 m -732120.6 m kerb end 62:27
+#247 at -69045.8 m -732130.4 m inside kerb end 62:27
+#248 at -69030.4 m -732174.6 m inside kerb start 62:27
+#249 at -69022.5 m -732170.5 m kerb start 62:27
+#250 at -69651.3 m -731543.2 m kerb end 82:99
+#251 at -69647.1 m -731538.6 m kerb start 99:82
+#252 at -69657.1 m -731532.2 m kerb end 99:82
+#253 at -69661.1 m -731536.9 m kerb start 82:99
+#255 at -69716.7 m -731521.6 m kerb end 81:79
+#256 at -69716.0 m -731518.6 m kerb start 79:81
+#257 at -69741.8 m -731515.6 m kerb start 81:79
+#258 at -69740.8 m -731512.4 m kerb end 79:81
+#259 at -69715.0 m -731512.0 m kerb start 79:61
+#260 at -69716.2 m -731517.8 m kerb end 61:79
+#261 at -69734.6 m -731497.3 m kerb end 79:61
+#262 at -69740.6 m -731502.9 m kerb start 61:79
+#263 at -69716.2 m -731518.0 m kerb start 79:81
+#264 at -69713.0 m -731513.8 m kerb start 79:61
+#265 at -69739.1 m -731497.9 m kerb end 79:61
+#266 at -69713.3 m -731514.1 m kerb start 79:61
+#267 at -69737.7 m -731499.2 m kerb end 79:61
+#268 at -69759.4 m -731485.9 m kerb end 103:61
+#269 at -68992.4 m -731670.9 m kerb start 54:50
+#270 at -69739.5 m -731497.2 m kerb end 79:61
+#271 at -69755.2 m -731481.4 m inside kerb start 61:103
+#272 at -69751.0 m -731476.5 m kerb start 61:103
+#273 at -69656.7 m -731532.1 m kerb end 99:82
+#274 at -69647.0 m -731538.5 m kerb start 99:82
+#275 at -69646.0 m -731537.8 m kerb start 99:82
+#276 at -69741.8 m -731515.6 m kerb end 104:81
+#277 at -69740.9 m -731512.4 m kerb start 81:104
+#278 at -69758.1 m -731512.1 m kerb start 104:81
+#279 at -69757.3 m -731509.4 m kerb end 81:104
+#280 at -69756.7 m -731508.8 m kerb end 81:104
+#281 at -68903.2 m -731689.8 m kerb end 50:53
+#282 at -69157.9 m -731558.9 m kerb end 114:31
+#283 at -69162.6 m -731566.6 m kerb start 31:114
+#284 at -69143.5 m -731577.6 m kerb end 31:114
+#285 at -69138.9 m -731569.9 m kerb start 114:31
+#286 at -69134.7 m -731584.1 m kerb start 114:113
+#287 at -69129.1 m -731575.3 m kerb end 113:114
+#288 at -69006.3 m -731649.6 m kerb start 54:113
+#289 at -69016.9 m -731654.3 m kerb end 113:54
+#290 at -69029.8 m -731646.7 m kerb start 113:54
+#291 at -69028.2 m -731636.0 m kerb end 54:113
+#292 at -69056.9 m -731630.8 m kerb end 114:113
+#293 at -69051.6 m -731621.5 m kerb start 113:114
+#294 at -69011.4 m -731657.9 m kerb end 113:54
+#295 at -69029.3 m -731646.5 m kerb start 113:54
+#296 at -69195.5 m -731565.1 m kerb end 32:31
+#297 at -69163.5 m -731567.4 m kerb start 31:114
+#298 at -69144.6 m -731578.2 m kerb end 31:114
+#299 at -69135.2 m -731585.1 m kerb start 114:113
+#300 at -69435.5 m -731867.0 m kerb end 17:37
+#301 at -69427.5 m -731861.3 m kerb start 37:17
+#302 at -69488.6 m -731775.9 m kerb end 37:17
+#303 at -69495.4 m -731782.9 m kerb start 17:37
+#304 at -69505.2 m -731777.9 m kerb end 18:17
+#305 at -69510.6 m -731771.4 m kerb start 17:18
+#306 at -69369.1 m -731797.8 m kerb start 14:37
+#307 at -69091.9 m -731922.2 m kerb end 40:5
+#308 at -69082.1 m -731934.3 m kerb start 5:40
+#309 at -69096.3 m -731923.8 m kerb end 121:5
+#310 at -69093.3 m -731920.9 m kerb start 5:121
+#311 at -69033.4 m -731644.1 m kerb start 113:54
+#312 at -69171.2 m -731549.2 m inside kerb end 72:31
+#313 at -69169.6 m -731549.2 m inside kerb start 31:72
+#314 at -69159.3 m -731549.7 m kerb start 31:72
+#315 at -69635.3 m -731906.3 m kerb start 18:20
+#316 at -69596.0 m -732025.7 m kerb end 18:20
+#317 at -69306.7 m -731753.4 m kerb start 112:120
+#318 at -69306.6 m -731749.0 m kerb end 120:112
+#319 at -69343.3 m -731808.8 m inside kerb end 26:14
+#320 at -69343.3 m -731808.9 m inside kerb start 14:26
+#321 at -69346.8 m -731814.1 m kerb start 14:26
+#322 at -69338.2 m -731801.8 m kerb end 26:14
+#323 at -69496.0 m -731753.6 m kerb start 17:35
+#324 at -69503.1 m -731748.2 m kerb end 35:17
+#325 at -68722.3 m -731669.6 m kerb start 73:85
+#326 at -68730.5 m -731643.6 m kerb end 73:85
+#327 at -68853.2 m -731730.3 m kerb end 51:94
+#328 at -68846.6 m -731723.0 m kerb start 94:51
+#329 at -68711.8 m -731771.7 m kerb start 41:94
+#330 at -68715.2 m -731774.3 m kerb end 94:41
+#331 at -68713.3 m -731739.8 m kerb end 73:41
+#332 at -68706.1 m -731738.6 m kerb start 41:73
+#334 at -68714.0 m -731743.3 m kerb start 41:53
+#335 at -68707.2 m -731760.4 m kerb end 53:41
+#336 at -68875.2 m -731680.8 m kerb end 41:53
+#337 at -68689.3 m -731808.6 m kerb start 41:83
+#338 at -68680.0 m -731802.1 m inside kerb start 41:83
+#339 at -68539.2 m -731947.9 m kerb end 41:83
+#340 at -68680.0 m -731802.1 m inside kerb end 83:41
+#341 at -68667.4 m -731795.5 m kerb end 83:41
+#342 at -68550.9 m -731902.5 m kerb start 83:41
+#343 at -68550.6 m -731922.3 m inside kerb start 83:41
+#344 at -68543.5 m -731927.3 m inside kerb end 12:83
+#345 at -68535.7 m -731921.6 m kerb end 12:83
+#346 at -68710.3 m -731763.6 m kerb end 53:41
+#347 at -68711.4 m -731761.3 m kerb end 53:41
+#350 at -68941.9 m -731735.1 m kerb start 43:44
+#357 at -69006.5 m -731726.8 m kerb start 40:50
+#358 at -69516.8 m -731752.7 m kerb start 17:57
+#359 at -69516.9 m -731758.0 m kerb end 57:17
+#360 at -69691.5 m -731606.3 m kerb end 19:57
+#361 at -69698.7 m -731600.4 m kerb start 57:19
+#362 at -69458.1 m -731693.8 m kerb start 35:17
+#363 at -69375.9 m -731590.3 m kerb end 24:25
+#364 at -68945.1 m -731685.2 m kerb start 50:53
+#365 at -68944.6 m -731684.6 m kerb start 50:53
+#366 at -68903.8 m -731689.4 m kerb end 50:53
+#367 at -68944.1 m -731684.3 m kerb start 50:53
+#368 at -68952.7 m -731687.6 m kerb end 40:50
+#369 at -68952.8 m -731687.6 m kerb end 40:50
+#370 at -68942.5 m -731684.1 m kerb start 50:53
+#371 at -68969.3 m -731677.9 m kerb end 54:50
+#372 at -68944.2 m -731685.0 m kerb start 50:53
+#373 at -68943.5 m -731684.0 m kerb start 50:53
+#378 at -68969.9 m -731678.1 m kerb end 54:50
+#382 at -69175.9 m -732014.4 m kerb start 4:3
+#383 at -69171.6 m -732022.3 m kerb end 3:4
+#384 at -69169.8 m -732026.8 m kerb end 2:4
+#385 at -69109.1 m -731995.3 m kerb start 6:11
+#386 at -69154.1 m -732030.3 m kerb end 4:11
+#387 at -69150.2 m -732028.3 m kerb start 11:4
+#388 at -69159.8 m -732022.7 m kerb start 4:11
+#389 at -69154.6 m -732019.7 m kerb end 11:4
+#390 at -69148.4 m -732029.4 m kerb end 6:11
+#391 at -69147.7 m -732029.3 m kerb end 6:11
+#392 at -69155.1 m -732030.8 m kerb end 4:11
+#393 at -69109.6 m -731994.5 m kerb start 6:11
+#394 at -69102.6 m -731953.3 m kerb end 5:6
+#395 at -69087.9 m -731951.6 m kerb start 6:5
+#396 at -69149.2 m -732016.3 m kerb start 4:6
+#397 at -69121.7 m -732001.8 m kerb end 4:6
+#398 at -69410.9 m -731867.8 m inside kerb start 37:14
+#399 at -69405.2 m -731874.2 m kerb start 37:14
+#400 at -69362.0 m -731807.6 m inside kerb end 37:14
+#401 at -69422.0 m -731862.8 m kerb end 14:37
+#402 at -69417.3 m -731866.9 m inside kerb end 14:37
+#403 at -69711.7 m -731497.7 m kerb start 80:61
+#404 at -69713.0 m -731505.3 m inside kerb start 80:61
+#405 at -69539.9 m -731426.6 m kerb start 60:33
+#406 at -69546.7 m -731446.8 m kerb end 33:60
+#407 at -69695.6 m -731504.3 m kerb end 33:80
+#408 at -69697.4 m -731510.1 m inside kerb end 33:80
+#409 at -69364.1 m -731802.1 m inside kerb start 14:37
+#410 at -69354.8 m -731812.3 m kerb end 37:14
+#411 at -69372.0 m -731789.4 m kerb end 15:14
+#412 at -69365.4 m -731781.4 m kerb start 14:15
+#413 at -69507.8 m -731984.9 m kerb end 20:87
+#414 at -69517.9 m -731979.1 m inside kerb end 20:87
+#415 at -69580.5 m -732019.2 m kerb end 87:20
+#416 at -69573.0 m -732027.9 m inside kerb end 87:20
+#417 at -69515.2 m -731975.6 m inside kerb end 88:87
+#418 at -69520.3 m -731972.8 m kerb end 88:87
+#425 at -69421.4 m -731893.8 m kerb end 87:37
+#426 at -69425.3 m -731889.2 m inside kerb end 87:37
+#427 at -69507.7 m -731984.8 m kerb start 87:37
+#428 at -69510.1 m -731979.1 m inside kerb start 87:37
+#429 at -69525.8 m -731969.9 m kerb end 37:87
+#430 at -69515.2 m -731975.6 m inside kerb start 87:88
+#431 at -69520.3 m -731972.8 m inside kerb end 37:87
+#432 at -69438.0 m -731880.9 m kerb start 37:87
+#433 at -69433.7 m -731883.9 m inside kerb start 37:87
+#434 at -68737.8 m -731628.4 m kerb start 85:63
+#435 at -68737.9 m -731640.0 m kerb start 85:73
+#436 at -68751.7 m -731632.2 m kerb end 63:85
+#437 at -68937.6 m -731559.3 m kerb end 85:63
+#438 at -68940.9 m -731566.4 m kerb start 63:85
+#439 at -68742.1 m -731638.5 m kerb start 85:73
+#440 at -68722.3 m -731669.6 m kerb end 41:73
+#443 at -68904.5 m -731690.0 m kerb end 50:53
+#444 at -68943.4 m -731685.6 m kerb start 50:53
+#445 at -68992.0 m -731673.0 m kerb start 54:50
+#446 at -69511.3 m -731770.6 m kerb start 17:18
+#450 at -69513.0 m -731752.6 m kerb start 17:57
+#451 at -69679.8 m -731600.2 m kerb end 17:57
+#452 at -69684.3 m -731605.6 m kerb start 57:17
+#453 at -69680.9 m -731594.8 m kerb start 57:33
+#454 at -69688.0 m -731588.4 m kerb end 33:57
+#455 at -69424.6 m -732322.1 m kerb start 23:78
+#456 at -69402.6 m -732396.4 m kerb end 23:78
+#457 at -69379.3 m -732425.3 m kerb end 55:78
+#458 at -69359.3 m -732484.8 m kerb start 55:78
+#459 at -69384.8 m -732446.8 m kerb end 78:55
+#461 at -69457.9 m -732218.3 m kerb start 22:23
+#462 at -69306.2 m -732077.3 m kerb end 37:2
+#463 at -69297.6 m -732072.7 m kerb start 2:37
+#464 at -69280.6 m -732084.1 m kerb start 2:4
+#469 at -69159.9 m -732022.9 m kerb start 4:11
+#470 at -69155.2 m -732033.9 m kerb end 4:11
+#471 at -69109.3 m -731995.1 m kerb start 6:11
+#473 at -69145.1 m -732042.6 m kerb end 9:11
+#474 at -69155.9 m -732037.1 m kerb start 11:9
+#475 at -69154.8 m -732035.1 m kerb end 4:11
+#476 at -68944.9 m -731929.4 m kerb end 10:7
+#477 at -68948.9 m -731920.6 m inside kerb end 10:7
+#478 at -68948.9 m -731920.6 m inside kerb start 7:10
+#479 at -68953.7 m -731912.3 m kerb start 7:10
+#480 at -68923.6 m -731919.9 m kerb start 7:8
+#481 at -68928.2 m -731910.9 m inside kerb start 7:8
+#482 at -68928.4 m -731910.6 m inside kerb end 8:7
+#483 at -68932.0 m -731901.8 m kerb end 8:7
+#484 at -69092.7 m -731961.5 m kerb start 6:5
+#485 at -69083.2 m -731937.4 m kerb end 6:5
+#486 at -69090.5 m -731956.2 m kerb start 6:5
+#487 at -68714.1 m -731765.5 m kerb start 41:94
+#488 at -68711.0 m -731757.4 m kerb end 53:41
+#489 at -68877.0 m -731690.8 m kerb start 53:41
+#490 at -69369.3 m -731590.8 m kerb start 25:32
+#491 at -69365.3 m -731582.4 m kerb start 25:66
+#492 at -69365.2 m -731583.9 m kerb end 32:25
+#493 at -69182.7 m -731566.1 m inside kerb start 31:89
+#494 at -69194.3 m -731566.4 m kerb start 31:89
+#495 at -69182.7 m -731566.1 m inside kerb end 89:31
+#496 at -69232.0 m -731616.0 m kerb start 89:14
+#497 at -69224.3 m -731621.8 m kerb end 14:89
+#498 at -69211.5 m -731605.1 m inside kerb end 31:89
+#499 at -69209.8 m -731603.2 m inside kerb start 89:31
+#500 at -69213.2 m -731624.8 m kerb end 112:89
+#501 at -69207.2 m -731619.0 m kerb start 89:90
+#502 at -69202.3 m -731611.8 m kerb end 90:89
+#503 at -69174.6 m -731638.9 m kerb start 90:1
+#504 at -69171.7 m -731641.6 m kerb end 1:90
+#505 at -69020.6 m -732176.6 m kerb end 52:62
+#506 at -69028.0 m -732179.4 m inside kerb end 52:62
+#507 at -68999.0 m -732239.1 m kerb start 52:62
+#508 at -69005.5 m -732241.0 m inside kerb start 52:62
+#509 at -69667.0 m -732523.7 m kerb start 42:124
+#510 at -69661.9 m -732537.8 m kerb end 124:42
+#511 at -69808.3 m -732604.3 m kerb end 42:124
+#512 at -69804.0 m -732616.1 m kerb start 124:42
+#513 at -69810.7 m -732620.4 m kerb end 126:124
+#514 at -69843.5 m -732572.1 m kerb start 125:75
+#515 at -69717.8 m -732411.3 m kerb start 75:125
+#516 at -69709.5 m -732425.1 m kerb end 125:75
+#517 at -69860.1 m -732570.3 m kerb start 125:127
+#518 at -69902.8 m -732617.2 m kerb end 125:127
+#519 at -69891.7 m -732627.8 m kerb start 127:125
+#520 at -69683.7 m -732411.9 m kerb end 42:75
+#521 at -69690.1 m -732417.7 m inside kerb end 42:75
+#522 at -69653.0 m -732502.4 m kerb start 42:75
+#523 at -69658.7 m -732507.6 m inside kerb start 42:75
+#524 at -69658.7 m -732507.6 m inside kerb end 75:42
+#525 at -69664.8 m -732512.9 m kerb end 75:42
+#526 at -69696.1 m -732424.5 m kerb start 75:42
+#527 at -69690.1 m -732417.8 m inside kerb start 75:42
+#528 at -69643.9 m -732517.1 m kerb start 42:39
+#529 at -69649.3 m -732503.2 m kerb end 39:42
+#530 at -69537.1 m -732391.4 m kerb start 39:42
+#531 at -69531.1 m -732404.6 m kerb end 42:39
+#532 at -69517.3 m -732391.0 m kerb start 39:23
+#533 at -69701.6 m -732389.8 m kerb start 75:130
+#534 at -69709.7 m -732396.8 m kerb end 130:75
+#535 at -69849.7 m -732235.6 m kerb start 130:75
+#536 at -69838.3 m -732232.4 m kerb end 75:130
+#537 at -69870.7 m -732208.0 m kerb end 133:130
+#538 at -69861.9 m -732203.7 m kerb start 130:133
+#539 at -69919.7 m -732102.4 m kerb start 133:130
+#540 at -69910.6 m -732098.8 m kerb end 130:133
+#541 at -69928.4 m -732100.2 m kerb end 137:133
+#542 at -69932.7 m -732090.4 m kerb start 133:137
+#543 at -70094.6 m -732152.6 m kerb end 133:137
+#544 at -70090.8 m -732162.6 m kerb start 137:133
+#545 at -70099.6 m -732154.5 m kerb start 137:138
+#546 at -70094.9 m -732163.8 m kerb end 138:137
+#547 at -70145.4 m -732172.0 m kerb end 137:138
+#548 at -70163.8 m -732192.9 m kerb start 138:137
+#549 at -70169.1 m -732182.7 m kerb end 137:138
+#550 at -69985.2 m -731908.5 m kerb end 19:134
+#551 at -69979.3 m -731919.1 m kerb start 134:19
+#552 at -69998.0 m -731938.3 m kerb end 135:134
+#553 at -69999.9 m -731924.3 m kerb start 134:135
+#554 at -70073.3 m -732005.7 m kerb end 134:135
+#555 at -70066.0 m -732012.9 m kerb start 135:134
+#556 at -70069.4 m -732016.9 m kerb end 136:135
+#557 at -70077.3 m -732009.6 m kerb start 135:136
+#558 at -70120.8 m -732057.4 m kerb end 135:136
+#559 at -70112.7 m -732064.1 m kerb start 136:135
+#560 at -70001.2 m -731913.3 m kerb end 139:134
+#561 at -69995.5 m -731910.8 m inside kerb end 139:134
+#562 at -69995.4 m -731910.8 m inside kerb start 134:139
+#563 at -69992.7 m -731907.3 m kerb start 134:139
+#564 at -70028.0 m -731832.4 m kerb end 134:139
+#565 at -70031.3 m -731833.9 m inside kerb start 139:134
+#567 at -69642.3 m -731903.8 m kerb end 133:18
+#568 at -69643.6 m -731889.8 m kerb start 18:133
+#569 at -69909.9 m -732080.8 m kerb end 18:133
+#570 at -69906.2 m -732089.4 m kerb start 133:18
+#571 at -69615.8 m -731881.6 m kerb start 18:17
+#572 at -69621.3 m -731873.9 m kerb end 17:18
+#573 at -69416.4 m -731894.5 m kerb start 37:2
+#575 at -69411.7 m -731889.3 m kerb end 2:37
+#576 at -69344.1 m -731783.9 m kerb end 112:14
+#577 at -69346.0 m -731782.1 m kerb start 14:89
+#578 at -69337.6 m -731789.8 m kerb start 14:112
+#580 at -69390.5 m -732431.6 m kerb start 78:55
+#581 at -69369.5 m -732490.1 m kerb end 78:55
+#582 at -69391.5 m -732428.2 m kerb end 23:78
+#583 at -69409.6 m -732299.7 m kerb start 23:77
+#584 at -69415.5 m -732289.3 m kerb end 77:23
+#585 at -69307.2 m -732212.9 m kerb end 23:77
+#586 at -69315.0 m -732203.8 m kerb start 77:23
+#587 at -69309.3 m -732199.0 m kerb end 9:77
+#588 at -69301.6 m -732208.1 m kerb start 77:9
+#589 at -69256.9 m -732169.3 m kerb end 77:9
+#590 at -69262.2 m -732158.1 m kerb start 9:77
+#591 at -69656.8 m -732540.6 m kerb start 42:128
+#592 at -69652.5 m -732535.4 m inside kerb start 42:128
+#593 at -69652.5 m -732535.4 m inside kerb end 128:42
+#594 at -69646.7 m -732529.8 m kerb end 128:42
+#595 at -69617.0 m -732628.8 m inside kerb start 128:42
+#596 at -69610.8 m -732626.9 m kerb start 128:42
+#597 at -69617.0 m -732628.8 m inside kerb end 42:128
+#598 at -69691.6 m -732391.2 m kerb end 38:75
+#599 at -69683.5 m -732399.9 m kerb start 75:38
+#602 at -68934.7 m -731934.3 m kerb start 7:47
+#603 at -68925.6 m -731930.6 m kerb end 47:7
+#604 at -68879.1 m -732102.6 m kerb end 7:47
+#605 at -68868.4 m -732098.5 m kerb start 47:7
+#606 at -68875.8 m -732112.3 m kerb start 47:91
+#607 at -68848.2 m -732184.4 m kerb end 47:91
+#608 at -68839.1 m -732179.3 m kerb start 91:47
+#609 at -68865.6 m -732109.1 m kerb end 91:47
+#610 at -68695.2 m -731808.1 m kerb end 123:41
+#611 at -68699.9 m -731799.3 m inside kerb end 123:41
+#612 at -68735.4 m -731829.3 m kerb start 123:41
+#613 at -68699.9 m -731799.3 m inside kerb start 41:123
+#614 at -68705.5 m -731791.4 m kerb start 41:123
+#615 at -68745.3 m -731814.3 m kerb end 41:123
+#616 at -68741.2 m -731821.9 m inside kerb end 41:123
+#617 at -68658.2 m -731788.7 m kerb start 41:86
+#618 at -68662.4 m -731780.6 m inside kerb start 41:86
+#619 at -68667.8 m -731776.0 m inside kerb end 86:41
+#620 at -68672.2 m -731767.1 m kerb end 86:41
+#621 at -68612.0 m -731749.9 m kerb end 48:86
+#622 at -68564.4 m -731732.9 m kerb start 48:86
+#623 at -68561.2 m -731741.7 m inside kerb start 48:86
+#624 at -68608.8 m -731759.2 m inside kerb end 48:86
+#625 at -68561.2 m -731741.7 m inside kerb end 86:48
+#626 at -68558.5 m -731750.3 m kerb end 86:48
+#627 at -68608.8 m -731759.2 m inside kerb start 86:48
+#628 at -68607.6 m -731768.4 m kerb start 86:48
+#636 at -69038.2 m -731737.6 m kerb end 90:40
+#637 at -68477.7 m -731967.2 m inside kerb end 48:12
+#638 at -68491.0 m -731961.6 m kerb end 48:12
+#640 at -68491.9 m -731977.8 m inside kerb start 12:83
+#641 at -68492.5 m -731966.4 m kerb start 12:83
+#642 at -68531.1 m -731954.9 m kerb start 83:12
+#643 at -68525.0 m -731946.1 m inside kerb start 83:12
+#644 at -68487.8 m -731993.9 m kerb end 83:12
+#645 at -68487.8 m -731983.1 m inside kerb end 83:12
+#646 at -68476.7 m -731969.3 m inside kerb start 12:48
+#647 at -68467.9 m -731972.4 m kerb start 12:48
+#648 at -68452.8 m -731998.9 m kerb end 115:12
+#649 at -68454.0 m -732009.8 m inside kerb end 115:12
+#650 at -68453.1 m -732012.1 m inside kerb start 12:115
+#651 at -68439.6 m -732032.4 m kerb start 12:115
+#652 at -68445.4 m -732037.1 m kerb end 111:12
+#653 at -68458.2 m -732032.2 m inside kerb end 111:12
+#654 at -68469.0 m -732019.4 m kerb start 12:111
+#655 at -68462.7 m -732021.3 m inside kerb start 12:111
+#656 at -68286.7 m -732151.6 m inside kerb start 115:12
+#657 at -68279.2 m -732145.4 m kerb start 115:12
+#658 at -68276.2 m -732148.6 m kerb end 117:115
+#659 at -68283.3 m -732156.4 m inside kerb start 115:117
+#660 at -68282.7 m -732155.8 m inside kerb end 117:115
+#661 at -68212.3 m -732228.5 m kerb end 115:117
+#662 at -68718.1 m -731752.8 m kerb end 53:41
+#663 at -69157.5 m -731607.1 m kerb end 114:96
+#664 at -69150.8 m -731608.4 m kerb start 96:114
+#665 at -69157.5 m -731607.2 m kerb start 96:90
+#666 at -69156.6 m -731614.3 m kerb end 90:96
+#667 at -69170.7 m -731627.8 m kerb end 96:90
+#668 at -69165.2 m -731628.3 m kerb start 90:96
+#669 at -69164.2 m -731629.3 m kerb end 97:90
+#670 at -69160.6 m -731632.5 m kerb start 90:97
+#671 at -69131.5 m -731622.2 m kerb start 97:96
+#672 at -69133.4 m -731624.8 m kerb end 96:97
+#673 at -69347.3 m -731608.3 m kerb start 24:36
+#674 at -69389.2 m -731674.3 m kerb start 36:24
+#675 at -69395.8 m -731666.6 m kerb end 24:36
+#676 at -69346.4 m -731598.2 m kerb start 24:25
+#677 at -69397.6 m -731665.9 m kerb end 24:36
+#686 at -69853.4 m -732563.6 m kerb end 75:125
+#687 at -69608.6 m -732634.4 m kerb end 129:128
+#688 at -69615.1 m -732636.0 m inside kerb start 128:129
+#689 at -69614.9 m -732636.2 m inside kerb end 129:128
+#690 at -69590.8 m -732685.6 m kerb start 129:128
+#691 at -69597.1 m -732688.3 m inside kerb start 129:128
+#692 at -69517.8 m -731979.1 m inside kerb start 87:20
+#693 at -69525.7 m -731969.9 m kerb start 87:20
+#694 at -69510.2 m -731979.1 m kerb start 87:88
+#695 at -69573.0 m -732028.0 m inside kerb start 20:87
+#696 at -69473.1 m -731940.7 m kerb end 87:88
+#697 at -69477.5 m -731938.5 m inside kerb end 87:88
+#698 at -69477.5 m -731938.4 m inside kerb start 88:87
+#699 at -69481.5 m -731935.0 m kerb start 88:87
+#700 at -69474.4 m -731935.8 m inside kerb end 93:88
+#701 at -69478.4 m -731931.3 m kerb end 93:88
+#702 at -69467.1 m -731935.6 m kerb start 88:93
+#703 at -69471.6 m -731932.9 m inside kerb start 88:93
+#708 at -69620.1 m -731540.3 m kerb start 33:142
+#709 at -69616.9 m -731534.9 m inside kerb start 33:142
+#710 at -69567.0 m -731553.9 m kerb end 33:142
+#711 at -69564.8 m -731547.1 m inside kerb end 33:142
+#712 at -69616.9 m -731534.8 m inside kerb end 142:33
+#713 at -69613.7 m -731528.0 m kerb end 142:33
+#714 at -69563.2 m -731540.5 m kerb start 142:33
+#715 at -69564.8 m -731547.1 m inside kerb start 142:33
+#716 at -69558.5 m -731548.1 m inside kerb end 25:142
+#717 at -69557.1 m -731541.9 m kerb end 25:142
+#718 at -69558.4 m -731548.9 m inside kerb start 142:25
+#719 at -69560.0 m -731555.4 m kerb start 142:25
+#720 at -69641.3 m -731538.0 m kerb start 33:57
+#721 at -69638.7 m -731528.8 m inside kerb end 80:33
+#722 at -69087.9 m -732001.8 m kerb start 6:27
+#725 at -69256.8 m -731368.6 m kerb start 70:68
+#726 at -69258.3 m -731358.2 m kerb end 70:68
+#727 at -69262.7 m -731360.4 m kerb start 68:70
+#728 at -69260.5 m -731373.4 m kerb end 68:70
+#729 at -69272.6 m -731373.7 m kerb start 68:69
+#730 at -69269.0 m -731372.4 m inside kerb start 68:69
+#731 at -69268.9 m -731372.4 m inside kerb end 69:68
+#732 at -69265.8 m -731372.4 m kerb end 69:68
+#733 at -68745.0 m -731635.6 m kerb end 63:85
+#734 at -68734.2 m -731656.9 m kerb end 85:73
+#735 at -68738.9 m -731641.4 m kerb start 85:73
+#736 at -69416.5 m -731306.6 m inside kerb start 102:101
+#737 at -69418.8 m -731310.7 m kerb start 102:101
+#738 at -69416.5 m -731306.6 m inside kerb end 101:102
+#739 at -69412.7 m -731301.1 m kerb start 102:49
+#740 at -69413.8 m -731303.6 m kerb end 101:102
+#741 at -69422.1 m -731311.5 m kerb end 60:102
+#742 at -69429.1 m -731305.4 m kerb start 102:60
+#743 at -69265.3 m -731311.9 m kerb end 102:101
+#744 at -69264.5 m -731307.9 m inside kerb end 102:101
+#749 at -69532.2 m -731431.4 m kerb end 33:60
+#750 at -69539.9 m -731426.6 m kerb end 102:60
+#751 at -69532.2 m -731431.4 m kerb start 60:102
+#752 at -69329.8 m -731608.1 m kerb start 24:89
+#753 at -69325.2 m -731600.1 m kerb end 89:24
+#754 at -69226.7 m -731605.3 m kerb start 89:24
+#755 at -69233.4 m -731614.1 m kerb end 24:89
+#756 at -68738.8 m -731643.4 m kerb start 85:73
+#757 at -68730.5 m -731672.2 m kerb end 85:73
+#758 at -68730.6 m -731672.2 m kerb start 73:41
+#759 at -69755.3 m -731481.4 m inside kerb end 103:61
+#760 at -69715.3 m -731511.3 m kerb end 61:80
+#761 at -69263.2 m -731307.9 m inside kerb start 101:102
+#762 at -69263.4 m -731304.6 m kerb start 101:102
+#763 at -69249.6 m -731290.1 m kerb end 100:101
+#764 at -69243.1 m -731280.9 m kerb start 100:101
+#765 at -69248.2 m -731296.9 m kerb start 101:100
+#766 at -69240.4 m -731285.7 m kerb end 101:100
+#767 at -69254.7 m -731316.8 m kerb end 68:101
+#768 at -69260.0 m -731346.3 m kerb start 68:101
+#769 at -69267.3 m -731346.3 m kerb end 101:68
+#770 at -69261.6 m -731316.6 m kerb start 101:68
+#771 at -69247.7 m -731371.5 m kerb start 70:100
+#772 at -69254.8 m -731370.4 m kerb end 100:70
+#773 at -69251.4 m -731388.9 m kerb end 65:70
+#774 at -69233.0 m -731288.8 m kerb end 70:100
+#775 at -69240.2 m -731287.5 m kerb start 100:70
+#777 at -69282.2 m -732080.6 m kerb end 4:2
+#787 at -69566.1 m -732035.2 m kerb start 20:87
+#788 at -69143.7 m -731578.8 m kerb end 31:114
+#789 at -69156.2 m -731613.1 m kerb end 90:96
+#790 at -69165.4 m -731627.8 m kerb start 90:96
+#791 at -69156.8 m -731612.8 m kerb end 90:96
+#792 at -69166.2 m -731628.3 m kerb start 90:96
+#793 at -69142.8 m -731579.3 m kerb end 31:114
+#794 at -69143.0 m -731579.6 m kerb start 114:96
+#796 at -69860.7 m -732235.4 m kerb end 131:130
+#797 at -69873.8 m -732215.2 m kerb start 130:131
+#798 at -69851.7 m -732204.4 m kerb end 20:130
+#799 at -69837.0 m -732223.1 m kerb start 130:20
+#800 at -69094.1 m -731918.9 m kerb start 5:121
+#801 at -69089.6 m -731956.7 m kerb start 6:5

@@ -1,0 +1,34 @@
+## Edit this file with caution
+
+viz options 272697409 0 0 
+simulation area 3525.2 m 4240.3 m 3492.7 m
+text size 0 7.0 m
+text size 1 7.0 m
+text size 2 7.0 m
+text size 3 7.0 m
+text size 4 7.0 m
+text size 5 7.0 m
+text size 6 7.0 m
+text size 7 7.0 m
+text size 8 7.0 m
+text size 9 7.0 m
+text size 10 7.0 m
+text size 11 2.0 m
+hotspot size 13
+
+colours
+arrows white
+busstops yellow1
+grid white
+hotspots 0x4716ff
+lane closures yellow1
+stop lines cyan1
+roads 0x3a3533
+text nodes yellow1
+text links magenta
+turn counts brown1
+overlay white
+background black
+tarmac black
+od counts purple
+blocking yellow1

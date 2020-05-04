@@ -1,0 +1,51 @@
+vms control points 2
+
+control 1 link 27:26
+capture zones 2
+4
+6
+delay links 3
+24:9
+9:23
+23:5
+familier count 9
+27:26
+26:2
+2:6c
+6c:25
+25:15
+15:7c
+7c:7a
+7a:7b
+7b:29
+unfamilier count 4
+27:26
+26:2
+2:6c
+6c:25
+
+control 2 link 21:32
+capture zones 1
+1
+delay links 3
+5:23
+23:9
+9:24
+familier count 8
+4:21
+21:32
+32:3
+3:5
+5:22
+22:7a
+7a:7b
+7b:7c
+unfamilier count 8
+4:21
+21:32
+32:3
+3:5
+5:22
+22:7a
+7a:7b
+7b:7c0

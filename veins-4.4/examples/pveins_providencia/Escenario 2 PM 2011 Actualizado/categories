@@ -1,0 +1,621 @@
+categories 1 to 124
+
+category 1  lanes 1  speed 50 kph  width 3.0 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 2  lanes 2  speed 50 kph  width 6.0 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 3  lanes 3  speed 50 kph  width 9.0 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 4  lanes 4  speed 50 kph  width 12.0 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 5  lanes 5  speed 50 kph  width 18.3 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 6  lanes 1  speed 65 kph  width 3.7 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 7  lanes 2  speed 65 kph  width 7.3 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 8  lanes 3  speed 65 kph  width 11.0 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 9  lanes 4  speed 65 kph  width 14.6 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 10  lanes 5  speed 65 kph  width 18.3 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 11  lanes 1  speed 80 kph  width 3.7 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 12  lanes 2  speed 80 kph  width 7.3 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 13  lanes 3  speed 80 kph  width 11.0 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 14  lanes 4  speed 80 kph  width 14.6 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 15  lanes 5  speed 80 kph  width 18.3 m  colour 0x0000ff00  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 16  lanes 1  speed 50 kph  width 3.7 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 17  lanes 2  speed 50 kph  width 7.3 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 18  lanes 3  speed 50 kph  width 11.0 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 19  lanes 4  speed 50 kph  width 14.6 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 20  lanes 5  speed 50 kph  width 18.3 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 21  lanes 1  speed 65 kph  width 3.7 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 22  lanes 2  speed 65 kph  width 7.3 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 23  lanes 3  speed 65 kph  width 11.0 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 24  lanes 4  speed 65 kph  width 14.6 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 25  lanes 5  speed 65 kph  width 18.3 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 26  lanes 1  speed 80 kph  width 3.7 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 27  lanes 2  speed 80 kph  width 7.3 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 28  lanes 3  speed 80 kph  width 11.0 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 29  lanes 4  speed 80 kph  width 14.6 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 30  lanes 5  speed 80 kph  width 18.3 m  colour 0x0000ffff  type urban   major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 31  lanes 1  speed 50 kph  width 3.0 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 32  lanes 2  speed 50 kph  width 6.0 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 33  lanes 3  speed 50 kph  width 9.0 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 34  lanes 4  speed 50 kph  width 12.0 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 35  lanes 5  speed 50 kph  width 18.3 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 36  lanes 1  speed 65 kph  width 3.7 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 37  lanes 2  speed 65 kph  width 7.3 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 38  lanes 3  speed 65 kph  width 11.0 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 39  lanes 4  speed 65 kph  width 14.6 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 40  lanes 5  speed 65 kph  width 18.3 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 41  lanes 1  speed 80 kph  width 3.7 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 42  lanes 2  speed 80 kph  width 7.3 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 43  lanes 3  speed 80 kph  width 11.0 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 44  lanes 4  speed 80 kph  width 14.6 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 45  lanes 5  speed 80 kph  width 18.3 m  colour 0x00b469ff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 250.0 m,1.0 m
+
+category 46  lanes 1  speed 50 kph  width 3.7 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 47  lanes 2  speed 50 kph  width 7.3 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 48  lanes 3  speed 50 kph  width 11.0 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 49  lanes 4  speed 50 kph  width 14.6 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 50  lanes 5  speed 50 kph  width 18.3 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 51  lanes 1  speed 65 kph  width 3.7 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 52  lanes 2  speed 65 kph  width 7.3 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 53  lanes 3  speed 65 kph  width 11.0 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 54  lanes 4  speed 65 kph  width 14.6 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 55  lanes 5  speed 65 kph  width 18.3 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 56  lanes 1  speed 80 kph  width 3.7 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 57  lanes 2  speed 80 kph  width 7.3 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 58  lanes 3  speed 80 kph  width 11.0 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 59  lanes 4  speed 80 kph  width 14.6 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 60  lanes 5  speed 80 kph  width 18.3 m  colour 0x00007fff  type urban   minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 250.0 m,1.0 m
+
+category 61  lanes 1  speed 65 kph  width 3.7 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 62  lanes 2  speed 65 kph  width 7.3 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 63  lanes 3  speed 65 kph  width 11.0 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 64  lanes 4  speed 65 kph  width 14.6 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 65  lanes 1  speed 80 kph  width 3.7 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 66  lanes 2  speed 80 kph  width 7.3 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 67  lanes 3  speed 80 kph  width 11.0 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 68  lanes 4  speed 80 kph  width 14.6 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 69  lanes 1  speed 95 kph  width 3.7 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 70  lanes 2  speed 95 kph  width 7.3 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 71  lanes 3  speed 95 kph  width 11.0 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 72  lanes 4  speed 95 kph  width 14.6 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 73  lanes 1  speed 115 kph  width 3.7 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 74  lanes 2  speed 115 kph  width 7.3 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 75  lanes 3  speed 115 kph  width 11.0 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 76  lanes 4  speed 115 kph  width 14.6 m  colour 0x000000ff  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 77  lanes 1  speed 65 kph  width 3.7 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 78  lanes 2  speed 65 kph  width 7.3 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 79  lanes 3  speed 65 kph  width 11.0 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 80  lanes 4  speed 65 kph  width 14.6 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 81  lanes 1  speed 80 kph  width 3.7 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 82  lanes 2  speed 80 kph  width 7.3 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 83  lanes 3  speed 80 kph  width 11.0 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 84  lanes 4  speed 80 kph  width 14.6 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 85  lanes 1  speed 95 kph  width 3.7 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 86  lanes 2  speed 95 kph  width 7.3 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 87  lanes 3  speed 95 kph  width 11.0 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 88  lanes 4  speed 95 kph  width 14.6 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 89  lanes 1  speed 115 kph  width 3.7 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 90  lanes 2  speed 115 kph  width 7.3 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 91  lanes 3  speed 115 kph  width 11.0 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 92  lanes 4  speed 115 kph  width 14.6 m  colour 0x00ff0000  type highway  major 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 93  lanes 1  speed 65 kph  width 3.7 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 94  lanes 2  speed 65 kph  width 7.3 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 95  lanes 3  speed 65 kph  width 11.0 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 96  lanes 4  speed 65 kph  width 14.6 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 97  lanes 1  speed 80 kph  width 3.7 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 98  lanes 2  speed 80 kph  width 7.3 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 99  lanes 3  speed 80 kph  width 11.0 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 100  lanes 4  speed 80 kph  width 14.6 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 101  lanes 1  speed 95 kph  width 3.7 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 102  lanes 2  speed 95 kph  width 7.3 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 103  lanes 3  speed 95 kph  width 11.0 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 104  lanes 4  speed 95 kph  width 14.6 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 105  lanes 1  speed 115 kph  width 3.7 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 106  lanes 2  speed 115 kph  width 7.3 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 107  lanes 3  speed 115 kph  width 11.0 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 108  lanes 4  speed 115 kph  width 14.6 m  colour 0x00578b2e  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 0.800
+	signpost 750.0 m,1.0 m
+
+category 109  lanes 1  speed 65 kph  width 3.7 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 110  lanes 2  speed 65 kph  width 7.3 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 111  lanes 3  speed 65 kph  width 11.0 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 112  lanes 4  speed 65 kph  width 14.6 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 113  lanes 1  speed 80 kph  width 3.7 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 114  lanes 2  speed 80 kph  width 7.3 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 115  lanes 3  speed 80 kph  width 11.0 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 116  lanes 4  speed 80 kph  width 14.6 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 117  lanes 1  speed 95 kph  width 3.7 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 118  lanes 2  speed 95 kph  width 7.3 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 119  lanes 3  speed 95 kph  width 11.0 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 120  lanes 4  speed 95 kph  width 14.6 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 121  lanes 1  speed 115 kph  width 3.7 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 122  lanes 2  speed 115 kph  width 7.3 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 123  lanes 3  speed 115 kph  width 11.0 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m
+
+category 124  lanes 4  speed 115 kph  width 14.6 m  colour 0x00ffff00  type highway  minor 
+	median width 0.0 m  
+	headway factor 1.000  curve speed factor 0.0  toll 0.000  cost factor 1.000
+	signpost 750.0 m,1.0 m

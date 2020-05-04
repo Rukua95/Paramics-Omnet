@@ -1,0 +1,723 @@
+## Author Victor
+## Created Date mar 19. ene 17:18:22 2010
+## Modified Date lun 5. abr 16:13:00 2010
+## Modified By Victor
+## Network C:\Users\Victor\Documents\CI69F - Trabajo de Titulo\Paramics\Escenario 2 PM 2011
+## Notes 
+
+actions 2
+phase offset 82.00 sec
+phase 1
+	80.00
+	max 87.00
+red phase 4.00
+all barred except
+from 3 to 145 major 
+from 3 to 9 major 
+from 4 to 9 major 
+phase 2
+	24.00
+	max 40.00
+red phase 4.00
+all barred except
+from 37 to 145 major 
+from 37 to 9 major 
+
+actions 4
+from 11 to 3 medium 
+from 11 to 2 medium 
+
+actions 5
+from 121 to 6 minor 
+
+actions 6
+phase offset 35.00 sec
+phase 1
+	20.00
+	max 40.00
+red phase 4.00
+all barred except
+from 5 to 4 major 
+from 11 to 10 major 
+phase 2
+	38.00
+	max 41.00
+red phase 4.00
+all barred except
+from 11 to 10 major 
+from 10 to 4 major 
+phase 3
+	42.00
+	max 45.00
+red phase 4.00
+all barred except
+from 27 to 4 major 
+from 27 to 10 major 
+
+actions 7
+phase offset 38.00 sec
+phase 1
+	54.00
+	max 57.00
+red phase 4.00
+all barred except
+from 8 to 10 major 
+from 10 to 47 major 
+from 10 to 8 major 
+phase 2
+	58.00
+	max 61.00
+red phase 4.00
+all barred except
+from 40 to 10 major 
+from 40 to 47 major 
+from 40 to 8 major 
+
+actions 8
+phase offset 76.00 sec
+phase 1
+	77.00
+	max 80.00
+red phase 4.00
+all barred except
+from 7 to 123 major 
+from 123 to 45 major 
+from 123 to 7 major 
+phase 2
+	35.00
+	max 40.00
+red phase 4.00
+all barred except
+from 46 to 45 major 
+from 46 to 7 major 
+from 46 to 123 major 
+
+actions 9
+phase offset 95.00 sec
+phase 1
+	59.00
+	max 62.00
+red phase 4.00
+all barred except
+from 77 to 84 major 
+from 77 to 11 major 
+phase 2
+	45.00
+	max 48.00
+red phase 4.00
+all barred except
+from 2 to 84 major 
+from 2 to 11 major 
+
+actions 16
+phase offset 20.00 sec
+phase 1
+	55.00
+	max 58.00
+red phase 4.00
+all barred except
+from 17 to 36 major 
+phase 2
+	57.00
+	max 60.00
+red phase 4.00
+all barred except
+from 15 to 36 major 
+
+actions 17
+phase offset 20.00 sec
+phase 1
+	61.00
+	max 64.00
+red phase 4.00
+all barred except
+from 18 to 37 major 
+from 18 to 16 major 
+phase 2
+	51.00
+	max 54.00
+red phase 4.00
+all barred except
+from 57 to 37 major 
+from 57 to 16 medium 
+from 35 to 37 major 
+
+actions 18
+phase offset 15.00 sec
+phase 1
+	50.00
+	max 53.00
+red phase 4.00
+all barred except
+from 133 to 19 major 
+from 133 to 17 major 
+phase 2
+	62.00
+	max 65.00
+red phase 4.00
+all barred except
+from 20 to 19 major 
+from 20 to 17 major 
+
+actions 19
+phase offset 12.00 sec
+phase 1
+	13.00
+	max 72.00
+red phase 4.00
+all barred except
+from 18 to 134 major 
+phase 2
+	69.00
+	max 72.00
+red phase 4.00
+all barred except
+from 57 to 134 major 
+
+actions 20
+phase offset 0.00 sec
+phase 1
+	46.00
+	max 49.00
+red phase 4.00
+all barred except
+from 87 to 18 major 
+from 87 to 130 major 
+from 130 to 87 major 
+phase 2
+	66.00
+	max 69.00
+red phase 4.00
+all barred except
+from 21 to 18 major 
+from 21 to 130 major 
+from 21 to 87 major 
+
+actions 22
+phase offset 93.00 sec
+phase 1
+	36.00
+	max 40.00
+red phase 4.00
+all barred except
+from 145 to 21 major 
+from 145 to 38 major 
+phase 2
+	68.00
+	max 71.00
+red phase 4.00
+all barred except
+from 23 to 21 major 
+from 23 to 38 major 
+
+actions 23
+phase offset 72.00 sec
+phase 1
+	59.00
+	max 62.00
+red phase 4.00
+all barred except
+from 39 to 22 major 
+from 39 to 77 major 
+phase 2
+	45.00
+	max 48.00
+red phase 4.00
+all barred except
+from 78 to 22 major 
+from 78 to 77 major 
+
+actions 24
+phase offset 101.00 sec
+phase 1
+	75.00
+	max 78.00
+red phase 4.00
+all barred except
+from 25 to 89 major 
+from 25 to 32 major 
+phase 2
+	37.00
+	max 40.00
+red phase 4.00
+all barred except
+from 36 to 32 major 
+
+actions 25
+from 32 to 64 barred 
+from 32 to 24 barred 
+from 66 to 142 minor 
+from 66 to 64 barred 
+from 66 to 24 barred 
+
+actions 26
+from 122 to 14 minor 
+from 122 to 28 barred 
+
+actions 27
+from 30 to 6 barred 
+
+actions 31
+phase offset 0.00 sec
+phase 1
+	68.00
+	max 71.00
+red phase 4.00
+all barred except
+from 72 to 32 major 
+from 72 to 89 major 
+from 89 to 72 major 
+phase 2
+	44.00
+	max 422.00
+red phase 4.00
+all barred except
+from 114 to 32 major 
+from 114 to 72 major 
+
+actions 32
+phase offset 103.00 sec
+phase 1
+	75.00
+	max 78.00
+red phase 4.00
+all barred except
+from 31 to 25 major 
+from 31 to 65 major 
+phase 2
+	37.00
+	max 40.00
+red phase 4.00
+all barred except
+from 24 to 65 major 
+
+actions 33
+phase offset 84.00 sec
+phase 1
+	56.00
+	max 59.00
+red phase 4.00
+all barred except
+from 80 to 142 major 
+from 142 to 80 major 
+phase 2
+	26.00
+	max 40.00
+red phase 4.00
+all barred except
+from 60 to 80 major 
+from 60 to 57 major 
+from 60 to 142 major 
+
+actions 36
+from 34 to 24 medium 
+
+actions 38
+phase offset 57.00 sec
+phase 1
+	94.00
+	max 97.00
+red phase 4.00
+all barred except
+from 22 to 75 major 
+from 22 to 39 major 
+phase 2
+	0.00
+	max 40.00
+red phase 14.00
+fill
+all barred except
+
+actions 39
+phase offset 111.00 sec
+phase 1
+	36.00
+	max 40.00
+red phase 4.00
+all barred except
+from 38 to 23 major 
+phase 2
+	68.00
+	max 71.00
+red phase 4.00
+all barred except
+from 42 to 23 major 
+
+actions 40
+phase offset 98.00 sec
+phase 1
+	50.00
+	max 53.00
+red phase 4.00
+all barred except
+from 54 to 5 major 
+from 54 to 7 major 
+phase 2
+	19.00
+	max 40.00
+red phase 4.00
+all barred except
+from 90 to 5 major 
+from 90 to 7 major 
+from 90 to 43 major 
+phase 3
+	31.00
+	max 40.00
+red phase 4.00
+all barred except
+from 50 to 5 major 
+from 50 to 7 major 
+
+actions 41
+phase offset 5.00 sec
+phase 1
+	60.00
+	max 63.00
+red phase 4.00
+all barred except
+from 123 to 83 major 
+from 123 to 86 major 
+from 86 to 73 major 
+from 86 to 53 major 
+from 86 to 123 major 
+phase 2
+	52.00
+	max 55.00
+red phase 4.00
+all barred except
+from 83 to 73 major 
+from 83 to 53 major 
+from 83 to 86 major 
+from 94 to 123 major 
+from 94 to 83 major 
+
+actions 43
+from 44 to 51 medium 
+
+actions 48
+phase offset 3.00 sec
+phase 1
+	73.00
+	max 76.00
+red phase 4.00
+all barred except
+from 86 to 12 major 
+from 86 to 110 major 
+from 110 to 108 major 
+from 110 to 86 major 
+phase 2
+	39.00
+	max 42.00
+red phase 4.00
+all barred except
+from 12 to 108 major 
+from 12 to 110 major 
+from 108 to 86 major 
+from 108 to 12 major 
+
+actions 54
+phase offset 28.00 sec
+phase 1
+	54.00
+	max 57.00
+red phase 4.00
+all barred except
+from 63 to 113 major 
+from 63 to 40 major 
+phase 2
+	58.00
+	max 61.00
+red phase 4.00
+all barred except
+from 50 to 113 major 
+from 50 to 63 major 
+
+actions 63
+phase offset 33.00 sec
+phase 1
+	102.00
+	max 105.00
+red phase 4.00
+all barred except
+from 54 to 74 major 
+from 74 to 54 major 
+phase 2
+	10.00
+	max 40.00
+red phase 4.00
+all barred except
+from 85 to 54 major 
+from 85 to 74 major 
+
+actions 66
+from 67 to 25 minor 
+
+actions 68
+from 70 to 69 barred 
+
+actions 69
+from 67 to 66 minor 
+
+actions 61
+from 80 to 79 barred 
+from 103 to 80 medium 
+
+actions 101
+from 68 to 102 medium 
+from 102 to 100 minor 
+
+actions 102
+phase offset 29.00 sec
+phase 1
+	12.00
+	max 40.00
+red phase 4.00
+all barred except
+from 101 to 60 major 
+phase 2
+	70.00
+	max 73.00
+red phase 4.00
+all barred except
+from 49 to 60 major 
+from 49 to 101 major 
+
+actions 82
+phase offset 84.00 sec
+phase 1
+	78.00
+	max 78.00
+yellow phase 1.00
+red phase 0.00
+fill
+all barred except
+from 79 to 99 major 
+phase 2
+	12.00
+	max 40.00
+red phase 0.00
+fill
+all barred except
+
+actions 37
+phase offset 12.00 sec
+phase 1
+	49.00
+	max 52.00
+red phase 4.00
+all barred except
+from 14 to 87 major 
+from 87 to 2 major 
+from 87 to 14 major 
+phase 2
+	63.00
+	max 66.00
+red phase 4.00
+all barred except
+from 17 to 87 major 
+from 17 to 2 major 
+from 17 to 14 major 
+
+actions 14
+phase offset 33.00 sec
+phase 1
+	53.00
+	max 56.00
+red phase 4.00
+all barred except
+from 89 to 15 major 
+from 89 to 37 major 
+from 89 to 26 major 
+phase 2
+	36.00
+	max 40.00
+red phase 4.00
+all barred except
+from 26 to 15 major 
+from 26 to 37 major 
+from 26 to 112 major 
+phase 3
+	19.00
+	max 40.00
+red phase 4.00
+all barred except
+from 37 to 26 major 
+from 37 to 112 major 
+from 89 to 15 major 
+from 89 to 37 major 
+
+actions 13
+from 120 to 76 barred 
+from 120 to 122 barred 
+from 120 to 121 barred 
+from 120 to 144 barred 
+from 120 to 107 barred 
+from 105 to 76 barred 
+from 105 to 122 barred 
+from 105 to 121 barred 
+from 105 to 144 barred 
+from 105 to 107 barred 
+from 143 to 76 barred 
+from 143 to 122 barred 
+from 143 to 121 barred 
+from 143 to 144 barred 
+from 143 to 107 barred 
+
+actions 113
+from 106 to 114 minor 
+
+actions 12
+phase offset 1.00 sec
+phase 1
+	15.00
+	max 40.00
+red phase 4.00
+all barred except
+from 48 to 83 major 
+from 48 to 111 major 
+from 48 to 115 major 
+from 115 to 48 major 
+phase 2
+	45.00
+	max 48.00
+red phase 4.00
+all barred except
+from 48 to 83 medium 
+from 111 to 48 major 
+from 111 to 83 major 
+from 111 to 115 major 
+phase 3
+	48.00
+	max 51.00
+red phase 4.00
+all barred except
+from 48 to 83 medium 
+from 83 to 111 major 
+from 83 to 115 major 
+from 115 to 48 major 
+from 115 to 83 major 
+
+actions 42
+phase offset 36.00 sec
+phase 1
+	54.00
+	max 57.00
+red phase 4.00
+all barred except
+from 124 to 75 major 
+from 124 to 128 major 
+from 124 to 39 major 
+phase 2
+	50.00
+	max 53.00
+red phase 4.00
+all barred except
+from 75 to 128 major 
+from 128 to 75 major 
+from 128 to 39 major 
+
+actions 75
+phase offset 107.00 sec
+phase 1
+	44.00
+	max 47.00
+red phase 4.00
+all barred except
+from 38 to 125 major 
+from 38 to 42 major 
+phase 2
+	23.00
+	max 40.00
+red phase 4.00
+all barred except
+from 42 to 125 major 
+phase 3
+	33.00
+	max 40.00
+red phase 4.00
+all barred except
+from 130 to 125 major 
+from 130 to 42 major 
+
+actions 87
+from 37 to 88 barred 
+from 88 to 37 barred 
+
+actions 94
+from 58 to 41 minor 
+
+actions 89
+phase offset 3.00 sec
+phase 1
+	67.00
+	max 70.00
+red phase 4.00
+all barred except
+from 31 to 14 major 
+from 112 to 90 major 
+from 112 to 31 major 
+phase 2
+	45.00
+	max 48.00
+red phase 4.00
+all barred except
+from 24 to 14 major 
+from 24 to 90 major 
+
+actions 90
+from 1 to 40 minor 
+from 1 to 97 barred 
+from 96 to 40 minor 
+from 96 to 97 barred 
+
+actions 130
+phase offset 5.00 sec
+phase 1
+	81.00
+	max 84.00
+red phase 4.00
+all barred except
+from 20 to 131 major 
+from 20 to 75 major 
+phase 2
+	31.00
+	max 40.00
+red phase 4.00
+all barred except
+from 133 to 75 major 
+from 133 to 20 major 
+
+actions 133
+phase offset 108.00 sec
+phase 1
+	71.00
+	max 74.00
+red phase 4.00
+all barred except
+from 137 to 130 major 
+from 137 to 18 major 
+phase 2
+	41.00
+	max 44.00
+red phase 4.00
+all barred except
+from 134 to 130 major 
+from 134 to 18 major 
+
+actions 134
+phase offset 66.00 sec
+phase 1
+	13.00
+	max 40.00
+red phase 4.00
+all barred except
+from 139 to 135 major 
+from 139 to 133 major 
+phase 2
+	69.00
+	max 72.00
+red phase 4.00
+all barred except
+from 19 to 139 major 
+from 19 to 135 major 
+from 19 to 133 major 

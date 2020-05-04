@@ -1,0 +1,10 @@
+categories: 1 to 4
+
+category 1    lanes: 1      speed: 45 mph    width:  4.0 m type: urban
+category 2    lanes: 2      speed: 45 mph    width:  8.0 m type: urban
+category 3    lanes: 2      speed: 60 mph    width:  8.0 m type: urban
+category 4    lanes: 3      speed: 60 mph    width:  11.0 m type: urban
+
+
+
+

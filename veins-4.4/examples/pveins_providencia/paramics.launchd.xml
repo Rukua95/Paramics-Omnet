@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+    <basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\pveins_providencia" />
+	<network name="Escenario 2 PM 2011 Actualizado" />
+    <seed value="1234" /> 
+    <!-- <seed value="69" /> -->
+</launch>

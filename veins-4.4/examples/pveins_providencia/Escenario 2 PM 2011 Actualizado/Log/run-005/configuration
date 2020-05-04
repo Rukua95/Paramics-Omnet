@@ -1,0 +1,42 @@
+start time  07:30:00
+simulation time  01:00:00
+demand weight  100.0
+seed  6
+split seed
+demand matrix tuning level  0
+generator  0
+loop length  2.000 m
+speed memory  3
+closest origin carpark  disabled
+closest destination carpark  enabled
+file time  "-"
+curve speed factor  1.000
+amber time  3.000
+red time  5.000
+speed drift 5
+maximum diversion 300
+right hand drive
+units metric
+timestep detail  2
+mean headway  1.05
+mean reaction time  1.000
+gap  2.050 m
+cost coefficients  1.000, 0.000 mins per km, 0.000
+queue speed  7.200 kph
+queue distance  10.000 m
+weight heavy  3.000 tonne
+feedback 00:02:00
+feedback smoothing factor 0.500
+feedback decay factor 0.995
+perturbation enabled
+algorithm sqrt
+base agent speed 1.300 mps
+base speed deviation 0.250 mps
+obstacle angle step 15
+obstacle max search angle 110
+agent demand factor 100.0
+scanarea factor 0.35
+
+
+
+option 24

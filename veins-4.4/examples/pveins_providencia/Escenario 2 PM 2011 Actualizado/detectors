@@ -1,0 +1,7 @@
+## Author Victor
+## Created Date lun 8. mar 11:26:21 2010
+## Modified Date martes-mayo-23-2017 10-37-17
+## Modified By manue
+## Network C:\users\manue\workspace\veins-4.4\examples\pveins_providencia\Escenario 2 PM 2011 Actualizado
+## Notes 
+loop "Detector-1" at 164.5 m on link 133:18 length 2.0 m mode presence

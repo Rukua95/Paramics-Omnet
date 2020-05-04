@@ -1,0 +1,32 @@
+Bounding Box -4000.0 m -4000.0 m 4000.0 m 4000.0 m
+node        1 at  -2231.70 m,    619.84 m,      0.00 m   junction 
+node        2 at  -1000.00 m,    500.00 m,      0.00 m   junction 
+node        3 at    995.23 m,    530.21 m,      0.00 m   junction 
+node        4 at   1942.94 m,    703.27 m,      0.00 m   junction 
+node        5 at    512.24 m,    500.95 m,      0.00 m   junction 
+node       7a at    263.35 m,    328.95 m,      0.00 m  roundabout junction 
+node        8 at   1277.58 m,     78.66 m,      0.00 m   junction 
+node        9 at    -48.67 m,    498.96 m,      0.00 m   junction 
+node       11 at     20.17 m,   1080.61 m,      0.00 m   junction 
+node       12 at    475.51 m,    211.34 m,      0.00 m   junction 
+node       13 at    659.04 m,    958.31 m,      0.00 m   junction 
+node       6c at   -654.08 m,    497.76 m,      0.00 m   junction 
+node       15 at   -488.79 m,    399.04 m,      0.00 m   junction 
+node       7b at    263.35 m,    301.97 m,      0.00 m  roundabout junction 
+node       7c at    196.59 m,    301.97 m,      0.00 m  roundabout junction 
+node       18 at    621.27 m,    832.65 m,      0.00 m   junction 
+node       19 at     -2.65 m,    898.09 m,      0.00 m   junction 
+node       20 at   1093.77 m,    109.80 m,      0.00 m   junction 
+node       21 at   1786.88 m,    671.78 m,      0.00 m   junction 
+node       22 at    477.29 m,    477.28 m,      0.00 m   junction 
+node       23 at    466.68 m,    500.60 m,      0.00 m   junction 
+node       24 at   -597.36 m,    497.72 m,      0.00 m   junction 
+node       25 at   -624.13 m,    480.32 m,      0.00 m   junction 
+node       26 at  -1418.03 m,    547.59 m,      0.00 m   junction 
+node       27 at  -2048.18 m,    593.41 m,      0.00 m   junction 
+node       28 at    891.35 m,    464.65 m,      0.00 m   junction 
+node       29 at    369.43 m,    256.66 m,      0.00 m   junction 
+node       30 at    593.61 m,    190.07 m,      0.00 m   junction 
+node       31 at   1623.39 m,    858.80 m,      0.00 m   junction 
+node       32 at   1526.00 m,    625.77 m,      0.00 m   junction 
+node       33 at   1602.06 m,    809.27 m,      0.00 m   junction 

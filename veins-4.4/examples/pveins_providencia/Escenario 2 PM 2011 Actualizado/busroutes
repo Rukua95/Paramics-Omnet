@@ -1,0 +1,1702 @@
+## Author Victor
+## Created Date vie 26. feb 16:23:57 2010
+## Modified Date lun 5. abr 16:13:00 2010
+## Modified By Victor
+## Network C:\Users\Victor\Documents\CI69F - Trabajo de Titulo\Paramics\Escenario 2 PM 2011
+## Notes 
+bus route count 21
+
+
+number "1"
+service: "401 ida"
+max number: 80
+type 15
+use service colour
+timetable 30 
+	release time 07:34:00  starting occupancy 10
+	release time 07:38:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:46:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:58:00  starting occupancy 10
+	release time 08:02:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:14:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:22:00  starting occupancy 10
+	release time 08:26:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:34:00  starting occupancy 10
+	release time 08:38:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:46:00  starting occupancy 10
+	release time 08:50:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:58:00  starting occupancy 10
+	release time 09:02:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:10:00  starting occupancy 10
+	release time 09:14:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:26:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+	busstop 1
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 39
+node 23
+node 77
+	busstop 27
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 9
+node 11
+node 6
+node 10
+node 7
+	busstop 6
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 86
+node 48
+node 110
+node 71
+	busstop 20
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 118
+
+
+number "2"
+service: "401 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 30 
+	release time 07:34:00  starting occupancy 10
+	release time 07:38:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:46:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:58:00  starting occupancy 10
+	release time 08:02:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:14:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:22:00  starting occupancy 10
+	release time 08:26:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:34:00  starting occupancy 10
+	release time 08:38:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:46:00  starting occupancy 10
+	release time 08:50:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:58:00  starting occupancy 10
+	release time 09:02:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:10:00  starting occupancy 10
+	release time 09:14:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:26:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 118
+	busstop 9
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 71
+node 110
+node 48
+node 86
+node 41
+node 123
+node 8
+	busstop 7
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 7
+node 10
+node 6
+node 4
+node 3
+node 2
+node 145
+node 22
+node 38
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "3"
+service: "405 ida"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+	busstop 1
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 39
+node 23
+node 77
+	busstop 27
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 9
+node 11
+node 6
+node 10
+node 7
+	busstop 6
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 86
+node 48
+node 12
+node 83
+node 41
+node 53
+	busstop 14
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 50
+node 54
+node 63
+node 74
+	busstop 28
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 141
+
+
+number "4"
+service: "405 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 141
+	busstop 25
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 74
+node 63
+node 54
+node 40
+node 5
+node 6
+node 4
+node 3
+node 2
+node 145
+node 22
+node 38
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "5"
+service: "406 ida"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+node 39
+	busstop 26
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 23
+node 77
+node 9
+node 11
+node 6
+node 10
+node 7
+	busstop 3
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 86
+node 48
+node 110
+node 71
+	busstop 20
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 118
+
+
+number "6"
+service: "406 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 118
+	busstop 9
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 71
+node 110
+node 48
+node 86
+node 41
+node 123
+node 8
+	busstop 8
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 7
+node 10
+node 6
+node 4
+node 3
+	busstop 11
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 2
+node 145
+node 22
+node 38
+	busstop 4
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "7"
+service: "407 ida"
+max number: 80
+type 15
+use service colour
+timetable 31 
+	release time 07:32:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:44:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:52:00  starting occupancy 10
+	release time 07:56:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:04:00  starting occupancy 10
+	release time 08:08:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:16:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:28:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:34:00  starting occupancy 10
+	release time 08:38:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:46:00  starting occupancy 10
+	release time 08:50:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:58:00  starting occupancy 10
+	release time 09:02:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:10:00  starting occupancy 10
+	release time 09:14:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:26:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+node 39
+	busstop 26
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 23
+node 77
+node 9
+node 11
+node 6
+node 10
+node 7
+	busstop 3
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 86
+node 48
+node 110
+node 71
+	busstop 20
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 118
+
+
+number "8"
+service: "407 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 30 
+	release time 07:32:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:44:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:52:00  starting occupancy 10
+	release time 07:56:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:04:00  starting occupancy 10
+	release time 08:08:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:16:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:28:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:34:00  starting occupancy 10
+	release time 08:38:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:46:00  starting occupancy 10
+	release time 08:50:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:58:00  starting occupancy 10
+	release time 09:02:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:10:00  starting occupancy 10
+	release time 09:14:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:26:00  starting occupancy 10
+node 118
+	busstop 9
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 71
+node 110
+node 48
+node 86
+node 41
+node 123
+node 8
+	busstop 8
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 7
+node 10
+node 6
+node 4
+node 3
+	busstop 11
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 2
+node 145
+node 22
+node 38
+	busstop 4
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "9"
+service: "409 ida"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 138
+	busstop 31
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 137
+node 133
+	busstop 35
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 18
+node 17
+	busstop 13
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 16
+node 36
+node 24
+node 32
+node 65
+node 70
+	busstop 30
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 100
+
+
+number "10"
+service: "409 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 49
+	busstop 34
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 102
+node 60
+	busstop 21
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 33
+node 57
+node 19
+	busstop 22
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 134
+node 135
+	busstop 29
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 136
+
+
+number "11"
+service: "411"
+max number: 80
+type 15
+use service colour
+timetable 17 
+	release time 07:37:00  starting occupancy 10
+	release time 07:44:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:58:00  starting occupancy 10
+	release time 08:05:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:19:00  starting occupancy 10
+	release time 08:26:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:40:00  starting occupancy 10
+	release time 08:47:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 09:01:00  starting occupancy 10
+	release time 09:08:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:29:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+	busstop 1
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 39
+node 23
+node 22
+node 21
+	busstop 5
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 20
+node 18
+node 17
+	busstop 13
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 16
+node 36
+node 24
+node 32
+node 65
+node 70
+	busstop 30
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 100
+
+
+number "12"
+service: "413"
+max number: 80
+type 15
+use service colour
+timetable 30 
+	release time 07:32:00  starting occupancy 10
+	release time 07:34:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:38:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:44:00  starting occupancy 10
+	release time 07:46:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:52:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:56:00  starting occupancy 10
+	release time 07:58:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:02:00  starting occupancy 10
+	release time 08:04:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:08:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:14:00  starting occupancy 10
+	release time 08:16:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:22:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:26:00  starting occupancy 10
+	release time 08:28:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+	busstop 1
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 39
+node 23
+node 77
+	busstop 27
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 9
+node 11
+node 6
+node 10
+node 7
+	busstop 6
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 86
+node 48
+node 12
+node 83
+node 41
+	busstop 15
+	dwell time mode 3
+	mean dwell time 00:00:08 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 53
+node 50
+node 40
+node 5
+node 6
+node 4
+node 3
+node 2
+node 145
+node 22
+node 38
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "13"
+service: "104"
+max number: 80
+type 15
+use service colour
+timetable 60 
+	release time 07:32:00  starting occupancy 10
+	release time 07:34:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:38:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:44:00  starting occupancy 10
+	release time 07:46:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:52:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:56:00  starting occupancy 10
+	release time 07:58:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:02:00  starting occupancy 10
+	release time 08:04:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:08:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:14:00  starting occupancy 10
+	release time 08:16:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:22:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:26:00  starting occupancy 10
+	release time 08:28:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:32:00  starting occupancy 10
+	release time 08:34:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:38:00  starting occupancy 10
+	release time 08:40:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:44:00  starting occupancy 10
+	release time 08:46:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:50:00  starting occupancy 10
+	release time 08:52:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:56:00  starting occupancy 10
+	release time 08:58:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:02:00  starting occupancy 10
+	release time 09:04:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:08:00  starting occupancy 10
+	release time 09:10:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:14:00  starting occupancy 10
+	release time 09:16:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:20:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:26:00  starting occupancy 10
+	release time 09:28:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 52
+	busstop 23
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 62
+node 27
+node 6
+node 4
+	busstop 10
+	dwell time mode 3
+	mean dwell time 00:00:15 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 2
+node 9
+node 84
+	busstop 24
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 56
+
+
+number "14"
+service: "212"
+max number: 80
+type 15
+use service colour
+timetable 24 
+	release time 07:35:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:55:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:05:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:25:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:35:00  starting occupancy 10
+	release time 08:40:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:50:00  starting occupancy 10
+	release time 08:55:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:05:00  starting occupancy 10
+	release time 09:10:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:20:00  starting occupancy 10
+	release time 09:25:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 52
+	busstop 23
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 62
+node 27
+node 6
+node 4
+	busstop 12
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 3
+node 2
+node 9
+node 84
+	busstop 24
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 56
+
+
+number "15"
+service: "421 ida"
+max number: 80
+type 15
+use service colour
+timetable 12 
+	release time 07:35:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:55:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:05:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:25:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+node 39
+node 23
+node 77
+node 9
+node 11
+node 6
+node 10
+node 7
+node 8
+node 123
+node 41
+node 86
+node 48
+node 110
+node 71
+	busstop 20
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 118
+
+
+number "16"
+service: "421 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 12 
+	release time 07:35:00  starting occupancy 10
+	release time 07:40:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:50:00  starting occupancy 10
+	release time 07:55:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:05:00  starting occupancy 10
+	release time 08:10:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:20:00  starting occupancy 10
+	release time 08:25:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+node 118
+	busstop 9
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 71
+node 110
+node 48
+node 86
+node 41
+node 123
+node 8
+node 7
+node 10
+node 6
+node 4
+node 3
+node 2
+node 145
+node 22
+node 38
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "17"
+service: "426 ida"
+max number: 80
+type 15
+use service colour
+timetable 20 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+node 39
+node 23
+node 77
+node 9
+node 11
+node 6
+node 10
+node 7
+node 8
+node 123
+node 41
+node 86
+node 48
+node 110
+node 71
+	busstop 20
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 118
+
+
+number "18"
+service: "426 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 118
+	busstop 9
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 71
+node 110
+node 48
+node 86
+node 41
+node 123
+node 8
+node 7
+node 10
+node 6
+node 4
+node 3
+node 2
+node 145
+node 22
+node 38
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "19"
+service: "503 ida "
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 126
+	busstop 32
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 124
+node 42
+node 39
+	busstop 26
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 23
+node 77
+node 9
+node 11
+node 6
+node 10
+node 7
+	busstop 3
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 83
+node 12
+node 115
+	busstop 18
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 117
+
+
+number "20"
+service: "503 vuelta"
+max number: 80
+type 15
+use service colour
+timetable 40 
+	release time 07:33:00  starting occupancy 10
+	release time 07:36:00  starting occupancy 10
+	release time 07:39:00  starting occupancy 10
+	release time 07:42:00  starting occupancy 10
+	release time 07:45:00  starting occupancy 10
+	release time 07:48:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:54:00  starting occupancy 10
+	release time 07:57:00  starting occupancy 10
+	release time 08:00:00  starting occupancy 10
+	release time 08:03:00  starting occupancy 10
+	release time 08:06:00  starting occupancy 10
+	release time 08:09:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:15:00  starting occupancy 10
+	release time 08:18:00  starting occupancy 10
+	release time 08:21:00  starting occupancy 10
+	release time 08:24:00  starting occupancy 10
+	release time 08:27:00  starting occupancy 10
+	release time 08:30:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:36:00  starting occupancy 10
+	release time 08:39:00  starting occupancy 10
+	release time 08:42:00  starting occupancy 10
+	release time 08:45:00  starting occupancy 10
+	release time 08:48:00  starting occupancy 10
+	release time 08:51:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 08:57:00  starting occupancy 10
+	release time 09:00:00  starting occupancy 10
+	release time 09:03:00  starting occupancy 10
+	release time 09:06:00  starting occupancy 10
+	release time 09:09:00  starting occupancy 10
+	release time 09:12:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:18:00  starting occupancy 10
+	release time 09:21:00  starting occupancy 10
+	release time 09:24:00  starting occupancy 10
+	release time 09:27:00  starting occupancy 10
+	release time 09:30:00  starting occupancy 10
+node 117
+	busstop 19
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 115
+node 12
+node 83
+node 41
+	busstop 15
+	dwell time mode 3
+	mean dwell time 00:00:10 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 53
+node 50
+node 40
+node 5
+node 6
+node 4
+node 3
+node 2
+node 145
+node 22
+node 38
+node 75
+node 125
+	busstop 33
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 127
+
+
+number "21"
+service: "C06"
+max number: 30
+type 16
+service colour 0x000055ff
+use service colour
+timetable 17 
+	release time 07:37:00  starting occupancy 10
+	release time 07:44:00  starting occupancy 10
+	release time 07:51:00  starting occupancy 10
+	release time 07:58:00  starting occupancy 10
+	release time 08:05:00  starting occupancy 10
+	release time 08:12:00  starting occupancy 10
+	release time 08:19:00  starting occupancy 10
+	release time 08:26:00  starting occupancy 10
+	release time 08:33:00  starting occupancy 10
+	release time 08:40:00  starting occupancy 10
+	release time 08:47:00  starting occupancy 10
+	release time 08:54:00  starting occupancy 10
+	release time 09:01:00  starting occupancy 10
+	release time 09:08:00  starting occupancy 10
+	release time 09:15:00  starting occupancy 10
+	release time 09:22:00  starting occupancy 10
+	release time 09:29:00  starting occupancy 10
+node 117
+	busstop 19
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	start
+node 115
+node 12
+node 83
+node 41
+node 53
+	busstop 14
+	dwell time mode 3
+	mean dwell time 00:00:06 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 50
+node 40
+node 7
+	busstop 6
+	dwell time mode 3
+	mean dwell time 00:00:06 with deviation 00:00:02
+	min stop time 00:00:00
+	alight 10 per hour
+node 8
+node 123
+node 41
+node 83
+node 12
+node 115
+	busstop 18
+	dwell time mode 1
+	min stop time 00:00:00
+	passenger frequency 0 per hour
+	alight 0 per hour
+	pay time 0
+	end
+node 117

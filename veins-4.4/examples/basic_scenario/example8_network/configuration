@@ -1,0 +1,5 @@
+start time 08:00:00
+simulation time  01:00:00
+left hand drive
+units metric
+read parameters file "api_example8"

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlays>
+    <overlay name="Providencia">
+        <image_file>C:/Users/Victor/Documents/CI69F - Trabajo de Titulo/Paramics/Providencia 2.dxf</image_file>
+        <x_pos>0</x_pos>
+        <y_pos>500</y_pos>
+        <z_pos>0</z_pos>
+        <scale>1</scale>
+        <rotation>0</rotation>
+        <visible>true</visible>
+        <style>image</style>
+        <colour>16777215</colour>
+        <meshcolour>11776947</meshcolour>
+        <intensity>1.00</intensity>
+        <meshintensity>0.40</meshintensity>
+        <override>false</override>
+        <layer name="0">
+            <visible>false</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="SOLERA">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="NOMBRE_CALLE">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="RIO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="FLECHAS_DE_FLUJO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="LINEA_BORDE_RIO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="demarcacion">
+            <visible>true</visible>
+            <colour>1</colour>
+        </layer>
+        <layer name="NUEVO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="SEÑALES">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="NORTE">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="flecha">
+            <visible>true</visible>
+            <colour>1</colour>
+        </layer>
+        <layer name="FLECHAS">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="1-BLANCO">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="MIA">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="L35">
+            <visible>true</visible>
+            <colour>1</colour>
+        </layer>
+        <layer name="SOLERAS">
+            <visible>true</visible>
+            <colour>40</colour>
+        </layer>
+        <layer name="CALLES">
+            <visible>true</visible>
+            <colour>1</colour>
+        </layer>
+        <layer name="TO_ACCESO">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_BARRERA">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_BCAMINO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="TO_DESLINDES">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_SOLERA_R">
+            <visible>true</visible>
+            <colour>9</colour>
+        </layer>
+        <layer name="TO_EJE-CAMINO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="TO_LQUIEBRE">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_L-CIERRO">
+            <visible>true</visible>
+            <colour>64</colour>
+        </layer>
+        <layer name="TO_L-EDIFICACION">
+            <visible>true</visible>
+            <colour>5</colour>
+        </layer>
+        <layer name="TO_SOLERA_N">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="TO_VEREDAS">
+            <visible>true</visible>
+            <colour>9</colour>
+        </layer>
+        <layer name="TO_GAVIONES">
+            <visible>true</visible>
+            <colour>32</colour>
+        </layer>
+        <layer name="TO_HUELLAS">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="$$TEXTOS-CALLES">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="TO_OTROS-L">
+            <visible>true</visible>
+            <colour>-254</colour>
+        </layer>
+        <layer name="TO_CANAL">
+            <visible>true</visible>
+            <colour>42</colour>
+        </layer>
+        <layer name="TO_LETREROS">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_MASTIL">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_MONUMENTOS">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_MUROS">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_VOLADIZOS">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="TO_PUENTES">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_SOLERILLA">
+            <visible>true</visible>
+            <colour>9</colour>
+        </layer>
+        <layer name="TO_SUMIDEROS">
+            <visible>true</visible>
+            <colour>-220</colour>
+        </layer>
+        <layer name="TO_LOSA">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="TO_TEXTOS">
+            <visible>true</visible>
+            <colour>253</colour>
+        </layer>
+        <layer name="señ-demarcacion-FLECHAS">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="$0Flechas-3DEF75">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="DEMARCACION_islas">
+            <visible>true</visible>
+            <colour>50</colour>
+        </layer>
+        <layer name="cdi-fin eje">
+            <visible>true</visible>
+            <colour>2</colour>
+        </layer>
+        <layer name="CDI- DEBAJO PTE LO SALDE">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="$$PROY-DG-CALZADA-Etapa1">
+            <visible>true</visible>
+            <colour>152</colour>
+        </layer>
+        <layer name="$$PROY-DG-SOLERA-Etapa1">
+            <visible>true</visible>
+            <colour>232</colour>
+        </layer>
+        <layer name="$$PROY-DG-ACERA-Etapa1">
+            <visible>true</visible>
+            <colour>15</colour>
+        </layer>
+        <layer name="0-DO-LINEA_F">
+            <visible>true</visible>
+            <colour>120</colour>
+        </layer>
+        <layer name="0-DO-LINEA_D">
+            <visible>true</visible>
+            <colour>120</colour>
+        </layer>
+        <layer name="0-DO-DESLINDE_PROPUESTO">
+            <visible>true</visible>
+            <colour>64</colour>
+        </layer>
+        <layer name="0-DO-TRAZADO-DEFENSA">
+            <visible>true</visible>
+            <colour>40</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Cerco Metalico">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Muro Ladrillo">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Cerco">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Construccion">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Demarcacion Eje Calzada">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Borde Edificacion">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="006-nvo trazado aceras">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="Pav-proy-RebajeSoleraProy">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="-04-defensas$0$0-Hormigon F">
+            <visible>true</visible>
+            <colour>170</colour>
+        </layer>
+        <layer name="03-Demarcación$0$DEMARCACION">
+            <visible>true</visible>
+            <colour>-250</colour>
+        </layer>
+        <layer name="03-Demarcación$0$-03-demarcacion$0$p-ldemarc">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="03-Demarcación$0$b_demarcacion">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="03-Demarcación$0$p_demarc">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="Sectra calzada">
+            <visible>true</visible>
+            <colour>250</colour>
+        </layer>
+        <layer name="ET El cerro 2008">
+            <visible>true</visible>
+            <colour>250</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Camara Aguas Servidas">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO$0$topocompleta$0$01-levantamiento$0$Ne_grid">
+            <visible>true</visible>
+            <colour>252</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Acceso">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Eje Canal">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Casa">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Camara Canal Riego">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Eja Calzada">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Canal">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Ventosa">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Tuberia">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Vereda">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Fondo Radier">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Muro Piscina">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Talud">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Muro">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Reja">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Varios">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-SolExt">
+            <visible>true</visible>
+            <colour>2</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Solerilla">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Borde Camino Hormigon">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Estructura Cimentacion">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Camara Cable">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Señal">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Paradero de Buses">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Muro Hormigon">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Demarcacion Discontinua">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Cerco Vivo">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Muro Contencion">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Borde Hormigon">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Defensa Metalica">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Estructura Alzado">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Defensa Hormigon">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Toponimia">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Camara">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="LEVANTAMIENTO-Borde Camino">
+            <visible>true</visible>
+            <colour>8</colour>
+        </layer>
+        <layer name="arb-1">
+            <visible>true</visible>
+            <colour>3</colour>
+        </layer>
+        <layer name="NUMEROESPECIE">
+            <visible>true</visible>
+            <colour>4</colour>
+        </layer>
+        <layer name="DIBUJOARBOL">
+            <visible>true</visible>
+            <colour>-40</colour>
+        </layer>
+        <layer name="PROYECCIONCOPA">
+            <visible>true</visible>
+            <colour>6</colour>
+        </layer>
+        <layer name="Sen-proy-Sen_DIBUJO">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="-03-demarcacion$0$p-ldemarc">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="-03-demarcacion$0$S35">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="-04-defensas$0$0-DEF -Metalica">
+            <visible>true</visible>
+            <colour>1</colour>
+        </layer>
+        <layer name="base$0$00.-base$0$000001.-señales_verticales$0$P-TEXT">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="03-iluminacion$0$TEXTOS DM">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="L81">
+            <visible>true</visible>
+            <colour>1</colour>
+        </layer>
+        <layer name="02-Pavimento$0$p_acera">
+            <visible>true</visible>
+            <colour>9</colour>
+        </layer>
+        <layer name="03-Demarcación$0$DEMARCA">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+        <layer name="05-PAI T4$0$001-quillay">
+            <visible>true</visible>
+            <colour>7</colour>
+        </layer>
+        <layer name="02-planta$0$b_demarcacion">
+            <visible>true</visible>
+            <colour>255</colour>
+        </layer>
+    </overlay>
+</overlays>

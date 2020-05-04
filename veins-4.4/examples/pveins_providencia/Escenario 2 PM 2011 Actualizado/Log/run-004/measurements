@@ -1,0 +1,24 @@
+sample loop at intervals of 01:00:00
+gather queue counts at intervals of 01:00:00
+gather snapshots at intervals of 01:00:00
+gather turn counts at intervals of 01:00:00
+gather link counts at intervals of 01:00:00
+gather trip counts at intervals of 01:00:00
+gather release counts at intervals of 01:00:00
+gather carpark info at intervals of 01:00:00
+gather analyser data with snapshots at intervals of 01:00:00
+gather flow
+gather speed
+gather headway
+gather occupancy
+gather gap
+gather acceleration
+gather point data
+gather distribution
+gather bus delay
+gather link delay
+gather economic info
+gather trip info
+gather paths
+gather binary
+page length 24

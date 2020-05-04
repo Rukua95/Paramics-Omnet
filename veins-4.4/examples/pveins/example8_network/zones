@@ -1,0 +1,56 @@
+Zone Count 6
+
+zone 1 4 
+-2274 m 560 m
+-2008 m 538 m
+-2008 m 700 m
+-2274 m 682 m
+max -2008 m 700 m
+min -2274 m 538 m
+centroid -2141 m 620 m
+
+zone 2 4 
+-50 m 932 m
+52 m 894 m
+68 m 1106 m
+-20 m 1106 m
+max 68 m 1106 m
+min -50 m 894 m
+centroid 13 m 1010 m
+
+zone 3 4 
+1106 m 73 m
+1279 m 35 m
+1296 m 119 m
+1104 m 152 m
+max 1296 m 152 m
+min 1104 m 35 m
+centroid 1196 m 95 m
+
+zone 4 4 
+1802 m 653 m
+1961 m 684 m
+1941 m 725 m
+1806 m 703 m
+max 1961 m 725 m
+min 1802 m 653 m
+centroid 1878 m 691 m
+
+zone 5 5 
+642 m 854 m
+680 m 861 m
+680 m 913 m
+679 m 959 m
+638 m 966 m
+max 680 m 966 m
+min 638 m 854 m
+centroid 664 m 911 m
+
+zone 6 4 
+1591 m 826 m
+1617 m 813 m
+1639 m 864 m
+1609 m 871 m
+max 1639 m 871 m
+min 1591 m 813 m
+centroid 1614 m 844 m

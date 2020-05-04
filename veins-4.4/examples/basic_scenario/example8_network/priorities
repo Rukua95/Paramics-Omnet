@@ -1,0 +1,127 @@
+
+actions 3
+phase offset 0.00 sec
+phase 1
+	20.00
+	max 40.00
+red phase 5.00
+all barred except
+from 5 to 32 major 
+from 5 to 28 major 
+from 32 to 28 major 
+from 32 to 5 major 
+phase 2
+	20.00
+	max 40.00
+red phase 5.00
+all barred except
+from 28 to 32 major 
+from 28 to 5 major 
+from 32 to 28 major 
+
+actions 5
+phase offset 0.00 sec
+phase 1
+	14.00
+	max 40.00
+red phase 5.00
+all barred except
+from 3 to 18 medium 
+from 3 to 22 major 
+from 3 to 23 major 
+from 23 to 18 major 
+from 23 to 3 major 
+from 23 to 22 medium 
+phase 2
+	3.00
+	max 40.00
+red phase 5.00
+all barred except
+from 3 to 18 major 
+from 23 to 22 major 
+phase 3
+	17.00
+	max 40.00
+red phase 6.00
+all barred except
+from 18 to 3 major 
+from 18 to 22 major 
+from 18 to 23 medium 
+from 22 to 18 major 
+from 22 to 3 medium 
+
+actions 7a
+from 22 to 7b minor 
+
+actions 9
+phase offset 0.00 sec
+phase 1
+	17.00
+	max 40.00
+red phase 5.00
+all barred except
+from 23 to 19 major 
+from 23 to 24 major 
+from 24 to 19 major 
+from 24 to 23 major 
+phase 2
+	23.00
+	max 40.00
+red phase 5.00
+all barred except
+from 19 to 23 major 
+from 19 to 24 major 
+
+actions 12
+from 28 to 30 minor 
+from 28 to 29 minor 
+from 30 to 28 medium 
+
+actions 6c
+phase offset 0.00 sec
+phase 1
+	22.00
+	max 40.00
+red phase 4.00
+all barred except
+from 2 to 24 major 
+from 2 to 25 medium 
+from 24 to 2 major 
+phase 2
+	7.00
+	max 40.00
+red phase 5.00
+all barred except
+from 2 to 24 major 
+from 2 to 25 major 
+from 25 to 2 major 
+phase 3
+	7.00
+	max 40.00
+red phase 5.00
+all barred except
+from 25 to 24 major 
+from 25 to 2 major 
+
+actions 7b
+from 29 to 7c minor 
+
+actions 7c
+from 15 to 7a minor 
+
+actions 22
+from 5 to 23 barred 
+
+actions 23
+from 22 to 5 barred 
+from 22 to 9 minor 
+
+actions 24
+from 6c to 25 barred 
+
+actions 25
+from 24 to 15 minor 
+from 24 to 6c barred 
+
+actions 32
+from 21 to 33 barred 

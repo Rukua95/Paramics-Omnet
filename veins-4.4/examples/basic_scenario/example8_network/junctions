@@ -1,0 +1,21 @@
+junction 3:32
+out 1 lanes 1 
+out 2 lanes 1 2 
+junction 3:5
+out 1 lanes 1 
+out 2 lanes 1 2 
+out 3 lanes 2 
+junction 22:5
+out 1 lanes 1 2 
+out 2 lanes 1 
+out 3 lanes 2 
+junction 23:5
+out 1 lanes 1 
+out 2 lanes 1 2 
+out 3 lanes 2 
+junction 25:6c
+out 1 lanes 1 2 
+out 2 lanes 2 
+junction 30:12
+out 1 lanes 1 
+out 2 lanes 2 

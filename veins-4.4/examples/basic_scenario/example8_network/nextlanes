@@ -1,0 +1,27 @@
+Next Lanes
+link 3:32
+lane 1 next 1 1
+lane 2 next 0 2
+link 3:5
+lane 1 next 0 0 0
+lane 2 next 0 0 0
+link 7a:7b
+lane 1 next 0 1
+lane 2 next 0 2
+link 15:7c
+lane 1 next 1 0
+lane 2 next 2 0
+link 7b:7c
+lane 1 next 1 0
+lane 2 next 2 1,2
+link 22:5
+lane 1 next 0 0 0
+lane 2 next 0 0 0
+link 22:7a
+lane 1 next 1,2 0
+lane 2 next 0 0
+link 23:5
+lane 1 next 0 1 0
+lane 2 next 0 2 0
+link 28:12
+lane 1 next 1 0

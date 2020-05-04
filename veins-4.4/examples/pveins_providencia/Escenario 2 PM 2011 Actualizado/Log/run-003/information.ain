@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<information paramicsVersion="6.9.3" type="simulated" numIntervals="1" numIntervalsTotal="1" intervalDuration="01:00:00">
+  <intervalFileSets>
+    <intervalFileSet interval="1" numFiles="7" startTime="07-30-00" endTime="08-30-00">
+      <file>
+        <fileType>link</fileType>
+        <fileName>08-30-00.ald</fileName>
+      </file>
+      <file>
+        <fileType>queue</fileType>
+        <fileName>08-30-00.aqd</fileName>
+      </file>
+      <file>
+        <fileType>turning</fileType>
+        <fileName>08-30-00.atu</fileName>
+      </file>
+      <file>
+        <fileType>od</fileType>
+        <fileName>08-30-00.aod</fileName>
+      </file>
+      <file>
+        <fileType>trip</fileType>
+        <fileName>08-30-00.atr</fileName>
+      </file>
+      <file>
+        <fileType>detector</fileType>
+        <fileName>08-30-00.add</fileName>
+      </file>
+      <file>
+        <fileType>intersection performance</fileType>
+        <fileName>08-30-00.aip</fileName>
+      </file>
+    </intervalFileSet>
+  </intervalFileSets>
+</information>
