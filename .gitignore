@@ -20,6 +20,7 @@ veins-4.4/src/veins/modules/*
 
 veins-4.4/src/veins/modules/application/*
 !veins-4.4/src/veins/modules/application/Protocolos
+!veins-4.4/src/veins/modules/application/ExtTraCIScenarioManagerLaunchd
 
 !veins-4.4/src/veins/modules/messages/
 

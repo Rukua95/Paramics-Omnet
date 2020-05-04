@@ -70,7 +70,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
-	Base::getBasicParameters();
+	Base::handleSelfMsg(msg);
 
 
 	/////////////////////////////////////////////////////////////////
@@ -159,8 +159,6 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			if(crossing)
 			{
 				EV << ">>> Out of junction <<<\n";
-				Base::registerOutOfJunction();
-				
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 				

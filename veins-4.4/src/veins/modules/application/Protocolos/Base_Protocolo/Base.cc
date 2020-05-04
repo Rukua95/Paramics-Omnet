@@ -83,7 +83,6 @@ void Base::initialize(int stage)
 		max_velocidad = 16;
 		sim_update_interval = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager())->par("updateInterval");
 
-
 		time_in_junction = simTime().dbl();
 
         break;
@@ -138,6 +137,24 @@ void Base::finish()
 
 void Base::handleSelfMsg(cMessage *msg)
 {
+	EV << "Base::handleSelfMsg\n";
+	Base::getBasicParameters();
+
+	if(distance_to_junction <= lider_select_radio)
+	{
+		double dist_x = std::abs(position.x - intersection.x);
+		double dist_y = std::abs(position.y - intersection.y);
+
+		// Vehiculo esta dentro de la interseccion
+		if(!(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4))
+		{
+			// Vehiculo salio de la interseccion
+			if(crossing)
+			{
+				Base::registerOutOfJunction();
+			}
+		}
+	}
 }
 
 
