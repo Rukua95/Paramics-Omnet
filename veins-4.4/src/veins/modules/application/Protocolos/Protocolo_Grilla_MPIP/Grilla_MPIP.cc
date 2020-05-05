@@ -61,7 +61,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
-	Base::getBasicParameters();
+	Base::handleSelfMsg(msg);
 	
 
 	/////////////////////////////////////////////////////////////////
@@ -172,7 +172,6 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 			// Vehiculo salio de la interseccion
 			if(crossing)
 			{
-				Base::registerOutOfJunction();
 				EV << ">>> Out of junction <<<\n";
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));

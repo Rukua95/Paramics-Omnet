@@ -75,75 +75,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
-	getBasicParameters();
-
-	position = mobility->getCurrentPosition();
-	velocity = mobility->getCurrentSpeed();
-	Coord intersection = traci->junction("1").getPosition();
-	std::string laneId = traciVehicle->getLaneId();
-	std::string roadId = traciVehicle->getRoadId();
-	std::string startId = roadId.substr(0, roadId.find(":"));
-	std::string endId = roadId.substr(roadId.find(":")+1, roadId.size() - roadId.find(":") - 1);
-
-	// Obtencion de direccion inicial.
-	if(direction_junction == -1 && directionMap.count(startId))
-		direction_junction = directionMap[startId];
-
-	EV << ">>> Mobility <<<\n";
-	EV << "    Position: " << position << "\n";
-	EV << "    Intersection position: " << intersection << "\n";
-	EV << "    Speed: " << velocity << "\n";
-	EV << "    Lane ID: " << laneId << "\n";
-	EV << "    Road: " << roadId << "\n";
-	EV << "    Start: " << startId << "\n";
-	EV << "    End: " << endId << "\n";
-
-	EV << ">>> Parameters <<<\n";
-	EV << "    isLider: " << is_lider << "\n";
-	EV << "    isLaneLider: " << is_lane_lider << "\n";
-	EV << "    existLider: " << exist_lider << "\n";
-	EV << "    existLaneLider: " << exist_lane_lider << "\n";
-	EV << "    stoped: " << stoped << "\n";
-	EV << "    stop_time: " << stop_time << "\n";
-	EV << "    direction_junction: " << direction_junction << "\n";
-	EV << "    direction_to_left: " << direction_to_left << "\n";
-
-
-	/////////////////////////////////////////////////////////////////
-	// Precalculo - Tiempo de llegada a esquina.
-	/////////////////////////////////////////////////////////////////
-
-	// Velocidad y distancia a interseccion.
-	axis_speed = std::abs(velocity.y);
-	distance_to_junction = std::abs(traci->junction("1").getPosition().y - position.y);
-	if(direction_junction % 2 == 1)
-	{
-		axis_speed = std::abs(velocity.x);
-		distance_to_junction = std::abs(traci->junction("1").getPosition().x - position.x);
-	}
-
-	// Aceleracion.
-	if(got_last_accel)
-	{
-		last_vel = axis_speed;
-		got_last_accel = false;
-	}
-	else
-	{
-		acceleration = (axis_speed - last_vel) / sim_update_interval;
-		got_last_accel = true;
-	}
-
-	// Tiempo aproximado para llegar a interseccion.
-	timeToJunction();
-	
-	EV << "    got_last_accel: " << got_last_accel << "\n";
-	EV << "    axis_speed: " << axis_speed << "\n";
-	EV << "    last_vel: " << last_vel << "\n";
-	EV << "    acceleration: " << acceleration << "\n";
-	EV << "    distance_to_junction: " << distance_to_junction << "\n";
-	EV << "    time to junction: " << time_to_junction << "\n";
-	EV << "    crossingleft: " << crossing_left << "\n";
+	Base::handleSelfMsg(msg);
 
 	// Determinar si se dobla hacia la izquierda.
 	direction_to_left = isGoingLeft();
