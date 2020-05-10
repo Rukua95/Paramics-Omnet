@@ -77,7 +77,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
 
-	// Determinar si se dobla hacia la izquierda.
+	// Determinar si este auto dobla hacia la izquierda.
 	direction_to_left = isGoingLeft();
 
 	/////////////////////////////////////////////////////////////////
