@@ -48,6 +48,7 @@ class TraCICommandInterface
 				std::string getLaneId();
 				/* pveins */
 				void changeLane(int8_t lane_idx, int32_t duration);
+				void remove(int reason);
 				/* pveins */
 				double getLanePosition();
 				std::list<std::string> getPlannedRoadIds();

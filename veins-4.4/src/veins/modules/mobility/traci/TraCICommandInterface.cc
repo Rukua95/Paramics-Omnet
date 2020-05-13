@@ -97,6 +97,15 @@ void TraCICommandInterface::Vehicle::changeLane(int8_t lane_idx, int32_t duratio
         TraCIBuffer() << variableId << nodeId << variableType << count << variableTypeLane << lane_idx << variableTypeDuration << duration);
     ASSERT(buf.eof());
 }
+
+void TraCICommandInterface::Vehicle::remove(int reason)
+{
+	uint8_t variableId = REMOVE;
+	uint8_t r = reason;
+	TraCIBuffer buf = traci->connection.query(CMD_SET_VEHICLE_VARIABLE, TraCIBuffer() << variableId << nodeId << r);
+	ASSERT(buf.eof());
+}
+
 /* Addition for pveins! */
 
 std::list<std::string> TraCICommandInterface::getVehicleTypeIds() {
