@@ -120,7 +120,7 @@ void Base::finish()
         arrived = false;
     else arrived = true;
 	
-
+	recordScalar("VehicleRemoved", vehicle_removed);
     recordScalar("ArrivedAtDest", arrived);
 	recordScalar("NumberOfCollisions", colision_list.size());
 
@@ -503,4 +503,14 @@ void Base::registerOutOfJunction()
 {
 	ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
 	sceman->carOutOfJunction(myId, direction_junction, simTime().dbl() - time_in_junction);
+}
+
+void Base::removeVehicle(int reason)
+{
+	traciVehicle->remove(reason);
+	vehicle_removed = true;
+
+	// Por ahora suponemos que reason = 0 es para simular un arrivo
+	if(reason == 0)
+		Base::registerOutOfJunction();
 }

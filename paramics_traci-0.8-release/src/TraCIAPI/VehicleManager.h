@@ -140,6 +140,9 @@ namespace traci_api
         void vehicleDepart(VEHICLE* vehicle);
         void vehicleArrive(VEHICLE* vehicle);
 
+        /*Thibo*/
+        void addSimulatedArrivals();
+
         std::vector<std::string> getDepartedVehicles();
         std::vector<std::string> getArrivedVehicles();
         int getDepartedVehicleCount() const;
@@ -168,6 +171,8 @@ namespace traci_api
         void setSpeed(tcpip::Storage& input) throw(NoSuchObjectError, std::runtime_error);
         void setMaxSpeed(tcpip::Storage& input) throw(NoSuchObjectError, std::runtime_error);
         void setRoute(tcpip::Storage& input) throw(NoSuchObjectError, std::runtime_error);
+        
+        void remove(tcpip::Storage& input) throw(NoSuchObjectError, std::runtime_error);
 
         /* prevent alternative instantiation */
         VehicleManager(VehicleManager const&) = delete;
@@ -205,6 +210,8 @@ namespace traci_api
         std::unordered_map<int, VEHICLE*> vehicles_in_sim;
         std::vector<VEHICLE*> departed_vehicles;
         std::vector<VEHICLE*> arrived_vehicles;
+
+        std::vector<VEHICLE*> simulated_arrival;
 
         // vehicle types
         std::unordered_map<std::string, int> types_index_map;

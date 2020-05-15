@@ -207,23 +207,32 @@ void traci_api::VehicleManager::setVehicleState(tcpip::Storage& input)
     switch (varID)
     {
     case STA_VHC_CHANGELANE:
+        debugPrint("Got STA_VHC_CHANGELANE");
         changeLane(input);
         break;
+
     case STA_VHC_SLOWDWN:
+        debugPrint("Got STA_VHC_SLOWDWN");
         slowDown(input);
         break;
+
     case STA_VHC_COLOUR:
+        debugPrint("Got STA_VHC_COLOUR");
         changeColour(input);
         break;
+
     case STA_VHC_SPEED:
+        debugPrint("Got STA_VHC_SPEED");
         setSpeed(input);
         break;
 
     case STA_VHC_MAXSPEED:
+        debugPrint("Got STA_VHC_MAXSPEED");
         setMaxSpeed(input);
         break;
 
     case STA_VHC_CHANGEROUTE:
+        debugPrint("Got STA_VHC_CHANGEROUTE");
         setRoute(input);
         break;
 
@@ -242,6 +251,10 @@ void traci_api::VehicleManager::setVehicleState(tcpip::Storage& input)
     case STA_VHC_ADD:
     case STA_VHC_ADDFULL:
     case STA_VHC_REMOVE:
+        debugPrint("Got STA_VHC_REMOVE");
+        remove(input);
+        break;
+
     case STA_VHC_LENGTH:
     case STA_VHC_VHCCLASS:
     case STA_VHC_EMSCLASS:
@@ -525,6 +538,15 @@ void traci_api::VehicleManager::vehicleArrive(VEHICLE* vehicle)
     arrived_vehicles.push_back(vehicle);
     vehicles_in_sim.erase(qpg_VHC_uniqueID(vehicle));
     speed_controllers.erase(vehicle);
+}
+
+void traci_api::VehicleManager::addSimulatedArrivals()
+{
+    debugPrint("Adicion de arrivos simulados");
+    for(auto v : simulated_arrival)
+        vehicleArrive(v);
+
+    simulated_arrival.clear();
 }
 
 /**
@@ -925,4 +947,34 @@ void traci_api::VehicleManager::setRoute(tcpip::Storage& input) throw(NoSuchObje
 
     /* tell paramics to reevaluate route */
     qps_VHC_destination(vhc, qpg_VHC_destination(vhc), 0);
+}
+
+
+
+
+void traci_api::VehicleManager::remove(tcpip::Storage& input) throw(NoSuchObjectError, std::runtime_error)
+{
+    /* remove vehicle message format
+     * | string | ubyte |
+     *   vhc_id | reason|
+     */
+
+    std::string vhcid = input.readString();
+    VEHICLE* vhc = findVehicle(vhcid);
+
+    debugPrint("Removing vehicle");
+    debugPrint(vhcid);
+
+    uint8_t reason = input.readUnsignedByte();
+    debugPrint("Reason");
+    debugPrint(std::to_string(reason));
+
+    if(reason == 0)
+    {
+        debugPrint("Simulate arrival");
+        simulated_arrival.push_back(vhc);
+    }
+
+    qps_VHC_remove(vhc);
+    debugPrint("Vehicle removed");
 }

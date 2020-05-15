@@ -68,7 +68,7 @@ void traci_api::TraCIServer::preStep()
     
     tcpip::Storage cmdStore; // individual commands in the message
 
-    debugPrint("Waiting for incoming commands from the TraCI client...");
+    debugPrint("preStep: Waiting for incoming commands from the TraCI client...");
 
     // receive and parse messages until we get a simulation step command
     while (running && ssocket.receiveExact(incoming))
@@ -99,11 +99,13 @@ void traci_api::TraCIServer::preStep()
             // Paramics can do its thing.
             if (simstep)
             {
+                debugPrint("Got simulation step command");
                 VehicleManager::getInstance()->reset();
                 return;
             }
         }
 
+        debugPrint("preStep: seding response...");
         this->sendResponse();
         incoming.reset();
         outgoing.reset();
@@ -112,6 +114,9 @@ void traci_api::TraCIServer::preStep()
 
 void traci_api::TraCIServer::postStep()
 {
+    debugPrint("postStep: ending step...");
+    VehicleManager::getInstance()->addSimulatedArrivals();
+    
     // after each step, have VehicleManager update its internal state
     VehicleManager::getInstance()->handleDelayedTriggers();
 
@@ -168,6 +173,7 @@ void traci_api::TraCIServer::postStep()
         return;
     }
 
+    debugPrint("postStep: seding response...");
     this->sendResponse();
     incoming.reset();
     outgoing.reset();
@@ -226,13 +232,11 @@ bool traci_api::TraCIServer::parseCommand(tcpip::Storage& storage)
         switch (cmdId)
         {
         case CMD_GETVERSION:
-
             debugPrint("Got CMD_GETVERSION");
             this->writeVersion();
             break;
 
         case CMD_SIMSTEP:
-
             debugPrint("Got CMD_SIMSTEP");
             {
                 int ttime = storage.readInt();
@@ -245,25 +249,21 @@ bool traci_api::TraCIServer::parseCommand(tcpip::Storage& storage)
             return true;
 
         case CMD_SHUTDOWN:
-
             debugPrint("Got CMD_SHUTDOWN");
             this->cmdShutDown();
             break;
 
         case CMD_GETSIMVAR:
-
             debugPrint("Got CMD_GETSIMVAR");
             this->cmdGetSimVar(storage.readUnsignedByte());
             break;
 
         case CMD_SETVHCSTATE:
-
             debugPrint("Got CMD_SETVHCSTATE");
             this->cmdSetVhcState(storage);
             break;
 
         case CMD_GETVHCVAR:
-
             debugPrint("Got CMD_GETVHCVAR");
             this->cmdGetVhcVar(storage);
             break;
@@ -271,7 +271,6 @@ bool traci_api::TraCIServer::parseCommand(tcpip::Storage& storage)
         case CMD_GETRTEVAR:
         case CMD_GETLNKVAR:
         case CMD_GETNDEVAR:
-
             debugPrint("Got CMD_GETLNKVAR/CMD_GETNDEVAR/CMD_GETRTEVAR");
             this->cmdGetNetworkVar(storage, cmdId);
             break;

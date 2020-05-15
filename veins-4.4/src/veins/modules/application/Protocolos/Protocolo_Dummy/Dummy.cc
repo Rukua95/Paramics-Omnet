@@ -110,8 +110,9 @@ void Dummy::handleSelfMsg(cMessage *msg){
 	if(distance_to_junction <= shared_data_radio)
 	{
 		EV << ">>> Shared data zone <<<\n";
-		traciVehicle->remove(0);
-		return;
+		Base::removeVehicle(0);
+		return ;
+
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
 

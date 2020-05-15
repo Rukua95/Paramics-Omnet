@@ -84,6 +84,9 @@ protected:
 	// Prioridad
 	double priority;
 
+	// Variables para determinar bloqueo por Paramics
+	double detention_time;
+
 
 	// Metodos
     void initialize(int stage);

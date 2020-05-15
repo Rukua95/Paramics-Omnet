@@ -39,6 +39,8 @@ void Grilla_MPIP::initialize(int stage)
 		id_cell_end = -1;
 		in_block_area = false;
 
+		detention_time = -1.0;
+
 		// Tabla: celdas para vehiculo con direccion inicial i y direccion final j.
 		cells_table = std::vector<std::vector<std::vector<int> > >(4, std::vector<std::vector<int>>(4, std::vector<int>()));
 		cell_register.resize(5);
@@ -153,12 +155,38 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 
 			prepareMsgData(data, 3);
 
+			// Todas las celdas estan bloqueadas para este vehiculo
 			if(id_cell_end == cell_list.size() - 1)
 			{
 				EV << "    Todas las celdas reservadas\n";
-				traciVehicle->setSpeed(15.0);
-			}
+				traciVehicle->setSpeed(-1);
 
+				// Determinar si vehiculo esta bloqueado
+				if(detention_time < 0.0 && axis_speed < 0.1)
+				{
+					EV << ">>> vehicle is bloqued in intersection";
+					detention_time = simTime().dbl();
+				}
+				
+				if(axis_speed > 0.1)
+					detention_time = -1.0;
+
+				// Vehiculo se bloqueo en interseccion, necesitamos eliminarlo y simular su salida de interseccion
+				if(simTime().dbl() - detention_time > 2 && detention_time > 0.0)
+				{
+					Base::removeVehicle(0);
+					outJunction = true;
+					traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
+					
+					prepareMsgData(data, 1);
+					info_message->setData(data);
+					sendWSM((WaveShortMessage*) info_message->dup());
+
+					return ;
+				}
+
+			}
+			// Falta al menos una celda por bloquear
 			else if(id_cell_end != -1)
 			{
 				EV << "    Faltan celdas por reservar\n";
@@ -183,10 +211,8 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 				return ;
 
 			}
-
 			else
 			{
-				
 				// Comparacion de prioridades.
 				bool can_block_cell = true;
 				bool alredy_blocked = true;
@@ -232,10 +258,33 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 					{
 						EV << ">>> I blocked cell\n";
 						traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-						traciVehicle->setSpeed(15.0);
+						traciVehicle->setSpeed(-1);
 						stoped = false;
 						stoping = false;
 
+						// Determinar si vehiculo esta bloqueado
+						if(detention_time < 0.0 && axis_speed < 0.1)
+						{
+							EV << ">>> vehicle is bloqued in intersection";
+							detention_time = simTime().dbl();
+						}
+						
+						if(axis_speed > 0.1)
+							detention_time = -1.0;
+
+						// Vehiculo se bloqueo en interseccion, necesitamos eliminarlo y simular su salida de interseccion
+						if(simTime().dbl() - detention_time > 2 && detention_time > 0.0)
+						{
+							Base::removeVehicle(0);
+							outJunction = true;
+							traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
+							
+							prepareMsgData(data, 1);
+							info_message->setData(data);
+							sendWSM((WaveShortMessage*) info_message->dup());
+
+							return ;
+						}
 					}
 					else if(id_cell_end != -1)
 						detentionLastCell();

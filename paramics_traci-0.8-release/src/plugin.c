@@ -166,7 +166,6 @@ void qpx_VHC_release(VEHICLE* vehicle)
 }
 
 void qpx_VHC_arrive(VEHICLE* vehicle, LINK* link, ZONE* zone)
-
 {
     traci_api::VehicleManager::getInstance()->vehicleArrive(vehicle);
 }
