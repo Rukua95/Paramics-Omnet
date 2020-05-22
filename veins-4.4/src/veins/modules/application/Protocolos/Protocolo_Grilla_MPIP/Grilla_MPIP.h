@@ -71,7 +71,6 @@ protected:
 
 	// Lista de celdas a usar por el vehiculo (lista de enteros)
 	std::vector<int> cell_list;
-	int id_cell_in_use;
 
 	int id_cell_begin;
 	int id_cell_end;
@@ -103,6 +102,8 @@ protected:
 	void calculateIndividualPriority();
 	void cellsUsed();
 	void detentionLastCell();
+
+	void removeVehicle(int reason);
 
 public:
 	std::string test = "nada";

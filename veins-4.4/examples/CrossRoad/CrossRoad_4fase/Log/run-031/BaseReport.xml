@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaseReport>
+    <Header>
+        <SimRunName>Run 1</SimRunName>
+        <Network>C:/users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/Cross_road/CrossRoad2</Network>
+        <WorkspaceName>Test</WorkspaceName>
+        <WorkspaceAuthor>thi-s</WorkspaceAuthor>
+        <WorkspaceNotes></WorkspaceNotes>
+        <Date>Mon Apr 6 2020</Date>
+        <StartTime>17:12:06</StartTime>
+        <EndTime>17:12:12</EndTime>
+        <ElapsedTime>00:00:05</ElapsedTime>
+        <SimRunStatus>Completed</SimRunStatus>
+        <ResultsLocation>C:/users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/Cross_road/CrossRoad2/log/run-031</ResultsLocation>
+    </Header>
+    <ParametersSource>
+        <ConfigurationSource>Network</ConfigurationSource>
+        <VehicleTypesSource>Network</VehicleTypesSource>
+        <MeasurementsSource>Network</MeasurementsSource>
+        <AbortConditionsSource>User Defined</AbortConditionsSource>
+    </ParametersSource>
+    <Host>
+        <HostsList>Any</HostsList>
+        <HostName CPUIdentification="AuthenticAMD" CPUSpeed="3399 MHz" NumProcessors="12" OSDescription="MS-Windows Vista" TotalRam="2 GB">DESKTOP-GTA0EIR</HostName>
+    </Host>
+    <SimulationProgress>
+        <Units DistanceUnits="m" SpeedUnits="kph"></Units>
+        <simulationStep NV="17" Time="00:01:00" xRT="0.0">
+            <SpeedGroup AllMeanSpeed="49.83" CurrentAllMeanSpeed="51.44" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="51.44" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="49.83"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="8442.84" TotalBusDistance="0.00" TotalVehicleDistance="8442.84"></DistanceGroup>
+            <DelayGroup AllMeanDelay="24.40" TotalAllStoppageTime="0.00" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="24.40"></DelayGroup>
+            <CountGroup CurrentAllCount="17" CurrentBusCount="0" CurrentVehicleCount="17" TotalAllCount="25" TotalBusCount="0" TotalVehicleCount="25"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="7" Time="00:02:00" xRT="740.72">
+            <SpeedGroup AllMeanSpeed="50.88" CurrentAllMeanSpeed="52.99" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.99" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="50.88"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="17215.14" TotalBusDistance="0.00" TotalVehicleDistance="17215.14"></DistanceGroup>
+            <DelayGroup AllMeanDelay="33.83" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="33.83"></DelayGroup>
+            <CountGroup CurrentAllCount="7" CurrentBusCount="0" CurrentVehicleCount="7" TotalAllCount="36" TotalBusCount="0" TotalVehicleCount="36"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="19" Time="00:03:00" xRT="759.48">
+            <SpeedGroup AllMeanSpeed="50.73" CurrentAllMeanSpeed="49.60" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.60" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="50.73"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="29268.94" TotalBusDistance="0.00" TotalVehicleDistance="29268.94"></DistanceGroup>
+            <DelayGroup AllMeanDelay="33.50" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="33.50"></DelayGroup>
+            <CountGroup CurrentAllCount="19" CurrentBusCount="0" CurrentVehicleCount="19" TotalAllCount="62" TotalBusCount="0" TotalVehicleCount="62"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="11" Time="00:04:00" xRT="705.87">
+            <SpeedGroup AllMeanSpeed="51.11" CurrentAllMeanSpeed="48.39" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.39" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.11"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="40887.01" TotalBusDistance="0.00" TotalVehicleDistance="40887.01"></DistanceGroup>
+            <DelayGroup AllMeanDelay="36.92" TotalAllStoppageTime="0.01" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="36.92"></DelayGroup>
+            <CountGroup CurrentAllCount="11" CurrentBusCount="0" CurrentVehicleCount="11" TotalAllCount="78" TotalBusCount="0" TotalVehicleCount="78"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:05:00" xRT="810.79">
+            <SpeedGroup AllMeanSpeed="51.01" CurrentAllMeanSpeed="49.41" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.41" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.01"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="52850.15" TotalBusDistance="0.00" TotalVehicleDistance="52850.15"></DistanceGroup>
+            <DelayGroup AllMeanDelay="36.57" TotalAllStoppageTime="0.01" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="36.57"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="102" TotalBusCount="0" TotalVehicleCount="102"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="21" Time="00:06:00" xRT="937.47">
+            <SpeedGroup AllMeanSpeed="51.05" CurrentAllMeanSpeed="53.50" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.50" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.05"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="66364.68" TotalBusDistance="0.00" TotalVehicleDistance="66364.68"></DistanceGroup>
+            <DelayGroup AllMeanDelay="36.00" TotalAllStoppageTime="0.01" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="36.00"></DelayGroup>
+            <CountGroup CurrentAllCount="21" CurrentBusCount="0" CurrentVehicleCount="21" TotalAllCount="130" TotalBusCount="0" TotalVehicleCount="130"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:07:00" xRT="937.47">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="47.98" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="47.98" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="78935.15" TotalBusDistance="0.00" TotalVehicleDistance="78935.15"></DistanceGroup>
+            <DelayGroup AllMeanDelay="37.01" TotalAllStoppageTime="0.01" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="37.01"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="150" TotalBusCount="0" TotalVehicleCount="150"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="16" Time="00:08:00" xRT="909.06">
+            <SpeedGroup AllMeanSpeed="51.10" CurrentAllMeanSpeed="44.30" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="44.30" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.10"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="93922.71" TotalBusDistance="0.00" TotalVehicleDistance="93922.71"></DistanceGroup>
+            <DelayGroup AllMeanDelay="37.60" TotalAllStoppageTime="0.01" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="37.60"></DelayGroup>
+            <CountGroup CurrentAllCount="16" CurrentBusCount="0" CurrentVehicleCount="16" TotalAllCount="176" TotalBusCount="0" TotalVehicleCount="176"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="18" Time="00:09:00" xRT="799.98">
+            <SpeedGroup AllMeanSpeed="50.99" CurrentAllMeanSpeed="54.48" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="54.48" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="50.99"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="108046.25" TotalBusDistance="0.00" TotalVehicleDistance="108046.25"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.14" TotalAllStoppageTime="0.01" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.14"></DelayGroup>
+            <CountGroup CurrentAllCount="18" CurrentBusCount="0" CurrentVehicleCount="18" TotalAllCount="200" TotalBusCount="0" TotalVehicleCount="200"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="18" Time="00:10:00" xRT="895.49">
+            <SpeedGroup AllMeanSpeed="50.91" CurrentAllMeanSpeed="50.00" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="50.00" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="50.91"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="121468.90" TotalBusDistance="0.00" TotalVehicleDistance="121468.90"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.01" TotalAllStoppageTime="0.04" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.01"></DelayGroup>
+            <CountGroup CurrentAllCount="18" CurrentBusCount="0" CurrentVehicleCount="18" TotalAllCount="226" TotalBusCount="0" TotalVehicleCount="226"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="9" Time="00:11:00" xRT="983.57">
+            <SpeedGroup AllMeanSpeed="51.02" CurrentAllMeanSpeed="52.78" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.78" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.02"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="132496.41" TotalBusDistance="0.00" TotalVehicleDistance="132496.41"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.63" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.63"></DelayGroup>
+            <CountGroup CurrentAllCount="9" CurrentBusCount="0" CurrentVehicleCount="9" TotalAllCount="242" TotalBusCount="0" TotalVehicleCount="242"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="5" Time="00:12:00" xRT="882.33">
+            <SpeedGroup AllMeanSpeed="51.00" CurrentAllMeanSpeed="48.50" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.50" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.00"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="143036.63" TotalBusDistance="0.00" TotalVehicleDistance="143036.63"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.84" TotalAllStoppageTime="0.04" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.84"></DelayGroup>
+            <CountGroup CurrentAllCount="5" CurrentBusCount="0" CurrentVehicleCount="5" TotalAllCount="260" TotalBusCount="0" TotalVehicleCount="260"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="22" Time="00:13:00" xRT="789.45">
+            <SpeedGroup AllMeanSpeed="50.98" CurrentAllMeanSpeed="48.68" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.68" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="50.98"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="154424.40" TotalBusDistance="0.00" TotalVehicleDistance="154424.40"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.00" TotalAllStoppageTime="0.04" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.00"></DelayGroup>
+            <CountGroup CurrentAllCount="22" CurrentBusCount="0" CurrentVehicleCount="22" TotalAllCount="287" TotalBusCount="0" TotalVehicleCount="287"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="16" Time="00:14:00" xRT="857.15">
+            <SpeedGroup AllMeanSpeed="51.05" CurrentAllMeanSpeed="49.11" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.11" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.05"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="168047.97" TotalBusDistance="0.00" TotalVehicleDistance="168047.97"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.23" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.23"></DelayGroup>
+            <CountGroup CurrentAllCount="16" CurrentBusCount="0" CurrentVehicleCount="16" TotalAllCount="310" TotalBusCount="0" TotalVehicleCount="310"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="16" Time="00:15:00" xRT="800.02">
+            <SpeedGroup AllMeanSpeed="51.09" CurrentAllMeanSpeed="54.61" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="54.61" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.09"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="182816.56" TotalBusDistance="0.00" TotalVehicleDistance="182816.56"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.45" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.45"></DelayGroup>
+            <CountGroup CurrentAllCount="16" CurrentBusCount="0" CurrentVehicleCount="16" TotalAllCount="335" TotalBusCount="0" TotalVehicleCount="335"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="18" Time="00:16:00" xRT="869.60">
+            <SpeedGroup AllMeanSpeed="51.11" CurrentAllMeanSpeed="54.76" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="54.76" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.11"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="196362.07" TotalBusDistance="0.00" TotalVehicleDistance="196362.07"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.53" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.53"></DelayGroup>
+            <CountGroup CurrentAllCount="18" CurrentBusCount="0" CurrentVehicleCount="18" TotalAllCount="359" TotalBusCount="0" TotalVehicleCount="359"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="14" Time="00:17:00" xRT="810.84">
+            <SpeedGroup AllMeanSpeed="51.13" CurrentAllMeanSpeed="47.39" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="47.39" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.13"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="207431.21" TotalBusDistance="0.00" TotalVehicleDistance="207431.21"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.43" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.43"></DelayGroup>
+            <CountGroup CurrentAllCount="14" CurrentBusCount="0" CurrentVehicleCount="14" TotalAllCount="380" TotalBusCount="0" TotalVehicleCount="380"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="10" Time="00:18:00" xRT="882.38">
+            <SpeedGroup AllMeanSpeed="51.14" CurrentAllMeanSpeed="53.53" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.53" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.14"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="219345.34" TotalBusDistance="0.00" TotalVehicleDistance="219345.34"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.99" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.99"></DelayGroup>
+            <CountGroup CurrentAllCount="10" CurrentBusCount="0" CurrentVehicleCount="10" TotalAllCount="396" TotalBusCount="0" TotalVehicleCount="396"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="13" Time="00:19:00" xRT="882.39">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="53.64" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.64" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="229345.48" TotalBusDistance="0.00" TotalVehicleDistance="229345.48"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.71" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.71"></DelayGroup>
+            <CountGroup CurrentAllCount="13" CurrentBusCount="0" CurrentVehicleCount="13" TotalAllCount="417" TotalBusCount="0" TotalVehicleCount="417"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="10" Time="00:20:00" xRT="937.53">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="52.25" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.25" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="236572.29" TotalBusDistance="0.00" TotalVehicleDistance="236572.29"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.79" TotalAllStoppageTime="0.03" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.79"></DelayGroup>
+            <CountGroup CurrentAllCount="10" CurrentBusCount="0" CurrentVehicleCount="10" TotalAllCount="429" TotalBusCount="0" TotalVehicleCount="429"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="17" Time="00:21:00" xRT="882.39">
+            <SpeedGroup AllMeanSpeed="51.13" CurrentAllMeanSpeed="50.50" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="50.50" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.13"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="253474.28" TotalBusDistance="0.00" TotalVehicleDistance="253474.28"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.72" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.72"></DelayGroup>
+            <CountGroup CurrentAllCount="17" CurrentBusCount="0" CurrentVehicleCount="17" TotalAllCount="461" TotalBusCount="0" TotalVehicleCount="461"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:22:00" xRT="833.37">
+            <SpeedGroup AllMeanSpeed="51.14" CurrentAllMeanSpeed="53.52" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.52" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.14"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="266398.95" TotalBusDistance="0.00" TotalVehicleDistance="266398.95"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.66" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.66"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="485" TotalBusCount="0" TotalVehicleCount="485"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="18" Time="00:23:00" xRT="869.60">
+            <SpeedGroup AllMeanSpeed="51.17" CurrentAllMeanSpeed="53.41" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.41" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.17"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="278520.09" TotalBusDistance="0.00" TotalVehicleDistance="278520.09"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.65" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.65"></DelayGroup>
+            <CountGroup CurrentAllCount="18" CurrentBusCount="0" CurrentVehicleCount="18" TotalAllCount="507" TotalBusCount="0" TotalVehicleCount="507"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="13" Time="00:24:00" xRT="882.38">
+            <SpeedGroup AllMeanSpeed="51.20" CurrentAllMeanSpeed="50.67" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="50.67" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.20"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="289442.71" TotalBusDistance="0.00" TotalVehicleDistance="289442.71"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.69" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.69"></DelayGroup>
+            <CountGroup CurrentAllCount="13" CurrentBusCount="0" CurrentVehicleCount="13" TotalAllCount="526" TotalBusCount="0" TotalVehicleCount="526"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="14" Time="00:25:00" xRT="857.17">
+            <SpeedGroup AllMeanSpeed="51.19" CurrentAllMeanSpeed="47.24" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="47.24" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.19"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="299823.81" TotalBusDistance="0.00" TotalVehicleDistance="299823.81"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.76" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.76"></DelayGroup>
+            <CountGroup CurrentAllCount="14" CurrentBusCount="0" CurrentVehicleCount="14" TotalAllCount="544" TotalBusCount="0" TotalVehicleCount="544"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="11" Time="00:26:00" xRT="895.56">
+            <SpeedGroup AllMeanSpeed="51.21" CurrentAllMeanSpeed="47.58" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="47.58" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.21"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="310004.50" TotalBusDistance="0.00" TotalVehicleDistance="310004.50"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.85" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.85"></DelayGroup>
+            <CountGroup CurrentAllCount="11" CurrentBusCount="0" CurrentVehicleCount="11" TotalAllCount="561" TotalBusCount="0" TotalVehicleCount="561"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="11" Time="00:27:00" xRT="909.13">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="49.54" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.54" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="321409.49" TotalBusDistance="0.00" TotalVehicleDistance="321409.49"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.99" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.99"></DelayGroup>
+            <CountGroup CurrentAllCount="11" CurrentBusCount="0" CurrentVehicleCount="11" TotalAllCount="580" TotalBusCount="0" TotalVehicleCount="580"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="12" Time="00:28:00" xRT="731.72">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="52.67" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.67" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="328516.72" TotalBusDistance="0.00" TotalVehicleDistance="328516.72"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.85" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.85"></DelayGroup>
+            <CountGroup CurrentAllCount="12" CurrentBusCount="0" CurrentVehicleCount="12" TotalAllCount="595" TotalBusCount="0" TotalVehicleCount="595"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="16" Time="00:29:00" xRT="779.24">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="52.61" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.61" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="338916.49" TotalBusDistance="0.00" TotalVehicleDistance="338916.49"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.72" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.72"></DelayGroup>
+            <CountGroup CurrentAllCount="16" CurrentBusCount="0" CurrentVehicleCount="16" TotalAllCount="616" TotalBusCount="0" TotalVehicleCount="616"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="18" Time="00:30:00" xRT="779.25">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="52.30" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.30" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="354521.16" TotalBusDistance="0.00" TotalVehicleDistance="354521.16"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.80" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.80"></DelayGroup>
+            <CountGroup CurrentAllCount="18" CurrentBusCount="0" CurrentVehicleCount="18" TotalAllCount="643" TotalBusCount="0" TotalVehicleCount="643"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:31:00" xRT="882.40">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="51.76" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="51.76" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="365356.83" TotalBusDistance="0.00" TotalVehicleDistance="365356.83"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.82" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.82"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="662" TotalBusCount="0" TotalVehicleCount="662"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:32:00" xRT="909.14">
+            <SpeedGroup AllMeanSpeed="51.20" CurrentAllMeanSpeed="50.08" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="50.08" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.20"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="379326.14" TotalBusDistance="0.00" TotalVehicleDistance="379326.14"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.88" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.88"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="686" TotalBusCount="0" TotalVehicleCount="686"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="13" Time="00:33:00" xRT="833.36">
+            <SpeedGroup AllMeanSpeed="51.20" CurrentAllMeanSpeed="51.72" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="51.72" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.20"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="394428.66" TotalBusDistance="0.00" TotalVehicleDistance="394428.66"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.90" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.90"></DelayGroup>
+            <CountGroup CurrentAllCount="13" CurrentBusCount="0" CurrentVehicleCount="13" TotalAllCount="713" TotalBusCount="0" TotalVehicleCount="713"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:34:00" xRT="983.65">
+            <SpeedGroup AllMeanSpeed="51.20" CurrentAllMeanSpeed="49.04" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.04" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.20"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="408079.60" TotalBusDistance="0.00" TotalVehicleDistance="408079.60"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.93" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.93"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="737" TotalBusCount="0" TotalVehicleCount="737"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="10" Time="00:35:00" xRT="882.38">
+            <SpeedGroup AllMeanSpeed="51.21" CurrentAllMeanSpeed="50.75" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="50.75" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.21"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="420499.71" TotalBusDistance="0.00" TotalVehicleDistance="420499.71"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.10" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.10"></DelayGroup>
+            <CountGroup CurrentAllCount="10" CurrentBusCount="0" CurrentVehicleCount="10" TotalAllCount="756" TotalBusCount="0" TotalVehicleCount="756"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="11" Time="00:36:00" xRT="967.78">
+            <SpeedGroup AllMeanSpeed="51.21" CurrentAllMeanSpeed="52.42" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.42" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.21"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="430287.41" TotalBusDistance="0.00" TotalVehicleDistance="430287.41"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.03" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.03"></DelayGroup>
+            <CountGroup CurrentAllCount="11" CurrentBusCount="0" CurrentVehicleCount="11" TotalAllCount="775" TotalBusCount="0" TotalVehicleCount="775"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="10" Time="00:37:00" xRT="895.55">
+            <SpeedGroup AllMeanSpeed="51.21" CurrentAllMeanSpeed="51.96" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="51.96" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.21"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="438600.91" TotalBusDistance="0.00" TotalVehicleDistance="438600.91"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.98" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.98"></DelayGroup>
+            <CountGroup CurrentAllCount="10" CurrentBusCount="0" CurrentVehicleCount="10" TotalAllCount="791" TotalBusCount="0" TotalVehicleCount="791"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="8" Time="00:38:00" xRT="923.12">
+            <SpeedGroup AllMeanSpeed="51.23" CurrentAllMeanSpeed="55.40" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="55.40" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.23"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="446838.75" TotalBusDistance="0.00" TotalVehicleDistance="446838.75"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.10" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.10"></DelayGroup>
+            <CountGroup CurrentAllCount="8" CurrentBusCount="0" CurrentVehicleCount="8" TotalAllCount="803" TotalBusCount="0" TotalVehicleCount="803"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="19" Time="00:39:00" xRT="845.11">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="53.11" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.11" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="458970.90" TotalBusDistance="0.00" TotalVehicleDistance="458970.90"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.94" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.94"></DelayGroup>
+            <CountGroup CurrentAllCount="19" CurrentBusCount="0" CurrentVehicleCount="19" TotalAllCount="829" TotalBusCount="0" TotalVehicleCount="829"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="6" Time="00:40:00" xRT="895.56">
+            <SpeedGroup AllMeanSpeed="51.20" CurrentAllMeanSpeed="54.00" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="54.00" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.20"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="465723.55" TotalBusDistance="0.00" TotalVehicleDistance="465723.55"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.17" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.17"></DelayGroup>
+            <CountGroup CurrentAllCount="6" CurrentBusCount="0" CurrentVehicleCount="6" TotalAllCount="836" TotalBusCount="0" TotalVehicleCount="836"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="13" Time="00:41:00" xRT="937.54">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="48.77" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.77" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="474065.28" TotalBusDistance="0.00" TotalVehicleDistance="474065.28"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.00" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.00"></DelayGroup>
+            <CountGroup CurrentAllCount="13" CurrentBusCount="0" CurrentVehicleCount="13" TotalAllCount="855" TotalBusCount="0" TotalVehicleCount="855"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="9" Time="00:42:00" xRT="1016.99">
+            <SpeedGroup AllMeanSpeed="51.19" CurrentAllMeanSpeed="48.54" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.54" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.19"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="482355.38" TotalBusDistance="0.00" TotalVehicleDistance="482355.38"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.08" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.08"></DelayGroup>
+            <CountGroup CurrentAllCount="9" CurrentBusCount="0" CurrentVehicleCount="9" TotalAllCount="868" TotalBusCount="0" TotalVehicleCount="868"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="24" Time="00:43:00" xRT="869.61">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="49.47" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.47" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="494564.38" TotalBusDistance="0.00" TotalVehicleDistance="494564.38"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.70" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.70"></DelayGroup>
+            <CountGroup CurrentAllCount="24" CurrentBusCount="0" CurrentVehicleCount="24" TotalAllCount="899" TotalBusCount="0" TotalVehicleCount="899"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="25" Time="00:44:00" xRT="845.13">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="46.49" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="46.49" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="512028.96" TotalBusDistance="0.00" TotalVehicleDistance="512028.96"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.84" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.84"></DelayGroup>
+            <CountGroup CurrentAllCount="25" CurrentBusCount="0" CurrentVehicleCount="25" TotalAllCount="928" TotalBusCount="0" TotalVehicleCount="928"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:45:00" xRT="967.80">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="46.57" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="46.57" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="526002.05" TotalBusDistance="0.00" TotalVehicleDistance="526002.05"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.01" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.01"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="949" TotalBusCount="0" TotalVehicleCount="949"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="16" Time="00:46:00" xRT="1000.06">
+            <SpeedGroup AllMeanSpeed="51.13" CurrentAllMeanSpeed="52.19" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.19" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.13"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="537244.29" TotalBusDistance="0.00" TotalVehicleDistance="537244.29"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.99" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.99"></DelayGroup>
+            <CountGroup CurrentAllCount="16" CurrentBusCount="0" CurrentVehicleCount="16" TotalAllCount="970" TotalBusCount="0" TotalVehicleCount="970"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="9" Time="00:47:00" xRT="937.56">
+            <SpeedGroup AllMeanSpeed="51.17" CurrentAllMeanSpeed="53.13" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.13" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.17"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="548124.89" TotalBusDistance="0.00" TotalVehicleDistance="548124.89"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.15" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.15"></DelayGroup>
+            <CountGroup CurrentAllCount="9" CurrentBusCount="0" CurrentVehicleCount="9" TotalAllCount="985" TotalBusCount="0" TotalVehicleCount="985"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="12" Time="00:48:00" xRT="857.19">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="53.00" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.00" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="558260.57" TotalBusDistance="0.00" TotalVehicleDistance="558260.57"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.09" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.09"></DelayGroup>
+            <CountGroup CurrentAllCount="12" CurrentBusCount="0" CurrentVehicleCount="12" TotalAllCount="1005" TotalBusCount="0" TotalVehicleCount="1005"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="17" Time="00:49:00" xRT="937.56">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="53.35" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.35" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="569986.77" TotalBusDistance="0.00" TotalVehicleDistance="569986.77"></DistanceGroup>
+            <DelayGroup AllMeanDelay="38.98" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="38.98"></DelayGroup>
+            <CountGroup CurrentAllCount="17" CurrentBusCount="0" CurrentVehicleCount="17" TotalAllCount="1029" TotalBusCount="0" TotalVehicleCount="1029"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="12" Time="00:50:00" xRT="869.62">
+            <SpeedGroup AllMeanSpeed="51.18" CurrentAllMeanSpeed="53.68" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.68" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.18"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="583051.89" TotalBusDistance="0.00" TotalVehicleDistance="583051.89"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.06" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.06"></DelayGroup>
+            <CountGroup CurrentAllCount="12" CurrentBusCount="0" CurrentVehicleCount="12" TotalAllCount="1050" TotalBusCount="0" TotalVehicleCount="1050"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="13" Time="00:51:00" xRT="895.57">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="54.11" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="54.11" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="594901.26" TotalBusDistance="0.00" TotalVehicleDistance="594901.26"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.09" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.09"></DelayGroup>
+            <CountGroup CurrentAllCount="13" CurrentBusCount="0" CurrentVehicleCount="13" TotalAllCount="1071" TotalBusCount="0" TotalVehicleCount="1071"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="16" Time="00:52:00" xRT="909.15">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="48.67" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.67" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="607405.61" TotalBusDistance="0.00" TotalVehicleDistance="607405.61"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.04" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.04"></DelayGroup>
+            <CountGroup CurrentAllCount="16" CurrentBusCount="0" CurrentVehicleCount="16" TotalAllCount="1095" TotalBusCount="0" TotalVehicleCount="1095"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:53:00" xRT="937.56">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="51.34" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="51.34" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="619242.31" TotalBusDistance="0.00" TotalVehicleDistance="619242.31"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.12" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.12"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="1114" TotalBusCount="0" TotalVehicleCount="1114"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="12" Time="00:54:00" xRT="882.41">
+            <SpeedGroup AllMeanSpeed="51.16" CurrentAllMeanSpeed="46.89" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="46.89" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.16"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="629219.96" TotalBusDistance="0.00" TotalVehicleDistance="629219.96"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.11" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.11"></DelayGroup>
+            <CountGroup CurrentAllCount="12" CurrentBusCount="0" CurrentVehicleCount="12" TotalAllCount="1132" TotalBusCount="0" TotalVehicleCount="1132"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="14" Time="00:55:00" xRT="895.58">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="52.08" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="52.08" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="639723.48" TotalBusDistance="0.00" TotalVehicleDistance="639723.48"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.09" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.09"></DelayGroup>
+            <CountGroup CurrentAllCount="14" CurrentBusCount="0" CurrentVehicleCount="14" TotalAllCount="1152" TotalBusCount="0" TotalVehicleCount="1152"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="13" Time="00:56:00" xRT="833.38">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="53.24" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="53.24" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="651172.35" TotalBusDistance="0.00" TotalVehicleDistance="651172.35"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.07" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.07"></DelayGroup>
+            <CountGroup CurrentAllCount="13" CurrentBusCount="0" CurrentVehicleCount="13" TotalAllCount="1173" TotalBusCount="0" TotalVehicleCount="1173"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="14" Time="00:57:00" xRT="869.62">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="48.86" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="48.86" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="664045.16" TotalBusDistance="0.00" TotalVehicleDistance="664045.16"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.14" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.14"></DelayGroup>
+            <CountGroup CurrentAllCount="14" CurrentBusCount="0" CurrentVehicleCount="14" TotalAllCount="1194" TotalBusCount="0" TotalVehicleCount="1194"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="14" Time="00:58:00" xRT="882.41">
+            <SpeedGroup AllMeanSpeed="51.14" CurrentAllMeanSpeed="51.58" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="51.58" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.14"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="674796.96" TotalBusDistance="0.00" TotalVehicleDistance="674796.96"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.07" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.07"></DelayGroup>
+            <CountGroup CurrentAllCount="14" CurrentBusCount="0" CurrentVehicleCount="14" TotalAllCount="1216" TotalBusCount="0" TotalVehicleCount="1216"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="15" Time="00:59:00" xRT="740.79">
+            <SpeedGroup AllMeanSpeed="51.14" CurrentAllMeanSpeed="49.41" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="49.41" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.14"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="688788.05" TotalBusDistance="0.00" TotalVehicleDistance="688788.05"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.07" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.07"></DelayGroup>
+            <CountGroup CurrentAllCount="15" CurrentBusCount="0" CurrentVehicleCount="15" TotalAllCount="1241" TotalBusCount="0" TotalVehicleCount="1241"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+        <simulationStep NV="11" Time="01:00:00" xRT="869.62">
+            <SpeedGroup AllMeanSpeed="51.15" CurrentAllMeanSpeed="47.80" CurrentBusMeanSpeed="0.00" CurrentVehicleMeanSpeed="47.80" TotalBusMeanSpeed="0.00" TotalVehicleMeanSpeed="51.15"></SpeedGroup>
+            <DistanceGroup TotalAllDistance="702223.45" TotalBusDistance="0.00" TotalVehicleDistance="702223.45"></DistanceGroup>
+            <DelayGroup AllMeanDelay="39.13" TotalAllStoppageTime="0.02" TotalBusMeanDelay="0.00" TotalVehicleMeanDelay="39.13"></DelayGroup>
+            <CountGroup CurrentAllCount="11" CurrentBusCount="0" CurrentVehicleCount="11" TotalAllCount="1263" TotalBusCount="0" TotalVehicleCount="1263"></CountGroup>
+            <BusGroup TotalPassengersAlighting="0" TotalPassengersBoarding="0" TotalStopsMade="0"></BusGroup>
+        </simulationStep>
+    </SimulationProgress>
+</BaseReport>

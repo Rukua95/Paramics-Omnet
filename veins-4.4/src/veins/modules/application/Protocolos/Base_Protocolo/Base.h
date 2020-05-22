@@ -131,7 +131,6 @@ protected:
 	void detectColision(vehicleData data);
 	void getCarPoint(std::vector<Coord> &lim, double theta);
 	void registerOutOfJunction();
-	void removeVehicle(int reason);
 
 };
 

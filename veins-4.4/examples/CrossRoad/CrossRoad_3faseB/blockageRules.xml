@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<BlockageRules><BlockageRule type="1" threshold="45" marker="0" colour="255" active="0"/><BlockageRule type="2" threshold="15" marker="0" colour="65280" active="0"/><BlockageRule type="4" threshold="120" marker="0" colour="16711680" active="0"/><BlockageRule type="5" threshold="30" marker="0" colour="42495" active="0"/><BlockageRule type="3" threshold="180" marker="0" colour="65535" active="0"/></BlockageRules>

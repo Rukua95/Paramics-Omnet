@@ -1,0 +1,11 @@
+linktypes: 1 to 7 default
+
+linktype 1: "signalised"
+linktype 2: "unsignalised"
+linktype 3: "2 lane highway"
+linktype 4: "multi lane highway"
+linktype 5: "freeway"
+linktype 6: "ramp"
+linktype 7: "weaving area"
+
+

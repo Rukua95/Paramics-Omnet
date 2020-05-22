@@ -260,8 +260,6 @@ void VTL::handleSelfMsg(cMessage *msg){
 		else if(crossing)
 		{
 			EV << ">>> Out of junction <<<\n";
-			Base::registerOutOfJunction();
-			
 			outJunction = true;
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 			

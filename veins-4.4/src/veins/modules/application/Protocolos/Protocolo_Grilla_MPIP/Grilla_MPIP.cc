@@ -33,8 +33,6 @@ void Grilla_MPIP::initialize(int stage)
     case 0:
     {
 		// Indice de la celda que se esta usando actualmente.
-		id_cell_in_use = -1;
-
 		id_cell_begin = 0;
 		id_cell_end = -1;
 		in_block_area = false;
@@ -118,8 +116,6 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 			EV << ">>> Zona de cruce\n";
 			crossing = true;
 
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
-
 			cellsUsed();
 
 			// Revision de celdas a utilizar, segun posicion en celdas
@@ -159,6 +155,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 			if(id_cell_end == cell_list.size() - 1)
 			{
 				EV << "    Todas las celdas reservadas\n";
+				traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
 				traciVehicle->setSpeed(-1);
 
 				// Determinar si vehiculo esta bloqueado
@@ -174,7 +171,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 				// Vehiculo se bloqueo en interseccion, necesitamos eliminarlo y simular su salida de interseccion
 				if(simTime().dbl() - detention_time > 2 && detention_time > 0.0)
 				{
-					Base::removeVehicle(0);
+					Grilla_MPIP::removeVehicle(0);
 					outJunction = true;
 					traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 					
@@ -275,7 +272,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 						// Vehiculo se bloqueo en interseccion, necesitamos eliminarlo y simular su salida de interseccion
 						if(simTime().dbl() - detention_time > 2 && detention_time > 0.0)
 						{
-							Base::removeVehicle(0);
+							Grilla_MPIP::removeVehicle(0);
 							outJunction = true;
 							traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 							
@@ -471,6 +468,8 @@ void Grilla_MPIP::onData(WaveShortMessage *wsm)
 			if(cell_register[t].car_id_block == sender)
 				cell_register[t].unblock();
 
+			cell_register[t].release(sender);
+
 		}
 
 		for(int i=sender_id_cell_begin; i <= sender_id_cell_end; i++)
@@ -563,8 +562,6 @@ void Grilla_MPIP::prepareMsgData(vehicleData& data, int msgTipe)
 
 	data.priority = priority;
 
-	data.id_token_in_use = id_cell_in_use;
-
 	data.id_cell_begin = id_cell_begin;
 	data.id_cell_end = id_cell_end;
 
@@ -610,7 +607,6 @@ void Grilla_MPIP::setCells()
 void Grilla_MPIP::getCells()
 {
 	cell_list = cells_table[direction_junction][direction_out];
-	id_cell_in_use = 0;
 }
 
 
@@ -647,7 +643,6 @@ void Grilla_MPIP::cellsUsed()
 
 			return ;
 		}
-
 		else
 			EV << ">>> Cell " << t << " not in use\n";
 
@@ -681,4 +676,15 @@ void Grilla_MPIP::detentionLastCell()
 	else
 		traciVehicle->setSpeed(3.0);
 
+}
+
+
+void Grilla_MPIP::removeVehicle(int reason)
+{
+	traciVehicle->remove(reason);
+	vehicle_removed = true;
+
+	// Por ahora suponemos que reason = 0 es para simular un arrivo
+	if(reason == 0)
+		Base::registerOutOfJunction();
 }
