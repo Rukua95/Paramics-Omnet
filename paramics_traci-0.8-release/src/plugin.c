@@ -1,5 +1,6 @@
 #include "programmer.h"
 #include <thread>
+#include <chrono>
 #include "TraCIAPI/TraCIServer.h"
 #include <shellapi.h>
 #include "TraCIAPI/VehicleManager.h"
@@ -127,7 +128,11 @@ void qpx_NET_preOpen(void)
     traci_api::infoPrint("---");
     traci_api::infoPrint("Timestep size: " + std::to_string(static_cast<int>(qpg_CFG_timeStep() * 1000.0f)) + "ms");
     traci_api::infoPrint("Simulation start time: " + std::to_string(traci_api::Simulation::getInstance()->getCurrentTimeMilliseconds()) + "ms");
+    traci_api::infoPrint("---");
+
     runner = new std::thread(runner_fn);
+    traci_api::infoPrint("Waiting for connection...");
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 }
 
 void qpx_CLK_startOfSimLoop(void)

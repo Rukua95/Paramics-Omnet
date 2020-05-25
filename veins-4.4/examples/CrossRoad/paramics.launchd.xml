@@ -3,6 +3,7 @@
 <launch>
 	<basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\CrossRoad" /> 
 	<network name="CrossRoad" />
-	<seed value="3110" />
+	<mode name="processor" />
+	<!-- <mode name="modeller" /> -->
 </launch>
  

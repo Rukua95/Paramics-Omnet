@@ -169,7 +169,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 					detention_time = -1.0;
 
 				// Vehiculo se bloqueo en interseccion, necesitamos eliminarlo y simular su salida de interseccion
-				if(simTime().dbl() - detention_time > 2 && detention_time > 0.0)
+				if(simTime().dbl() - detention_time > 1.5 && detention_time > 0.0)
 				{
 					Grilla_MPIP::removeVehicle(0);
 					outJunction = true;
@@ -270,7 +270,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 							detention_time = -1.0;
 
 						// Vehiculo se bloqueo en interseccion, necesitamos eliminarlo y simular su salida de interseccion
-						if(simTime().dbl() - detention_time > 2 && detention_time > 0.0)
+						if(simTime().dbl() - detention_time > 1.5 && detention_time > 0.0)
 						{
 							Grilla_MPIP::removeVehicle(0);
 							outJunction = true;
