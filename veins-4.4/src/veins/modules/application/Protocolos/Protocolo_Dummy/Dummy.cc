@@ -54,8 +54,6 @@ void Dummy::handleSelfMsg(cMessage *msg){
 	if(msg == sharedDataZoneMessage)
 	{
 		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
-
 		scheduleAt(simTime() + ping_interval, self_beacon);
 
 		return;
@@ -76,11 +74,7 @@ void Dummy::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Zona de cruce\n";
 			crossing = true;
-
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
-
-			//cellsUsed();
-			prepareMsgData(data, 3);
 
 		}
 		// Vehiculo aun no llega a la interseccion o ya salio
@@ -93,41 +87,11 @@ void Dummy::handleSelfMsg(cMessage *msg){
 				
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
-				
-				prepareMsgData(data, 1);
 				info_message->setData(data);
-				sendWSM((WaveShortMessage*) info_message->dup());
 
 				return;
 			}
 		}
-	}
-
-
-	/////////////////////////////////////////////////////////////////
-	// Area de envio de infomacion
-	/////////////////////////////////////////////////////////////////
-	if(distance_to_junction <= shared_data_radio)
-	{
-		EV << ">>> Shared data zone <<<\n";
-
-		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
-
-		// Al entrar a la zona para compartir informacion, vehiculo realiza un ciclo de espera
-		// donde solo recive y envia mensajes de estado. No se realizan acciones adicionales.
-		if(!inSharedDataZone)
-		{
-			EV << ">>> New car in shared data zone, waiting one cicle of simulation...\n";
-			inSharedDataZone = true;
-			scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
-		} 
-		else
-			scheduleAt(simTime() + ping_interval, self_beacon);
-
-		return;
-
 	}
 
 	scheduleAt(simTime() + ping_interval, self_beacon);
@@ -137,56 +101,6 @@ void Dummy::handleSelfMsg(cMessage *msg){
 
 void Dummy::onData(WaveShortMessage *wsm)
 {
-	EV << ">>> Data message <<<\n";
-	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
-	vehicleData data = msg->getData();
-
-	int tipe = data.msg_type;
-	int sender = wsm->getSenderAddress();
-	int recipient = wsm->getRecipientAddress();
-
-	EV << "    tipe: " << tipe << "\n";
-	EV << "    sender: " << sender << "\n";
-	EV << "    recipient: " << recipient << "\n";
-	EV << "    time: " << data.time_to_junction << "\n";
-
-	// Auto que recibe mensaje salio de la interseccion.
-	if(outJunction)
-	{
-		EV << ">>> OUT OF JUNCTION <<<\n";
-		// TODO: autos que esperaban que pasara tienen que eliminarlo de la lista de espera
-		return ;
-	}
-
-	// Auto aun no esta en area para compartir informacion.
-	if(!inSharedDataZone)
-	{
-		EV << ">>> CANT RECEIVE, OUT OF SHARED DATA ZONE <<<\n";
-		return ;
-	}
-
-	int sender_in = data.direction_junction;
-	int sender_out = data.direction_out;
-	double sender_dist = data.distance_to_junction;
-
-
-	/////////////////////////////////////////////////////////////////
-	// Tipos de mensaje
-	/////////////////////////////////////////////////////////////////
-
-
-	// Tipo de mensaje 1: Vehiculo ya salio de la interseccion
-	if(tipe == 1)
-	{
-		EV << ">>> Delete car " << sender << " from table <<<\n";
-		carTable[sender_in].erase(sender);
-
-		return ;
-	}
-		
-	detectColision(data);
-	carTable[sender_in][sender] = data;
-
 }
 
 

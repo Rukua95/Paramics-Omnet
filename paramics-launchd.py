@@ -59,6 +59,7 @@ import logging
 import atexit
 import fileinput
 import zipfile
+import random
 from optparse import OptionParser
 
 _API_VERSION = 1
@@ -189,16 +190,21 @@ def parse_launch_configuration(launch_xml_string):
     logging.debug("Base dir is %s" % basedir)
 
     # get "launch.seed"
-    seed = 23423
+    seed = 0
+    logging.debug("Initial seed value is %d" % seed)
     seed_nodes = [x for x in launch_node.getElementsByTagName("seed") if x.parentNode == launch_node]
     if len(seed_nodes) > 1:
         raise RuntimeError(
             'launch config contains %d <seed> nodes, expected at most 1' % (len(seed_nodes)))
     elif len(seed_nodes) == 1:
         seed = int(seed_nodes[0].getAttribute("value"))
+
+    if seed == 0:
+        logging.debug("Generating random seed")
+        seed = random.randint(0, 999999)
     logging.debug("Seed is %d" % seed)
 
-    #get "launch.network"
+    # get "launch.network"
     network = ""
     network_nodes = [x for x in launch_node.getElementsByTagName("network") if x.parentNode == launch_node]
     if len (network_nodes) != 1:
@@ -207,6 +213,7 @@ def parse_launch_configuration(launch_xml_string):
     else:
         network = network_nodes[0].getAttribute("name")
     logging.debug("Network is %s" % network)
+    
 
     return (basedir, network, seed)
 
@@ -563,7 +570,7 @@ def read_launch_config(conn):
     data_len = struct.unpack("!i", data_len_buf)[0]
     data = conn.recv(data_len)
 
-    logging.debug('Got CMD_FILE_SEND with data "%s"' % data)
+    logging.debug('Got CMD_FILE_SEND with data \n"%s"' % data)
 
     # Send OK response
     response = struct.pack("!iBBBi", 4 + 1 + 1 + 1 + 4,
