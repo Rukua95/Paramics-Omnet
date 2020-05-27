@@ -151,6 +151,7 @@ void Base::handleSelfMsg(cMessage *msg)
 			// Vehiculo salio de la interseccion
 			if(crossing)
 			{
+				// Registramos cuando vehiculo sale de la interseccion
 				Base::registerOutOfJunction();
 			}
 		}

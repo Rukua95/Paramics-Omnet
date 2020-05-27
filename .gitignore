@@ -1,6 +1,8 @@
 # Omnet files and folders
 omnetpp-5.0/
 
+veins-4.4/examples/CrossRoad/*/Log/
+
 
 # Prerequisites
 *.d
