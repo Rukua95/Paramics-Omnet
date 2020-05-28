@@ -487,7 +487,7 @@ def handle_launch_configuration(command, shlex, launch_xml_string, client_socket
         else:
             logging.debug("Not cleaning up %s" % runpath)
 
-        logging.debug('Result: \n"%s"' % result_xml)
+        logging.debug('Result: \n"%s"\n\n' % result_xml)
 
     return result_xml
 
@@ -712,22 +712,29 @@ def main():
     Program entry point when run interactively.
     """
 
-    command = ''
+    #################################################
+    # Path hacia ejecutables de paramics
+    command = 'C:\\Program Files (x86)\\paramicsv6\\'
     if _SIMULATION_MODE == 'modeller':
-        command = "C:\Program Files (x86)\paramicsv6\Modeller.exe"
+        command = command + "Modeller.exe"
     elif _SIMULATION_MODE == 'processor':
-	    command = "C:\Program Files (x86)\paramicsv6\processor-cmd.exe"
+	    command = command + "processor-cmd.exe"
     else:
 		raise RuntimeError("Simulation mode doesn't exist")
+    #################################################
 
     # Option handling
     parser = OptionParser()
     parser.add_option("-c", "--command", dest="command", default=os.path.expandvars(command),
                       help="run Paramics as COMMAND [default: %default]. By default, runs the Paramics Modeller module.",
                       metavar="COMMAND")
-    # TODO: CHANGE PLUGIN
-    parser.add_option("-u", "--plugin", dest="plugin", default=os.path.join("C:\Users\\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins", "modeller.dll"),#"apiv4_example7mr.dll"),
+
+    #################################################
+    # Path hacia plugin
+    parser.add_option("-u", "--plugin", dest="plugin", default=os.path.join("C:\Users\\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins", "modeller.dll"),
                       help="location of the TraCI Paramics Plugin [default: %plugin]", metavar="PLUGIN")
+    #################################################
+
     parser.add_option("-s", "--shlex", dest="shlex", default=False, action="store_true",
                       help="treat command as shell string to execute, replace {} with command line parameters [default: no]")
     parser.add_option("-p", "--port", dest="port", type="int", default=9999, action="store",
