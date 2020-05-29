@@ -19,6 +19,7 @@
 #include "veins/modules/mobility/traci/TraCIScenarioManagerLaunchd.h"
 #include <time.h>
 
+
 class ExtTraCIScenarioManagerLaunchd: public Veins::TraCIScenarioManagerLaunchd {
 public:
     ExtTraCIScenarioManagerLaunchd(): shut_down(false) {}
@@ -30,13 +31,9 @@ public:
 
     bool shuttingDown();
 
-
 	void carOutOfJunction(int carId, int direction, double timeInJunction);
 	void carFlux();
 	void meanTime();
-
-
-	
 
 private:
     bool shut_down;
@@ -48,12 +45,10 @@ private:
     cOutVector VehiclesInSim;
     cOutVector realtimestamps;
 
-
+    // Variables para calculo de flujo y tiempo promedio
 	std::vector<int> out_of_junction_count;
     std::vector<double> direction_flux;
 	double flux;
-
-
 	std::vector<double> mean_time, direction_total_mean_time;
 	double total_mean_time;
 };

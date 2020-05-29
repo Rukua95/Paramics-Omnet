@@ -105,7 +105,6 @@ void TraCICommandInterface::Vehicle::remove(int reason)
 	TraCIBuffer buf = traci->connection.query(CMD_SET_VEHICLE_VARIABLE, TraCIBuffer() << variableId << nodeId << r);
 	ASSERT(buf.eof());
 }
-
 /* Addition for pveins! */
 
 std::list<std::string> TraCICommandInterface::getVehicleTypeIds() {

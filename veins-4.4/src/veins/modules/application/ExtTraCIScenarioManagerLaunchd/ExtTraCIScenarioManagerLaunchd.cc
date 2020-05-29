@@ -1,17 +1,7 @@
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-// 
-// You should have received a copy of the GNU Lesser General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
+/*
+Escenario utilizado para las simulaciones de protocolos.
+Permite el calculo de flujo por segundo y tiempo promedio en interseccion.
+*/
 
 #include "ExtTraCIScenarioManagerLaunchd.h"
 
@@ -22,6 +12,7 @@ bool ExtTraCIScenarioManagerLaunchd::shuttingDown()
     return (shut_down);
 }
 
+
 void ExtTraCIScenarioManagerLaunchd::initialize(int stage)
 {
     TraCIScenarioManagerLaunchd::initialize(stage);
@@ -29,8 +20,9 @@ void ExtTraCIScenarioManagerLaunchd::initialize(int stage)
 
     if (stage == 1)
     {
-        // Get Simulation start time (in realtime!) and record it
+        // Obtencion de tiempo de inicio de simulacion (tiempo real) y su registro
         std::time(&start_time);
+
         // setup pings to record number of vehicles in sim
         selfping = new cMessage();
         ping_interval = SimTime(60, SIMTIME_S);
@@ -60,26 +52,29 @@ void ExtTraCIScenarioManagerLaunchd::initialize(int stage)
     }
 }
 
+
 void ExtTraCIScenarioManagerLaunchd::finish()
 {
     shut_down = true;
 
     cancelAndDelete(selfping);
 
-    // Get Simulation end time (in realtime!) and record it
+    // Obtencion de tiempo de termino de simulacion (tiempo real) y su registro
     std::time(&end_time);
     recordScalar("EndTime", end_time);
     recordScalar("StartTime", start_time);
 
-    // record time difference
+    // Registro de diferencia de tiempo de termino y de inicio
     recordScalar("TotalDuration", difftime(end_time, start_time));
 	
+	// Registro de flujo total y por direccion
 	recordScalar("TotalFlux", flux);
 	recordScalar("Direction 0 Flux", direction_flux[0]);
 	recordScalar("Direction 1 Flux", direction_flux[1]);
 	recordScalar("Direction 2 Flux", direction_flux[2]);
 	recordScalar("Direction 3 Flux", direction_flux[3]);
 
+	// Registro de tiempo en interseccion promedio total y por direccion
 	recordScalar("TotalMeanTime", total_mean_time);
 	recordScalar("Direction 0 Mean Time", direction_total_mean_time[0]);
 	recordScalar("Direction 1 Mean Time", direction_total_mean_time[1]);
@@ -89,15 +84,16 @@ void ExtTraCIScenarioManagerLaunchd::finish()
     TraCIScenarioManagerLaunchd::finish();
 }
 
+
 void ExtTraCIScenarioManagerLaunchd::handleSelfMsg(cMessage *msg)
 {
-	EV << "ExtTraCIScenarioManagerLaunchd::handleSelfMsg <--\n";
+	// Calculo de flujo y tiempo en interseccion promedio
 	carFlux();
 	meanTime();
 
     if (msg == selfping)
     {
-        // record number of vehicles in simulation
+        // Registra cantidad de vehiculos en simulacion
         VehiclesInSim.record(this->activeVehicleCount);
         realtimestamps.record(difftime(std::time(NULL), start_time));
         scheduleAt(simTime() + ping_interval, msg);
@@ -106,6 +102,9 @@ void ExtTraCIScenarioManagerLaunchd::handleSelfMsg(cMessage *msg)
 }
 
 
+/**
+ * Funcion que registra cuando un vehiculo sale de la interseccion.
+ */
 void ExtTraCIScenarioManagerLaunchd::carOutOfJunction(int carId, int direction, double timeInJunction)
 {
 	out_of_junction_count[direction]++;
@@ -113,6 +112,9 @@ void ExtTraCIScenarioManagerLaunchd::carOutOfJunction(int carId, int direction, 
 }
 
 
+/**
+ * Funcion que calcula el flujo vehicular total y direccional en interseccion, por segundo.
+ */
 void ExtTraCIScenarioManagerLaunchd::carFlux()
 {
 	int total = 0;
@@ -145,6 +147,9 @@ void ExtTraCIScenarioManagerLaunchd::carFlux()
 }
 
 
+/**
+ * Funcion que calcula el tiempo en interseccion promedio y direccional.
+ */
 void ExtTraCIScenarioManagerLaunchd::meanTime()
 {
 	double sum_total = 0;

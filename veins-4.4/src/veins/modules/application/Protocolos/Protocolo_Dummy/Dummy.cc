@@ -23,11 +23,11 @@
 
 Define_Module(Dummy);
 
-
 void Dummy::initialize(int stage)
 {
     Base::initialize(stage);
 }
+
 
 void Dummy::finish()
 {
@@ -48,7 +48,6 @@ void Dummy::handleSelfMsg(cMessage *msg){
 	info_message = prepareNIM("data", beaconLengthBits, type_CCH, beaconPriority, -1, -1);
 
 	vehicleData data;
-	prepareMsgData(data, 0);
 
 	// Vehiculos mandan mensajes durante el ciclo de espera 
 	if(msg == sharedDataZoneMessage)
@@ -106,13 +105,4 @@ void Dummy::onData(WaveShortMessage *wsm)
 
 void Dummy::onBeacon(WaveShortMessage *wsm)
 {
-}
-
-
-/**
- * Funcion que prepara contenido de mensaje enviado por los auto.
- */
-void Dummy::prepareMsgData(vehicleData& data, int msgTipe)
-{
-	Base::prepareMsgData(data, msgTipe);
 }

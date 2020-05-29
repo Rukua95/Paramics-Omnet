@@ -25,15 +25,12 @@
 class Dummy : public Base
 {
 protected:
-	// Metodos
     void initialize(int stage);
     void finish();
     void handleSelfMsg(cMessage *msg);
     void onData(WaveShortMessage *wsm);
     void onBeacon(WaveShortMessage *wsm);
-	void updateEstate();
-
-	void prepareMsgData(vehicleData& data, int msgTipe);
+	void updateEstate(); 
 
 public:
 	std::string test = "nada";

@@ -76,6 +76,8 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Calculo de prioridad
 	/////////////////////////////////////////////////////////////////
+
+	// Calculando tiempo en espera
 	if(axis_speed <= 0.05)
 		idling_time += ping_interval.dbl();
 
@@ -124,7 +126,6 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	{
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
-
 		scheduleAt(simTime() + ping_interval, self_beacon);
 
 		return;
@@ -168,7 +169,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 
 				return;
 			}
-			// vehiculo entrando a la interseccion.
+			// Vehiculo esta entrando a la interseccion.
 			else
 			{
 				// Comparacion de prioridades.
@@ -187,7 +188,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 
 				}
 
-				// Detencion o continuacion segun estado de los tokens.
+				// Detencion/Continuacion segun estado de los tokens.
 				if(alredy_blocked)
 				{
 					traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));

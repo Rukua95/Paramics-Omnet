@@ -1,32 +1,15 @@
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-//
+/*
+Base para protocolos implementados
+*/
 
 #include <veins/modules/application/Protocolos/Base_Protocolo/Base.h>
 #include <veins/modules/application/ExtTraCIScenarioManagerLaunchd/ExtTraCIScenarioManagerLaunchd.h>
 #include <veins/modules/mobility/traci/TraCIColor.h>
-//#include <veins/modules/application/Protocolos/Protocolo_Base/json.hpp>
 #include <veins/modules/mobility/traci/TraCIScenarioManager.h>
 #include <cstdlib>
 #include <algorithm>
 #include <math.h>
 
-
-//using json = nlohmann::json;
-
-
-//std::mutex ExampleProvidencia::lock;
 
 void Base::initialize(int stage)
 {
@@ -35,69 +18,86 @@ void Base::initialize(int stage)
     switch (stage)
     {
     case 0:
+		// Obtencion de modulos importantes para comunicacion con Paramics
 		mobility = Veins::TraCIMobilityAccess().get(getParentModule());
 		traci = mobility->getCommandInterface();
 		traciVehicle = mobility->getVehicleCommandInterface();
 
+		// Vector de posicion y velocidad de vehiculos
 		position = Coord(0.0, 0.0);
 		velocity = Coord(0.0, 0.0);
 
+		// Dimensiones de vehiculos (ajustadas manualmente a la simulacion)
 		car_lenght = 4.0;
 		car_width = 1.6;
 
+		// Estados de vehiculos
 		stoping = false;
 		stoped = false;
 
 		outJunction = false;
+		
 		crossing = false; 
-
+		
 		inSharedDataZone = false;
 
+		// Direccion inicial de vehiculo
 		direction_junction = -1;
 
+		// Distancia a interseccion
 		distance_to_junction = -1.0;
-		time_to_junction = -1.0;
-		last_vel = 0.0;
 
+		// Tiempo estimado de llegada a interseccion
+		time_to_junction = -1.0;
+
+		// Variables para calculo de aceleracion.
 		last_vel = 0.0;
 		acceleration = 0.0;
 		got_last_accel = false;
 
-		// Tablas de autos separadas segun direccion inicial de los autos.
+		// Variables de maxima y minima aceleracion, y maxima velocidad (ajustadas manualmente a la simulacion)
+		max_accel = 2.5;
+		min_accel = -4.5;
+		max_velocidad = 16;
+
+		// Tablas de informacion de vehiculos, separadas segun direccion inicial de los vehiculos.
 		carTable = std::vector<std::map<int, vehicleData> >(4, std::map<int, vehicleData>());
 
-		// Tabla: puntos de partida en paramics -> direcciones propias del programa
+		// Tabla que relaciona calle de inicio (arista de termino), con la direccion inicial de un vehiculo.
 		directionMap["18"] = 0; // Sur
 		directionMap["8"] = 1;  // Oeste
 		directionMap["9"] = 2;	// Norte
 		directionMap["6"] = 3;	// Este
 
-		// Tabla: direcciones paramics (zonas de llegadas) -> direcciones propias del programa
+		// Tabla que relaciona id de zonas de llegada, con la direccion propia del programa.
 		arrivalMap["1"] = 1;
 		arrivalMap["2"] = 0;
 		arrivalMap["3"] = 2;
 		arrivalMap["4"] = 3;
 
-		max_accel = 2.5;
-		min_accel = -4.5;
-		max_velocidad = 16;
+		// Intervalo de tiempo utilizado para actualizar cada paso de la simulacion.
 		sim_update_interval = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager())->par("updateInterval");
 
+		// Variable utilizada para calcular tiempo dentro de la interseccion.
 		time_in_junction = simTime().dbl();
 
         break;
 
     case 1:
     {
-        // schedule selfbeacons
+        // Organizacion de selfbeacons
         SimTime beginTime = SimTime(uniform(0.0, sim_update_interval / 2));
+
+		// Intervalo de tiempo entre self-message
 		ping_interval = SimTime(sim_update_interval / 2);
 
         self_beacon = new cMessage();
 		sharedDataZoneMessage = new cMessage();
 
+		// Envio de self-message
         scheduleAt(simTime() + beginTime, self_beacon);
 
+		// Variables tamaño de zona para compartir informacion y zona de eleccion de lider (y bloqueo de tokens)
 		shared_data_radio = par("ShareDataZoneRadio").doubleValue();
 		lider_select_radio = par("LiderSelectZoneRadio").doubleValue();
 
@@ -108,22 +108,27 @@ void Base::initialize(int stage)
     }
 }
 
+
 void Base::finish()
 {
     BaseWaveApplLayer::finish();
-	EV << "Base::finish\n";
 
+	// Obtencion de escenario
     ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
 
+	// Estado que indica si el vehiculo llego a zona de destino antes de que termine simulacion.
     bool arrived;
     if (sceman->shuttingDown())
         arrived = false;
-    else arrived = true;
+    else 
+		arrived = true;
 	
+	// Registro de informacion.
 	recordScalar("VehicleRemoved", vehicle_removed);
     recordScalar("ArrivedAtDest", arrived);
 	recordScalar("NumberOfCollisions", colision_list.size());
 
+	// Resgistro de tiempo y vehiculo con el que se realizo colision
 	for(auto it = colision_list.begin(); it != colision_list.end(); it++)
 	{
 		std::string s = "CollisionTimeWith-" + std::to_string(it->first);
@@ -137,7 +142,6 @@ void Base::finish()
 
 void Base::handleSelfMsg(cMessage *msg)
 {
-	EV << "Base::handleSelfMsg\n";
 	Base::getBasicParameters();
 
 	if(distance_to_junction <= lider_select_radio)
@@ -151,7 +155,6 @@ void Base::handleSelfMsg(cMessage *msg)
 			// Vehiculo salio de la interseccion
 			if(crossing)
 			{
-				// Registramos cuando vehiculo sale de la interseccion
 				Base::registerOutOfJunction();
 			}
 		}
@@ -325,7 +328,6 @@ void Base::getBasicParameters()
 	/////////////////////////////////////////////////////////////////
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
-
 	EV << ">>> Obtencion de datos base <<<\n";
 
 	position = curPosition;
