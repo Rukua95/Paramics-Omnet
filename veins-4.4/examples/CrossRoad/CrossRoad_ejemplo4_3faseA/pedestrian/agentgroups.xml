@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agentGroups count="1">
+  <agentGroup id="1" name="Default Group">
+    <items count="1">
+      <item agentTypeId="1">
+        <percentageComposition>100</percentageComposition>
+      </item>
+    </items>
+  </agentGroup>
+</agentGroups>

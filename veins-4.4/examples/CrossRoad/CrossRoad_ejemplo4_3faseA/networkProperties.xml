@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NetworkProperties>
+    <NetworkName>Copy of Copy of Test1</NetworkName>
+    <Author>thi-s</Author>
+    <Description>Network copied from C:/users/public/paramics/data/CrossRoad2. Network copied from C:/users/public/paramics/data/Cross_road. Network used to test VANET AIM algorithm</Description>
+    <CreationDate>Wed Nov 6 12:44:22 2019</CreationDate>
+    <LastEditDate>Tue Feb 4 17:41:26 2020</LastEditDate>
+    <LastEditUser>thi-s</LastEditUser>
+    <Welcome></Welcome>
+    <Comments>
+        <Comment Date="Wed Nov 6 18:13:03 2019" User="thi-s">Network saved to C:/users/public/paramics/data/Cross_road using SaveAs...</Comment>
+        <Comment Date="Tue Nov 12 19:23:24 2019" User="thi-s">Network saved to C:/users/public/paramics/data/CrossRoad2 using SaveAs...</Comment>
+    </Comments>
+</NetworkProperties>

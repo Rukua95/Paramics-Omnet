@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<linksCollection xmlns="http://www.quadstoneparamics.com/acp/6.9.3">
+ <links>
+  <link name="1:14">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="1:13">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="1:16">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="1:15">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="3:11">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="3:9">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="4:6">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="4:5">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="6:4">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="7:18">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="7:10">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="8:2">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="9:3">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="18:7">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="2:12">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="2:8">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="5:4">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="5:13">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="10:7">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="10:14">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="11:16">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="11:3">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="12:15">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="12:2">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="13:5">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="13:1">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="14:10">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="14:1">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="15:1">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="15:12">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="16:1">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+  <link name="16:11">
+   <lanes>
+    <lane number="1" headwayFactor="1.000" reactionFactor="1.000"/>
+   </lanes>
+  </link>
+ </links>
+</linksCollection>

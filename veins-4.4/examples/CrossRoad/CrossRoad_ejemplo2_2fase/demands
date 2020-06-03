@@ -1,0 +1,19 @@
+## Author thi-s
+## Created Date Wednesday-November-6-2019 12-51-12
+## Modified Date Wednesday-June-3-2020 14-10-45
+## Modified By thi-s
+## Network C:/users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/CrossRoad/CrossRoad_ejemplo2_2fase
+## Notes 
+demand period 1
+matrix count 1
+divisor 1.0000
+
+matrix 1
+from   1    0  100   80  100  ## 280
+from   2   90    0  100  100  ## 290
+from   4  100  100    0   75  ## 275
+from   3  100   70  100    0  ## 270
+
+## total  290  270  280  275  ## 1115
+
+

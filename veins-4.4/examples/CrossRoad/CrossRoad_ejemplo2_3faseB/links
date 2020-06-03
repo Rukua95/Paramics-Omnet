@@ -1,0 +1,38 @@
+## Author thi-s
+## Created Date Wednesday-November-6-2019 12-51-12
+## Modified Date Wednesday-June-3-2020 16-10-41
+## Modified By thi-s
+## Network C:/users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/CrossRoad/CrossRoad_ejemplo2_3faseB
+## Notes 
+link 1 14 category 1 
+link 1 13 category 1 
+link 1 16 category 1 
+link 1 15 category 1 
+link 3 11 category 1 
+link 3 9 category 1 
+link 4 6 category 1 
+link 4 5 category 1 
+link 6 4 category 1 
+link 7 18 category 1 
+link 7 10 category 1 
+link 8 2 category 1 
+link 9 3 category 1 
+link 18 7 category 1 
+link 2 12 category 1 
+link 2 8 category 1 
+link 5 4 category 1 
+link 5 13 category 1 
+link 10 7 category 1 
+link 10 14 category 1 
+link 11 16 category 1 
+link 11 3 category 1 
+link 12 15 category 1 
+link 12 2 category 1 
+link 13 5 category 1 
+link 13 1 category 1 
+link 14 10 category 1 
+link 14 1 category 1 
+link 15 1 category 1 
+link 15 12 category 1 
+link 16 1 category 1 
+link 16 11 category 1 
