@@ -34,6 +34,7 @@ public:
 	void carOutOfJunction(int carId, int direction, double timeInJunction);
 	void carFlux();
 	void meanTime();
+    void calculateMetrics();
 
 private:
     bool shut_down;
@@ -47,10 +48,9 @@ private:
 
     // Variables para calculo de flujo y tiempo promedio
 	std::vector<int> out_of_junction_count;
-    std::vector<double> direction_flux;
-	double flux;
-	std::vector<double> mean_time, direction_total_mean_time;
-	double total_mean_time;
+	
+	std::vector<double> flux, aux_mean_time, mean_time, aux_standard_deviation, standard_deviation;
+    double total_flux, total_mean_time, total_standard_deviation;
 };
 
 #endif /* SRC_VEINS_MODULES_APPLICATION_PVEINS_PROVIDENCIA_EXTTRACISCENARIOMANAGERLAUNCHD_H_ */

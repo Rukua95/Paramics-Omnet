@@ -1,32 +1,16 @@
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Lesser General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-//
+/*
+Implementacion de protocolo de semaforos virtuales (VTL) con tiempo de espera.
+*/
 
 #include <veins/modules/application/Protocolos/Protocolo_VTL/VTL.h>
 #include <veins/modules/application/ExtTraCIScenarioManagerLaunchd/ExtTraCIScenarioManagerLaunchd.h>
 #include <veins/modules/mobility/traci/TraCIColor.h>
-//#include <veins/modules/application/Protocolos/Protocolo_VTL/json.hpp>
 #include <veins/modules/mobility/traci/TraCIScenarioManager.h>
 #include <cstdlib>
 #include <algorithm>
 
 
-//using json = nlohmann::json;
-
 Define_Module(VTL);
-
-//std::mutex ExampleProvidencia::lock;
 
 void VTL::initialize(int stage)
 {
@@ -79,6 +63,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 	// Determinar si este auto dobla hacia la izquierda.
 	direction_to_left = isGoingLeft();
+
 
 	/////////////////////////////////////////////////////////////////
 	// Preparar mensaje

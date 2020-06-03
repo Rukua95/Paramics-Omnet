@@ -94,6 +94,7 @@ protected:
 	double sim_ping_interval;
 
 	double time_in_junction;
+	double intersection_exit_time;
 
 	bool vehicle_removed = false;
 
@@ -102,6 +103,7 @@ protected:
 
 	// Direcciones iniciales y finales
 	std::map<std::string, int> directionMap, arrivalMap;
+	std::map<int, std::string> direction_name;
 
 	// Informacion de autos
 	std::vector<std::map<int, vehicleData> > carTable;

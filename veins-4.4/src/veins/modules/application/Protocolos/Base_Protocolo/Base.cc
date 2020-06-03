@@ -75,11 +75,18 @@ void Base::initialize(int stage)
 		arrivalMap["3"] = 2;
 		arrivalMap["4"] = 3;
 
+		// Mapa de direccion a nombre de direccion
+		direction_name[0] = "Sur";
+		direction_name[1] = "Oeste";
+		direction_name[2] = "Norte";
+		direction_name[3] = "Este";
+
 		// Intervalo de tiempo utilizado para actualizar cada paso de la simulacion.
 		sim_update_interval = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager())->par("updateInterval");
 
 		// Variable utilizada para calcular tiempo dentro de la interseccion.
 		time_in_junction = simTime().dbl();
+		intersection_exit_time = -1.0;
 
         break;
 
@@ -124,8 +131,12 @@ void Base::finish()
 		arrived = true;
 	
 	// Registro de informacion.
+
 	recordScalar("VehicleRemoved", vehicle_removed);
     recordScalar("ArrivedAtDest", arrived);
+
+	recordScalar("IntersectionEnterTime", time_in_junction);
+	recordScalar("IntersectionExitTime", intersection_exit_time);
 	recordScalar("NumberOfCollisions", colision_list.size());
 
 	// Resgistro de tiempo y vehiculo con el que se realizo colision
@@ -321,7 +332,7 @@ void Base::timeToJunction()
 
 /**
  * Funcion que establece variables como velocidad, aceleracion, distancia a interseccion y tiempo estimado de llegada
- *  a interseccion
+ * a interseccion
  */
 void Base::getBasicParameters()
 {
@@ -488,6 +499,9 @@ void Base::detectColision(vehicleData data)
 }
 
 
+/**
+ * Funcion que obtiene las coordenadas de los vertices que representan un vehiculo
+ */
 void Base::getCarPoint(std::vector<Coord> &lim, double theta)
 {
 	EV << ">>> cos(theta): " << cos(theta) << "   sin(theta): " << sin(theta) << "\n";
@@ -502,8 +516,12 @@ void Base::getCarPoint(std::vector<Coord> &lim, double theta)
 }
 
 
+/**
+ * Registra un vehiculo fuera de la interseccion
+ */
 void Base::registerOutOfJunction()
 {
 	ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
-	sceman->carOutOfJunction(myId, direction_junction, simTime().dbl() - time_in_junction);
+	intersection_exit_time = simTime().dbl();
+	sceman->carOutOfJunction(myId, direction_junction, intersection_exit_time - time_in_junction);
 }

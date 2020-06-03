@@ -5,6 +5,7 @@ Permite el calculo de flujo por segundo y tiempo promedio en interseccion.
 
 #include "ExtTraCIScenarioManagerLaunchd.h"
 
+
 Define_Module(ExtTraCIScenarioManagerLaunchd);
 
 bool ExtTraCIScenarioManagerLaunchd::shuttingDown()
@@ -38,16 +39,20 @@ void ExtTraCIScenarioManagerLaunchd::initialize(int stage)
         VehiclesInSim.record(this->activeVehicleCount);
         realtimestamps.record(0);
 
-		// Flux
+		// Flujo de vehiculos
 		out_of_junction_count.resize(4, 0);
-		flux = 0.0;
-		direction_flux.resize(4, 0);
+		total_flux = 0.0;
+		flux.resize(4, 0);
 
-		// Mean time in intersection
-		mean_time.resize(4, 0);
+		// Tiempo promedio en interseccion
 		total_mean_time = 0.0;
-		direction_total_mean_time.resize(4, 0);
+		mean_time.resize(4, 0);
+		aux_mean_time.resize(4, 0);
 
+		// Desviacion estandar de tiempo en interseccion
+		standard_deviation.resize(4, 0);
+		aux_standard_deviation.resize(4, 0);
+		total_standard_deviation = 0.0;
 
     }
 }
@@ -68,18 +73,25 @@ void ExtTraCIScenarioManagerLaunchd::finish()
     recordScalar("TotalDuration", difftime(end_time, start_time));
 	
 	// Registro de flujo total y por direccion
-	recordScalar("TotalFlux", flux);
-	recordScalar("Direction 0 Flux", direction_flux[0]);
-	recordScalar("Direction 1 Flux", direction_flux[1]);
-	recordScalar("Direction 2 Flux", direction_flux[2]);
-	recordScalar("Direction 3 Flux", direction_flux[3]);
+	recordScalar("TotalFlux", total_flux);
+	recordScalar("Direction-South-Flux", flux[0]);
+	recordScalar("Direction-West-Flux", flux[1]);
+	recordScalar("Direction-North-Flux", flux[2]);
+	recordScalar("Direction-East-Flux", flux[3]);
 
 	// Registro de tiempo en interseccion promedio total y por direccion
 	recordScalar("TotalMeanTime", total_mean_time);
-	recordScalar("Direction 0 Mean Time", direction_total_mean_time[0]);
-	recordScalar("Direction 1 Mean Time", direction_total_mean_time[1]);
-	recordScalar("Direction 2 Mean Time", direction_total_mean_time[2]);
-	recordScalar("Direction 3 Mean Time", direction_total_mean_time[3]);
+	recordScalar("Direction-South-MeanTime", mean_time[0]);
+	recordScalar("Direction-West-MeanTime", mean_time[1]);
+	recordScalar("Direction-North-MeanTime", mean_time[2]);
+	recordScalar("Direction-East-MeanTime", mean_time[3]);
+
+	// Registro de desviacion estandar de tiempo promedio
+	recordScalar("TotalStandardDeviation", total_standard_deviation);
+	recordScalar("Direction-South-StDev", standard_deviation[0]);
+	recordScalar("Direction-West-StDev", standard_deviation[1]);
+	recordScalar("Direction-North-StDev", standard_deviation[2]);
+	recordScalar("Direction-East-StDev", standard_deviation[3]);
 
     TraCIScenarioManagerLaunchd::finish();
 }
@@ -88,8 +100,7 @@ void ExtTraCIScenarioManagerLaunchd::finish()
 void ExtTraCIScenarioManagerLaunchd::handleSelfMsg(cMessage *msg)
 {
 	// Calculo de flujo y tiempo en interseccion promedio
-	carFlux();
-	meanTime();
+	calculateMetrics();
 
     if (msg == selfping)
     {
@@ -108,74 +119,80 @@ void ExtTraCIScenarioManagerLaunchd::handleSelfMsg(cMessage *msg)
 void ExtTraCIScenarioManagerLaunchd::carOutOfJunction(int carId, int direction, double timeInJunction)
 {
 	out_of_junction_count[direction]++;
-	mean_time[direction] += timeInJunction;
+	aux_mean_time[direction] += timeInJunction;
+	aux_standard_deviation[direction] += (timeInJunction * timeInJunction);
 }
 
 
 /**
- * Funcion que calcula el flujo vehicular total y direccional en interseccion, por segundo.
+ * Calculo de metricas: flujo, tiempo promedio y su desviacion estandar
  */
-void ExtTraCIScenarioManagerLaunchd::carFlux()
+void ExtTraCIScenarioManagerLaunchd::calculateMetrics()
 {
-	int total = 0;
+	int total_out_of_junction_count = 0;
+	double sum_total_time_in_junction = 0;
+	double sum_total_standard_deviation = 0.0;
+
 	for(int i=0; i<4; i++)
 	{
-		int car_count = out_of_junction_count[i];
+		// Calculando flujo por direccion de entrada
+		int N = out_of_junction_count[i];
 		double sim_time = simTime().dbl();
-		EV << "sim_time: " << sim_time << "\n";
+
 		EV << "direction: " << i << "\n";
-		EV << "car_count: " << car_count << "\n";
 		EV << "sim time: " << sim_time << "\n";
+		EV << "number of cars: " << N << "\n";
 
 		if(sim_time > 0)
-			direction_flux[i] = ((car_count * 60.0) / sim_time);
+			flux[i] = ((N * 60.0) / sim_time);
 		else
-			direction_flux[i] = -1.0;
+			flux[i] = -1.0;
 
-		EV << "car flux: " << direction_flux[i] << " [car/minute]\n";
+		EV << "car flux " << i << ": " << flux[i] << " [car/minute]\n";
 
-		total += car_count;
+		total_out_of_junction_count += N;
+
+
+		// Calculando tiempo promedio por direccion de entrada
+		double sum_time = aux_mean_time[i];
+
+		if(N > 0)
+			mean_time[i] = sum_time / (1.0 * N);
+		else
+			mean_time[i] = -1.0;
+		
+		EV << "mean time " << i << ": " << mean_time[i] << "[s]\n";
+
+		sum_total_time_in_junction += sum_time;
+
+
+		// Calculando desviacion estandar del tiempo promedio, por direccion de entrada
+		double sum_st_dev = aux_standard_deviation[i];
+
+		if(N > 0)
+			standard_deviation[i] = sqrt((N * sum_st_dev - (sum_time * sum_time)) / (N * N));
+		else
+			standard_deviation[i] = -1.0;
+
+		EV << "standard deviation " << i << ": " << standard_deviation[i] << "\n";
+
+		sum_total_standard_deviation += sum_st_dev;
+
 	}
 
+	int N = total_out_of_junction_count;
+	double sum_time = sum_total_time_in_junction;
+	double sum_st_dev = sum_total_standard_deviation;
 	double sim_time = simTime().dbl();
-	EV << "total car_count: " << total << "\n";
-	EV << "sim time: " << sim_time << "\n";
 
-	flux = ((total * 60.0) / sim_time);
-	EV << "car flux: " << flux << " [car/minute]\n";
+	// Flujo total
+	total_flux = ((N * 60.0) / sim_time);
 
-}
+	// Tiempo promedio total
+	total_mean_time = sum_time / N;
 
-
-/**
- * Funcion que calcula el tiempo en interseccion promedio y direccional.
- */
-void ExtTraCIScenarioManagerLaunchd::meanTime()
-{
-	double sum_total = 0;
-	int cant_total = 0;
-	for(int i=0; i<4; i++)
-	{
-		int car_count = out_of_junction_count[i];
-		double sum_time = mean_time[i];
-		
-		EV << "direction: " << i << "\n";
-		EV << "car_count: " << car_count << "\n";
-
-		if(car_count > 0)
-			direction_total_mean_time[i] = sum_time / (1.0 * car_count);
-		else
-			direction_total_mean_time[i] = -1.0;
-		
-
-		EV << "mean time: " << sum_time / (1.0 * car_count) << "\n";
-
-		sum_total += sum_time;
-		cant_total += car_count;
-
-	}
-
-	total_mean_time = sum_total / (1.0 * cant_total);
-	EV << "total_mean_time: " << total_mean_time << "\n";
+	// Desviacion estandard total
 	
+	total_standard_deviation = sqrt((N * sum_st_dev - (sum_time * sum_time)) / (N * N));
+
 }
