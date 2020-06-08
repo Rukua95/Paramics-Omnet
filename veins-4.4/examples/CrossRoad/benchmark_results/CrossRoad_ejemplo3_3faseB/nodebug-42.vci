@@ -1,0 +1,199 @@
+file 82262 1591465455                                           
+version 2
+run nodebug-42-20200606-13:44:12-21956
+attr configname nodebug
+attr datetime 20200606-13:44:12
+attr experiment nodebug
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=42
+attr measurement ""
+attr network "\"org.car2x.veins.modules.application.ExtTraCIScenarioManagerLaunchd.IntersectionExampleScenario\""
+attr processid 21956
+attr repetition 42
+attr replication #42
+attr resultdir results
+attr runnumber 42
+attr seedset 42
+param **.coreDebug false
+param **.debug false
+param *.**.nic.mac1609_4.bitrate 18Mbps
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.sensitivity -89dBm
+param *.**.nic.phy80211p.thermalNoise -110dBm
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.useThermalNoise true
+param *.annotations.draw false
+param *.connectionManager.alpha 2.0
+param *.connectionManager.carrierFrequency "5.890e9 Hz"
+param *.connectionManager.pMax 20mW
+param *.connectionManager.sat -89dBm
+param *.connectionManager.sendDirect true
+param *.manager.autoShutdown true
+param *.manager.host "\"localhost\""
+param *.manager.launchConfig "xmldoc(\"paramics.launchd.xml\")"
+param *.manager.margin 25
+param *.manager.moduleDisplayString "\"\""
+param *.manager.moduleName "\"node\""
+param *.manager.moduleType "\"org.car2x.veins.nodes.Car\""
+param *.manager.port 9999
+param *.manager.updateInterval 250ms
+param *.node[*0].veinsmobility.accidentCount 0
+param *.node[*0].veinsmobility.accidentDuration 30s
+param *.node[*0].veinsmobility.accidentStart 75s
+param *.node[*].appl.LiderSelectZoneRadio 55.0
+param *.node[*].appl.ShareDataZoneRadio 110.0
+param *.node[*].appl.TiempoSemaforo 30.0
+param *.node[*].appl.beaconInterval 1s
+param *.node[*].appl.beaconPriority 3
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.dataPriority 2
+param *.node[*].appl.debug false
+param *.node[*].appl.headerLength "256 bit"
+param *.node[*].appl.maxOffset 0.005s
+param *.node[*].appl.sendBeacons false
+param *.node[*].appl.sendData true
+param *.node[*].applType "\"Dummy\""
+param *.node[*].mobilityType "\"TraCIMobility\""
+param *.node[*].mobilityType.debug true
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 1.895
+param *.node[*].veinsmobilityType "\"org.car2x.veins.modules.mobility.traci.TraCIMobility\""
+param *.node[*].veinsmobilityType.debug true
+param *.playgroundSizeX 8500m
+param *.playgroundSizeY 8500m
+param *.playgroundSizeZ 50m
+param *.world.use2D false
+param *.world.useTorus false
+
+vector 96047  IntersectionExampleScenario.manager  vehiclesinsim  ETV
+attr type  int
+vector 96048  IntersectionExampleScenario.manager  realtime  ETV
+attr type  int
+attr unit  s
+vector 96051  IntersectionExampleScenario.node[0].veinsmobility  posx  ETV
+vector 96052  IntersectionExampleScenario.node[0].veinsmobility  posy  ETV
+vector 96053  IntersectionExampleScenario.node[0].veinsmobility  speed  ETV
+vector 96054  IntersectionExampleScenario.node[0].veinsmobility  acceleration  ETV
+vector 96055  IntersectionExampleScenario.node[0].veinsmobility  co2emission  ETV
+vector 96058  IntersectionExampleScenario.node[1].veinsmobility  posx  ETV
+vector 96059  IntersectionExampleScenario.node[1].veinsmobility  posy  ETV
+vector 96060  IntersectionExampleScenario.node[1].veinsmobility  speed  ETV
+vector 96061  IntersectionExampleScenario.node[1].veinsmobility  acceleration  ETV
+vector 96062  IntersectionExampleScenario.node[1].veinsmobility  co2emission  ETV
+vector 96065  IntersectionExampleScenario.node[2].veinsmobility  posx  ETV
+vector 96066  IntersectionExampleScenario.node[2].veinsmobility  posy  ETV
+vector 96067  IntersectionExampleScenario.node[2].veinsmobility  speed  ETV
+vector 96068  IntersectionExampleScenario.node[2].veinsmobility  acceleration  ETV
+vector 96069  IntersectionExampleScenario.node[2].veinsmobility  co2emission  ETV
+vector 96072  IntersectionExampleScenario.node[3].veinsmobility  posx  ETV
+vector 96073  IntersectionExampleScenario.node[3].veinsmobility  posy  ETV
+vector 96074  IntersectionExampleScenario.node[3].veinsmobility  speed  ETV
+vector 96075  IntersectionExampleScenario.node[3].veinsmobility  acceleration  ETV
+vector 96076  IntersectionExampleScenario.node[3].veinsmobility  co2emission  ETV
+vector 96079  IntersectionExampleScenario.node[4].veinsmobility  posx  ETV
+vector 96080  IntersectionExampleScenario.node[4].veinsmobility  posy  ETV
+vector 96081  IntersectionExampleScenario.node[4].veinsmobility  speed  ETV
+vector 96082  IntersectionExampleScenario.node[4].veinsmobility  acceleration  ETV
+vector 96083  IntersectionExampleScenario.node[4].veinsmobility  co2emission  ETV
+vector 96086  IntersectionExampleScenario.node[5].veinsmobility  posx  ETV
+vector 96087  IntersectionExampleScenario.node[5].veinsmobility  posy  ETV
+vector 96088  IntersectionExampleScenario.node[5].veinsmobility  speed  ETV
+vector 96093  IntersectionExampleScenario.node[6].veinsmobility  posx  ETV
+vector 96094  IntersectionExampleScenario.node[6].veinsmobility  posy  ETV
+vector 96089  IntersectionExampleScenario.node[5].veinsmobility  acceleration  ETV
+vector 96090  IntersectionExampleScenario.node[5].veinsmobility  co2emission  ETV
+vector 96095  IntersectionExampleScenario.node[6].veinsmobility  speed  ETV
+vector 96096  IntersectionExampleScenario.node[6].veinsmobility  acceleration  ETV
+vector 96097  IntersectionExampleScenario.node[6].veinsmobility  co2emission  ETV
+vector 96100  IntersectionExampleScenario.node[7].veinsmobility  posx  ETV
+vector 96101  IntersectionExampleScenario.node[7].veinsmobility  posy  ETV
+vector 96102  IntersectionExampleScenario.node[7].veinsmobility  speed  ETV
+vector 96103  IntersectionExampleScenario.node[7].veinsmobility  acceleration  ETV
+vector 96104  IntersectionExampleScenario.node[7].veinsmobility  co2emission  ETV
+vector 96107  IntersectionExampleScenario.node[8].veinsmobility  posx  ETV
+vector 96108  IntersectionExampleScenario.node[8].veinsmobility  posy  ETV
+vector 96114  IntersectionExampleScenario.node[9].veinsmobility  posx  ETV
+vector 96115  IntersectionExampleScenario.node[9].veinsmobility  posy  ETV
+vector 96109  IntersectionExampleScenario.node[8].veinsmobility  speed  ETV
+vector 96121  IntersectionExampleScenario.node[10].veinsmobility  posx  ETV
+vector 96122  IntersectionExampleScenario.node[10].veinsmobility  posy  ETV
+vector 96110  IntersectionExampleScenario.node[8].veinsmobility  acceleration  ETV
+vector 96111  IntersectionExampleScenario.node[8].veinsmobility  co2emission  ETV
+vector 96116  IntersectionExampleScenario.node[9].veinsmobility  speed  ETV
+vector 96117  IntersectionExampleScenario.node[9].veinsmobility  acceleration  ETV
+vector 96118  IntersectionExampleScenario.node[9].veinsmobility  co2emission  ETV
+vector 96123  IntersectionExampleScenario.node[10].veinsmobility  speed  ETV
+vector 96124  IntersectionExampleScenario.node[10].veinsmobility  acceleration  ETV
+vector 96125  IntersectionExampleScenario.node[10].veinsmobility  co2emission  ETV
+vector 96128  IntersectionExampleScenario.node[11].veinsmobility  posx  ETV
+vector 96129  IntersectionExampleScenario.node[11].veinsmobility  posy  ETV
+vector 96130  IntersectionExampleScenario.node[11].veinsmobility  speed  ETV
+vector 96131  IntersectionExampleScenario.node[11].veinsmobility  acceleration  ETV
+vector 96132  IntersectionExampleScenario.node[11].veinsmobility  co2emission  ETV
+96047	7698 13 0 0 0 0 1 0 0 0 0
+96048	7711 13 0 0 0 0 1 0 0 0 0
+96051	7724 2646 15 1058 3.5 24.25 84 486.85000610352 486.85000610352 40895.400512695 19909925.989211
+96052	10370 2623 15 1058 3.5 24.25 84 184.17810058594 465.81039428711 26921.275909424 9307914.6583546
+96053	12993 2595 18 1058 3.75 24.25 83 5.4674272537231 15.64999961853 1133.3177905083 16248.079671871
+96054	15588 2378 21 1058 4 24.25 82 -3.1867198944092 2.5 -0.73029136657715 216.17681367603
+96055	17966 2440 21 1058 4 24.25 82 0.973 11.648172402475 260.83036323017 1447.8513436636
+96058	20406 2433 36 1058 5.25 24.25 77 516.07266235352 785.82187652588 50963.066047668 34266530.382126
+96059	22839 2437 36 1058 5.25 24.25 77 486.85000610352 486.85000610352 37487.450469971 18250765.49011
+96060	25276 2393 41 1058 5.5 24.25 76 5.6500000953674 15.64999961853 1098.2393064499 16347.878706657
+96061	27669 2051 46 1058 5.75 24.25 75 -2.6411247253418 2.5 34.474592208862 113.66381865993
+96062	29720 2350 46 1058 5.75 24.25 75 0.973 11.648172402475 261.08163110805 1464.5192762424
+96065	32070 2170 76 1058 7.25 24.25 69 184.17810058594 420.87280273438 20156.243865967 6260877.4322179
+96066	34240 2197 76 1058 7.25 24.25 69 483.14999389648 483.14999389648 33337.349578857 16106940.24555
+96067	36437 2152 83 1058 7.5 24.25 68 5.6500000953674 15.64999961853 967.44447040558 14213.433138986
+96068	38589 2000 90 1058 7.75 24.25 67 -0.24490737915039 2.5 39.020376205444 100.13708660068
+96069	40589 2120 90 1058 7.75 24.25 67 1.2918632710966 11.648172402475 242.40718084878 1419.8091054374
+96072	42709 1966 125 1058 9 24.25 62 164.94219970703 365.13705444336 15888.885162354 4312335.7286954
+96073	44675 1982 125 1058 9 24.25 62 483.14999389648 483.14999389648 29955.299621582 14472902.829335
+96074	46657 1940 134 1058 9.25 24.25 61 5.6500000953674 15.02499961853 820.06945419312 11367.191534253
+96075	48597 1868 143 1058 9.5 24.25 60 -0.5 2.5 35.455564498901 94.340745310536
+96076	50465 1893 143 1058 9.5 24.25 60 0.973 11.200708441096 210.53644756842 1228.9393512679
+96079	52358 1534 251 1058 12.5 24.25 48 629.45680236816 785.82187652588 34425.845329285 24806804.299783
+96080	53892 1539 251 1058 12.5 24.25 48 486.85000610352 486.85000610352 23368.800292969 11377100.565264
+96081	55431 1491 262 1058 12.75 24.25 47 5.6500000953674 15.64999961853 646.22909832001 9300.6358925412
+96082	56922 1408 273 1058 13 24.25 46 -0.16003036499023 2.5 39.359994888306 100.05852631353
+96083	58330 1469 273 1058 13 24.25 46 1.6123734813312 11.648172402475 197.92327202229 1324.5987743399
+96086	59799 1339 317 1058 14 24.25 42 175.77191162109 279.08959960938 9134.3032226562 2029040.8330714
+96087	61138 1346 317 1058 14 24.25 42 483.14999389648 483.14999389648 20292.299743652 9804224.4972913
+96088	62484 1309 330 1058 14.25 24.25 41 5.1994824409485 13.86568069458 431.47320652008 4984.7424104751
+96089	63793 1210 343 1058 14.5 24.25 40 -1.8020706176758 2.5 32.572694778442 80.637688623556
+96090	65003 1249 343 1058 14.5 24.25 40 0.973 10.379214417183 151.49913328347 890.3748650066
+96093	66252 1279 343 1058 14.5 24.25 40 201.49505615234 326.05163574219 10203.651123047 2664958.8881328
+96094	67531 1283 343 1058 14.5 24.25 40 483.14999389648 483.14999389648 19325.999755859 9337356.6640869
+96095	68814 1238 358 1058 14.75 24.25 39 5.6500000953674 15.36420249939 517.44495391846 7231.2258646003
+96096	70052 1115 373 1058 15 24.25 38 -0.043983459472656 2.5 38.681859970093 94.122683661295
+96097	71167 1213 373 1058 15 24.25 38 2.0222203523862 11.200708441096 177.06746291859 1186.2633093605
+96100	72380 634 643 1058 19.5 24.25 20 175.02575683594 222.32641601562 3879.1284790039 756832.03833454
+96101	73014 643 643 1058 19.5 24.25 20 483.14999389648 483.14999389648 9662.9998779297 4668678.3320435
+96102	73657 603 660 1058 19.75 24.25 19 5.6500000953674 14.677951812744 208.67265796661 2466.5625853864
+96103	74260 426 677 1058 20 24.25 18 0.27450561523438 2.5 36.111806869507 87.80904497908
+96104	74686 575 677 1058 20 24.25 18 3.0685369740683 10.756497587458 123.70294919112 965.54835783927
+96107	75261 483 728 1058 20.75 24.25 15 486.85000610352 486.85000610352 7302.7500915527 3555343.9266449
+96108	75744 472 728 1058 20.75 24.25 15 184.17810058594 205.42730712891 2914.883605957 567208.27754922
+96109	76216 450 747 1058 21 24.25 14 5.3999996185303 8.7749996185303 91.448436260223 613.02933759037
+96110	76666 312 768 1058 21.25 24.25 13 -4.5 2.5 1.7246913909912 94.697327639409
+96111	76978 390 768 1058 21.25 24.25 13 0.973 6.8826618500064 44.025270831191 213.65149123529
+96114	77368 450 747 1058 21 24.25 14 483.14999389648 483.14999389648 6764.0999145508 3268074.8324304
+96115	77818 450 747 1058 21 24.25 14 759.49688720703 785.82187652588 10852.737617493 8414003.5481247
+96116	78268 414 768 1058 21.25 24.25 13 5.6500000953674 13.14999961853 122.19999694824 1219.7736818981
+96117	78682 255 791 1058 21.5 24.25 12 2.4999980926514 2.5 29.999998092651 74.99999046326
+96118	78937 384 791 1058 21.5 24.25 12 5.2162187258585 9.8772939209111 90.329754123875 705.60800469607
+96121	79321 420 768 1058 21.25 24.25 13 486.85000610352 486.85000610352 6329.0500793457 3081298.0697589
+96122	79741 414 768 1058 21.25 24.25 13 160.43438720703 181.42681884766 2202.3649291992 373737.29752722
+96123	80155 387 791 1058 21.5 24.25 12 5.6500000953674 8.8210191726685 94.482016563416 756.16475177633
+96124	80542 327 814 1058 21.75 24.25 11 -0.35270309448242 2.5 12.033037185669 28.331686211826
+96125	80869 325 814 1058 21.75 24.25 11 0.973 6.4635356930995 38.568634311144 182.41786864346
+96128	81194 259 883 1058 22.5 24.25 8 486.85000610352 486.85000610352 3894.8000488281 1896183.4275439
+96129	81453 255 883 1058 22.5 24.25 8 214.94219970703 225.29217529297 1753.028137207 384242.31503399
+96130	81708 227 908 1058 22.75 24.25 7 5.6500000953674 9.3999996185303 52.674999237061 407.31685994148
+96131	81935 134 933 1058 23 24.25 6 2.4999980926514 2.5 14.999998092651 37.49999046326
+96132	82069 193 933 1058 23 24.25 6 5.2162187258585 7.303684162087 37.542735715336 237.95938883636

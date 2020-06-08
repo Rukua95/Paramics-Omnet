@@ -1,0 +1,133 @@
+version 2
+run nodebug-36-20200606-15:21:40-18812
+attr configname nodebug
+attr datetime 20200606-15:21:40
+attr experiment nodebug
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=36
+attr measurement ""
+attr network "\"org.car2x.veins.modules.application.ExtTraCIScenarioManagerLaunchd.IntersectionExampleScenario\""
+attr processid 18812
+attr repetition 36
+attr replication #36
+attr resultdir results
+attr runnumber 36
+attr seedset 36
+param **.coreDebug false
+param **.debug false
+param *.**.nic.mac1609_4.bitrate 18Mbps
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.sensitivity -89dBm
+param *.**.nic.phy80211p.thermalNoise -110dBm
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.useThermalNoise true
+param *.annotations.draw false
+param *.connectionManager.alpha 2.0
+param *.connectionManager.carrierFrequency "5.890e9 Hz"
+param *.connectionManager.pMax 20mW
+param *.connectionManager.sat -89dBm
+param *.connectionManager.sendDirect true
+param *.manager.autoShutdown true
+param *.manager.host "\"localhost\""
+param *.manager.launchConfig "xmldoc(\"paramics.launchd.xml\")"
+param *.manager.margin 25
+param *.manager.moduleDisplayString "\"\""
+param *.manager.moduleName "\"node\""
+param *.manager.moduleType "\"org.car2x.veins.nodes.Car\""
+param *.manager.port 9999
+param *.manager.updateInterval 250ms
+param *.node[*0].veinsmobility.accidentCount 0
+param *.node[*0].veinsmobility.accidentDuration 30s
+param *.node[*0].veinsmobility.accidentStart 75s
+param *.node[*].appl.LiderSelectZoneRadio 55.0
+param *.node[*].appl.ShareDataZoneRadio 110.0
+param *.node[*].appl.TiempoSemaforo 30.0
+param *.node[*].appl.beaconInterval 1s
+param *.node[*].appl.beaconPriority 3
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.dataPriority 2
+param *.node[*].appl.debug false
+param *.node[*].appl.headerLength "256 bit"
+param *.node[*].appl.maxOffset 0.005s
+param *.node[*].appl.sendBeacons false
+param *.node[*].appl.sendData true
+param *.node[*].applType "\"Dummy\""
+param *.node[*].mobilityType "\"TraCIMobility\""
+param *.node[*].mobilityType.debug true
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 1.895
+param *.node[*].veinsmobilityType "\"org.car2x.veins.modules.mobility.traci.TraCIMobility\""
+param *.node[*].veinsmobilityType.debug true
+param *.playgroundSizeX 8500m
+param *.playgroundSizeY 8500m
+param *.playgroundSizeZ 50m
+param *.world.use2D false
+param *.world.useTorus false
+
+vector 42793  IntersectionExampleScenario.manager  vehiclesinsim  ETV
+attr type  int
+vector 42794  IntersectionExampleScenario.manager  realtime  ETV
+attr type  int
+attr unit  s
+vector 42797  IntersectionExampleScenario.node[0].veinsmobility  posx  ETV
+vector 42798  IntersectionExampleScenario.node[0].veinsmobility  posy  ETV
+vector 42799  IntersectionExampleScenario.node[0].veinsmobility  speed  ETV
+vector 42800  IntersectionExampleScenario.node[0].veinsmobility  acceleration  ETV
+vector 42801  IntersectionExampleScenario.node[0].veinsmobility  co2emission  ETV
+42793	0	0	0
+42794	0	0	0
+42797	13	3	184.17810058594
+42797	16	3.25	184.17810058594
+42797	19	3.5	185.51251220703
+42797	22	3.75	187.00311279297
+42797	25	4	188.65002441406
+42797	28	4.25	190.453125
+42797	31	4.5	192.41247558594
+42797	34	4.75	194.52813720703
+42797	37	5	196.79998779297
+42797	40	5.25	199.22808837891
+42797	43	5.5	201.8125
+42798	13	3	483.14999389648
+42798	16	3.25	483.14999389648
+42798	19	3.5	483.14999389648
+42798	22	3.75	483.14999389648
+42798	25	4	483.14999389648
+42798	28	4.25	483.14999389648
+42798	31	4.5	483.14999389648
+42798	34	4.75	483.14999389648
+42798	37	5	483.14999389648
+42798	40	5.25	483.14999389648
+42798	43	5.5	483.14999389648
+42799	16	3.25	5.6500000953674
+42799	19	3.5	6.2750000953674
+42799	22	3.75	6.9000000953674
+42799	25	4	7.5250000953674
+42799	28	4.25	8.1499996185303
+42799	31	4.5	8.7749996185303
+42799	34	4.75	9.3999996185303
+42799	37	5	10.02499961853
+42799	40	5.25	10.64999961853
+42799	43	5.5	11.27499961853
+42800	19	3.5	2.5
+42800	22	3.75	2.5
+42800	25	4	2.5
+42800	28	4.25	2.4999980926514
+42800	31	4.5	2.5
+42800	34	4.75	2.5
+42800	37	5	2.5
+42800	40	5.25	2.5
+42800	43	5.5	2.5
+42801	19	3.5	5.2162187258585
+42801	22	3.75	5.6304533568076
+42801	25	4	6.0461819274774
+42801	28	4.25	6.4635356930995
+42801	31	4.5	6.8826618500064
+42801	34	4.75	7.303684162087
+42801	37	5	7.726741696285
+42801	40	5.25	8.1519697732254
+42801	43	5.5	8.5795037135332

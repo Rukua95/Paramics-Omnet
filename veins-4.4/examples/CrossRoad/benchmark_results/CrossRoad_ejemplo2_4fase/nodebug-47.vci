@@ -1,0 +1,139 @@
+file 33025 1591426490                                           
+version 2
+run nodebug-47-20200606-02:54:47-22484
+attr configname nodebug
+attr datetime 20200606-02:54:47
+attr experiment nodebug
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=47
+attr measurement ""
+attr network "\"org.car2x.veins.modules.application.ExtTraCIScenarioManagerLaunchd.IntersectionExampleScenario\""
+attr processid 22484
+attr repetition 47
+attr replication #47
+attr resultdir results
+attr runnumber 47
+attr seedset 47
+param **.coreDebug false
+param **.debug false
+param *.**.nic.mac1609_4.bitrate 18Mbps
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.sensitivity -89dBm
+param *.**.nic.phy80211p.thermalNoise -110dBm
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.useThermalNoise true
+param *.annotations.draw false
+param *.connectionManager.alpha 2.0
+param *.connectionManager.carrierFrequency "5.890e9 Hz"
+param *.connectionManager.pMax 20mW
+param *.connectionManager.sat -89dBm
+param *.connectionManager.sendDirect true
+param *.manager.autoShutdown true
+param *.manager.host "\"localhost\""
+param *.manager.launchConfig "xmldoc(\"paramics.launchd.xml\")"
+param *.manager.margin 25
+param *.manager.moduleDisplayString "\"\""
+param *.manager.moduleName "\"node\""
+param *.manager.moduleType "\"org.car2x.veins.nodes.Car\""
+param *.manager.port 9999
+param *.manager.updateInterval 250ms
+param *.node[*0].veinsmobility.accidentCount 0
+param *.node[*0].veinsmobility.accidentDuration 30s
+param *.node[*0].veinsmobility.accidentStart 75s
+param *.node[*].appl.LiderSelectZoneRadio 55.0
+param *.node[*].appl.ShareDataZoneRadio 110.0
+param *.node[*].appl.TiempoSemaforo 30.0
+param *.node[*].appl.beaconInterval 1s
+param *.node[*].appl.beaconPriority 3
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.dataPriority 2
+param *.node[*].appl.debug false
+param *.node[*].appl.headerLength "256 bit"
+param *.node[*].appl.maxOffset 0.005s
+param *.node[*].appl.sendBeacons false
+param *.node[*].appl.sendData true
+param *.node[*].applType "\"Dummy\""
+param *.node[*].mobilityType "\"TraCIMobility\""
+param *.node[*].mobilityType.debug true
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 1.895
+param *.node[*].veinsmobilityType "\"org.car2x.veins.modules.mobility.traci.TraCIMobility\""
+param *.node[*].veinsmobilityType.debug true
+param *.playgroundSizeX 8500m
+param *.playgroundSizeY 8500m
+param *.playgroundSizeZ 50m
+param *.world.use2D false
+param *.world.useTorus false
+
+vector 53329  IntersectionExampleScenario.manager  vehiclesinsim  ETV
+attr type  int
+vector 53330  IntersectionExampleScenario.manager  realtime  ETV
+attr type  int
+attr unit  s
+vector 53333  IntersectionExampleScenario.node[0].veinsmobility  posx  ETV
+vector 53334  IntersectionExampleScenario.node[0].veinsmobility  posy  ETV
+vector 53335  IntersectionExampleScenario.node[0].veinsmobility  speed  ETV
+vector 53336  IntersectionExampleScenario.node[0].veinsmobility  acceleration  ETV
+vector 53337  IntersectionExampleScenario.node[0].veinsmobility  co2emission  ETV
+vector 53340  IntersectionExampleScenario.node[1].veinsmobility  posx  ETV
+vector 53341  IntersectionExampleScenario.node[1].veinsmobility  posy  ETV
+vector 53342  IntersectionExampleScenario.node[1].veinsmobility  speed  ETV
+vector 53343  IntersectionExampleScenario.node[1].veinsmobility  acceleration  ETV
+vector 53344  IntersectionExampleScenario.node[1].veinsmobility  co2emission  ETV
+vector 53347  IntersectionExampleScenario.node[2].veinsmobility  posx  ETV
+vector 53348  IntersectionExampleScenario.node[2].veinsmobility  posy  ETV
+vector 53349  IntersectionExampleScenario.node[2].veinsmobility  speed  ETV
+vector 53350  IntersectionExampleScenario.node[2].veinsmobility  acceleration  ETV
+vector 53351  IntersectionExampleScenario.node[2].veinsmobility  co2emission  ETV
+vector 53354  IntersectionExampleScenario.node[3].veinsmobility  posx  ETV
+vector 53355  IntersectionExampleScenario.node[3].veinsmobility  posy  ETV
+vector 53356  IntersectionExampleScenario.node[3].veinsmobility  speed  ETV
+vector 53357  IntersectionExampleScenario.node[3].veinsmobility  acceleration  ETV
+vector 53358  IntersectionExampleScenario.node[3].veinsmobility  co2emission  ETV
+vector 53361  IntersectionExampleScenario.node[4].veinsmobility  posx  ETV
+vector 53362  IntersectionExampleScenario.node[4].veinsmobility  posy  ETV
+vector 53363  IntersectionExampleScenario.node[4].veinsmobility  speed  ETV
+vector 53364  IntersectionExampleScenario.node[4].veinsmobility  acceleration  ETV
+vector 53365  IntersectionExampleScenario.node[4].veinsmobility  co2emission  ETV
+vector 53368  IntersectionExampleScenario.node[5].veinsmobility  posx  ETV
+vector 53369  IntersectionExampleScenario.node[5].veinsmobility  posy  ETV
+vector 53370  IntersectionExampleScenario.node[5].veinsmobility  speed  ETV
+vector 53371  IntersectionExampleScenario.node[5].veinsmobility  acceleration  ETV
+vector 53372  IntersectionExampleScenario.node[5].veinsmobility  co2emission  ETV
+53329	5312 13 0 0 0 0 1 0 0 0 0
+53330	5325 13 0 0 0 0 1 0 0 0 0
+53333	5338 1823 4 424 0.75 15.25 59 585.68835449219 785.82187652588 41071.946464539 28822704.190557
+53334	7161 1828 4 424 0.75 15.25 59 486.85000610352 486.85000610352 28724.150360107 13984352.778137
+53335	8989 1785 7 424 1 15.25 58 5.6500000953674 15.64999961853 821.45682621002 12090.50752609
+53336	10774 1599 10 424 1.25 15.25 57 -0.03271484375 2.5 39.869146347046 100.00243678713
+53337	12373 1764 10 424 1.25 15.25 57 2.0947737808434 11.648172402475 224.59436958872 1387.9544694835
+53340	14137 1620 25 424 2.5 15.25 52 486.85000610352 486.85000610352 25316.200317383 12325192.279036
+53341	15757 1598 25 424 2.5 15.25 52 184.17810058594 350.67114257812 13442.133728027 3616570.6047317
+53342	17355 1579 30 424 2.75 15.25 51 5.6500000953674 15.02499961853 685.78361988068 9579.7827948434
+53343	18934 1529 35 424 3 15.25 50 -0.17160415649414 2.5 36.813611984253 93.817300476312
+53344	20463 1550 35 424 3 15.25 50 1.5237915469079 11.200708441096 194.71351628722 1202.4136932293
+53347	22013 1291 80 424 5.25 15.25 41 483.14999389648 483.14999389648 19809.149749756 9570790.5806891
+53348	23304 1291 80 424 5.25 15.25 41 657.36209106445 785.82187652588 29946.498542786 21940686.492774
+53349	24595 1247 87 424 5.5 15.25 40 5.6500000953674 15.64999961853 534.40301418304 7516.2789419705
+53350	25842 1125 94 424 5.75 15.25 39 -0.32978057861328 2.5 38.68263053894 100.24857564568
+53351	26967 1226 94 424 5.75 15.25 39 0.97223939240464 11.648172402475 179.62230438441 1280.6725678196
+53354	28193 703 213 424 10 15.25 22 730.16035461426 785.82187652588 16801.161949158 12837564.577766
+53355	28896 703 213 424 10 15.25 22 486.85000610352 486.85000610352 10710.700134277 5214504.4257459
+53356	29599 662 222 424 10.25 15.25 21 5.6500000953674 15.64999961853 243.58622550964 3065.2525183708
+53357	30261 466 231 424 10.5 15.25 20 -0.03271484375 2.5 39.910543441772 100.00219186681
+53358	30727 637 231 424 10.5 15.25 20 2.0947737808434 11.648172402475 142.7822436647 1207.0538377294
+53361	31364 289 330 424 13.25 15.25 9 483.14999389648 483.14999389648 4348.3499450684 2100905.2494196
+53362	31653 289 330 424 13.25 15.25 9 773.20001220703 785.82187652588 7026.2844314575 5485575.2121343
+53363	31942 255 341 424 13.5 15.25 8 5.6500000953674 10.02499961853 62.699998855591 507.81747729302
+53364	32197 152 352 424 13.75 15.25 7 2.4999980926514 2.5 17.499998092651 43.74999046326
+53365	32349 222 352 424 13.75 15.25 7 5.2162187258585 7.726741696285 45.269477411621 297.66192607747
+53368	32571 128 385 424 14.5 15.25 4 184.17810058594 187.00311279297 740.87182617188 137228.20185051
+53369	32699 128 385 424 14.5 15.25 4 483.14999389648 483.14999389648 1932.5999755859 933735.66640869
+53370	32827 96 398 424 14.75 15.25 3 5.6500000953674 6.9000000953674 18.825000286102 118.90812859058
+53371	32923 39 411 424 15 15.25 2 2.5 2.5 5 12.5
+53372	32962 63 411 424 15 15.25 2 5.2162187258585 5.6304533568076 10.846672082666 58.910942799184

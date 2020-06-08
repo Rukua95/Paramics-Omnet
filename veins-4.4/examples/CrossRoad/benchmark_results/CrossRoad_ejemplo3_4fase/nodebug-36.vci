@@ -1,0 +1,89 @@
+file 4744 1591471303                                            
+version 2
+run nodebug-36-20200606-15:21:40-18812
+attr configname nodebug
+attr datetime 20200606-15:21:40
+attr experiment nodebug
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=36
+attr measurement ""
+attr network "\"org.car2x.veins.modules.application.ExtTraCIScenarioManagerLaunchd.IntersectionExampleScenario\""
+attr processid 18812
+attr repetition 36
+attr replication #36
+attr resultdir results
+attr runnumber 36
+attr seedset 36
+param **.coreDebug false
+param **.debug false
+param *.**.nic.mac1609_4.bitrate 18Mbps
+param *.**.nic.mac1609_4.txPower 20mW
+param *.**.nic.mac1609_4.useServiceChannel false
+param *.**.nic.phy80211p.analogueModels "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.decider "xmldoc(\"config.xml\")"
+param *.**.nic.phy80211p.sensitivity -89dBm
+param *.**.nic.phy80211p.thermalNoise -110dBm
+param *.**.nic.phy80211p.usePropagationDelay true
+param *.**.nic.phy80211p.useThermalNoise true
+param *.annotations.draw false
+param *.connectionManager.alpha 2.0
+param *.connectionManager.carrierFrequency "5.890e9 Hz"
+param *.connectionManager.pMax 20mW
+param *.connectionManager.sat -89dBm
+param *.connectionManager.sendDirect true
+param *.manager.autoShutdown true
+param *.manager.host "\"localhost\""
+param *.manager.launchConfig "xmldoc(\"paramics.launchd.xml\")"
+param *.manager.margin 25
+param *.manager.moduleDisplayString "\"\""
+param *.manager.moduleName "\"node\""
+param *.manager.moduleType "\"org.car2x.veins.nodes.Car\""
+param *.manager.port 9999
+param *.manager.updateInterval 250ms
+param *.node[*0].veinsmobility.accidentCount 0
+param *.node[*0].veinsmobility.accidentDuration 30s
+param *.node[*0].veinsmobility.accidentStart 75s
+param *.node[*].appl.LiderSelectZoneRadio 55.0
+param *.node[*].appl.ShareDataZoneRadio 110.0
+param *.node[*].appl.TiempoSemaforo 30.0
+param *.node[*].appl.beaconInterval 1s
+param *.node[*].appl.beaconPriority 3
+param *.node[*].appl.dataOnSch false
+param *.node[*].appl.dataPriority 2
+param *.node[*].appl.debug false
+param *.node[*].appl.headerLength "256 bit"
+param *.node[*].appl.maxOffset 0.005s
+param *.node[*].appl.sendBeacons false
+param *.node[*].appl.sendData true
+param *.node[*].applType "\"Dummy\""
+param *.node[*].mobilityType "\"TraCIMobility\""
+param *.node[*].mobilityType.debug true
+param *.node[*].veinsmobility.x 0
+param *.node[*].veinsmobility.y 0
+param *.node[*].veinsmobility.z 1.895
+param *.node[*].veinsmobilityType "\"org.car2x.veins.modules.mobility.traci.TraCIMobility\""
+param *.node[*].veinsmobilityType.debug true
+param *.playgroundSizeX 8500m
+param *.playgroundSizeY 8500m
+param *.playgroundSizeZ 50m
+param *.world.use2D false
+param *.world.useTorus false
+
+vector 42793  IntersectionExampleScenario.manager  vehiclesinsim  ETV
+attr type  int
+vector 42794  IntersectionExampleScenario.manager  realtime  ETV
+attr type  int
+attr unit  s
+vector 42797  IntersectionExampleScenario.node[0].veinsmobility  posx  ETV
+vector 42798  IntersectionExampleScenario.node[0].veinsmobility  posy  ETV
+vector 42799  IntersectionExampleScenario.node[0].veinsmobility  speed  ETV
+vector 42800  IntersectionExampleScenario.node[0].veinsmobility  acceleration  ETV
+vector 42801  IntersectionExampleScenario.node[0].veinsmobility  co2emission  ETV
+42793	3332 13 0 0 0 0 1 0 0 0 0
+42794	3345 13 0 0 0 0 1 0 0 0 0
+42797	3358 317 13 43 3 5.5 11 184.17810058594 201.8125 2104.7561645508 403103.53486123
+42798	3675 329 13 43 3 5.5 11 483.14999389648 483.14999389648 5314.6499328613 2567773.0826239
+42799	4004 298 16 43 3.25 5.5 10 5.6500000953674 11.27499961853 84.624998092651 748.36558556557
+42800	4302 174 19 43 3.5 5.5 9 2.4999980926514 2.5 22.499998092651 56.24999046326
+42801	4476 268 19 43 3.5 5.5 9 5.2162187258585 8.5795037135332 62.00095089838 437.72442123158
