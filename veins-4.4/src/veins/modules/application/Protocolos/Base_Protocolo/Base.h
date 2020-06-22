@@ -95,6 +95,7 @@ protected:
 
 	double time_in_junction;
 	double intersection_exit_time;
+	double time_in_wait;
 
 	bool vehicle_removed = false;
 

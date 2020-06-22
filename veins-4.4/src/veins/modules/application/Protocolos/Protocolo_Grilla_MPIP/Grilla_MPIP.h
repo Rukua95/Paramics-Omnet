@@ -105,6 +105,8 @@ protected:
 
 	void removeVehicle(int reason);
 
+	void processMsg(NodeInfoMessage* msg);
+
 public:
 	std::string test = "nada";
 };

@@ -87,6 +87,7 @@ void Base::initialize(int stage)
 		// Variable utilizada para calcular tiempo dentro de la interseccion.
 		time_in_junction = simTime().dbl();
 		intersection_exit_time = -1.0;
+		time_in_wait = -1.0;
 
         break;
 
@@ -155,6 +156,18 @@ void Base::handleSelfMsg(cMessage *msg)
 {
 	Base::getBasicParameters();
 
+	if(axis_speed < 0.0001)
+	{
+		if(time_in_wait < 0.0)
+			time_in_wait = 0.0;
+		else
+			time_in_wait += ping_interval.dbl();
+	}
+	else
+	{
+		time_in_wait = -1.0;
+	}
+
 	if(distance_to_junction <= lider_select_radio)
 	{
 		double dist_x = std::abs(position.x - intersection.x);
@@ -169,6 +182,19 @@ void Base::handleSelfMsg(cMessage *msg)
 				Base::registerOutOfJunction();
 			}
 		}
+	}
+
+	bool first = true;
+	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
+	{
+		if(it->second.distance_to_junction < distance_to_junction)
+			first = false;
+	}
+
+	if(first)
+	{
+		ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
+		sceman->saveWaitingTime(direction_junction, time_in_wait);
 	}
 }
 
@@ -258,8 +284,10 @@ int Base::finalDirection()
  */
 void Base::smartDetention()
 {
-	// Verificar si no hay vehiculo que se este deteniendo mas adelante
+	// Si esta fuera del radio de seleccion de lider, aun no es necesario que desacelere
 	bool verificador = (distance_to_junction > lider_select_radio);
+
+	// Verificar si no hay vehiculo que se este deteniendo mas adelante
 	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
 	{
 		if((it->second.stoping || it->second.stoped) && it->second.distance_to_junction < distance_to_junction)
@@ -281,6 +309,7 @@ void Base::smartDetention()
 	if(verificador)
 		EV << ">>> Cant stop\n";
 
+	// Vehiculo puede detenerse: es el primero
 	if(!stoping && !verificador)
 	{
 		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
