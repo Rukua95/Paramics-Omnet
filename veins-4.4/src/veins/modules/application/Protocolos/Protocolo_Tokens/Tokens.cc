@@ -26,13 +26,16 @@ void Tokens::initialize(int stage)
 		individual_priority = 0.0;
 		sum_priority = 0.0;
 
+		// Parametros de prioridad
 		k_distance = 1.0;
 		k_velocity = 1.0;
 		k_idle_time = 1.0;
 		k_cars = 1.0;
 
+		// Para el calculo de tiempo en detencion
 		idling_time = 0.0;
 
+		// Id del token actualmente en uso
 		id_token_in_use = -1;
 
 
@@ -110,7 +113,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	vehicleData data;
 	prepareMsgData(data, 0);
 
-
+	// Warm-up message
 	if(msg == sharedDataZoneMessage)
 	{
 		info_message->setData(data);
@@ -169,10 +172,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 					if(token_vector[t].car_id_block != myId)
 						alredy_blocked = false;
 
-					if(token_vector[t].car_id_block != -1)
-						can_block_token = false;
-
-					if(!token_vector[t].car_id_reserve.empty())
+					if(token_vector[t].car_id_block != -1 || !token_vector[t].car_id_reserve.empty())
 						can_block_token = false;
 
 				}
@@ -180,11 +180,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 				// Detencion/Continuacion segun estado de los tokens.
 				if(alredy_blocked)
 				{
-					traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-					traciVehicle->setSpeed(-1.0);
-
-					stoped = false;
-					stoping = false;
+					Base::continueTravel();
 
 					prepareMsgData(data, 2);
 
@@ -196,11 +192,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 				{
 					if(can_block_token)
 					{
-						traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-						traciVehicle->setSpeed(-1.0);
-
-						stoped = false;
-						stoping = false;
+						Base::continueTravel();
 
 						prepareMsgData(data, 2);
 
@@ -210,7 +202,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 					}
 					else
 					{
-						smartDetention();
+						detention();
 
 					}
 				}
@@ -252,6 +244,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 void Tokens::onData(WaveShortMessage *wsm)
 {
 	EV << ">>> Data message <<<\n";
+	Base::getBasicParameters();
 	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
 	vehicleData data = msg->getData();
 
@@ -311,6 +304,7 @@ void Tokens::onData(WaveShortMessage *wsm)
 	// Tipo de mensaje 2: vehiculo bloquea tokens
 	if(tipe == 2)
 	{
+		// Revisamos si tokens reservados por emisor intersectan los reservados por receptor
 		for(int t : sender_tokens)
 		{
 			if(token_vector[t].car_id_block != sender && token_vector[t].car_id_block != -1)
@@ -524,7 +518,7 @@ void Tokens::getTokens()
 void Tokens::calculateIndividualPriority()
 {
 	double d = std::max(0.0, shared_data_radio - distance_to_junction);
-	individual_priority = k_distance * d + k_velocity * axis_speed + k_idle_time * idling_time + k_cars * sum_priority;
+	individual_priority = (k_distance * d) + (k_velocity * axis_speed) + (k_idle_time * idling_time) + (k_cars * sum_priority);
 }
 
 

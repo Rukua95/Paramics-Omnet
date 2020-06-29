@@ -55,9 +55,12 @@ void Base::initialize(int stage)
 		acceleration = 0.0;
 		got_last_accel = false;
 
+		vehicle_removed = false;
+		stuck = 0;
+
 		// Variables de maxima y minima aceleracion, y maxima velocidad (ajustadas manualmente a la simulacion)
-		max_accel = 2.5;
-		min_accel = -4.5;
+		max_accel = 2.5; // traciVehicle->getDeccel();
+		min_accel = -4.5; // traciVehicle->getAccel();
 		max_velocidad = 16;
 
 		// Tablas de informacion de vehiculos, separadas segun direccion inicial de los vehiculos.
@@ -132,9 +135,18 @@ void Base::finish()
 		arrived = true;
 	
 	// Registro de informacion.
+	recordScalar("InitialDirection", direction_junction);
+	recordScalar("FinalDirection", direction_out);
 
 	recordScalar("VehicleRemoved", vehicle_removed);
     recordScalar("ArrivedAtDest", arrived);
+	if(!arrived)
+	{
+		recordScalar("DistanceJunction", distance_to_junction);
+	}
+
+	recordScalar("Stuck", stuck);
+	recordScalar("ReferenceTime", stuck_reference_time)
 
 	recordScalar("IntersectionEnterTime", time_in_junction);
 	recordScalar("IntersectionExitTime", intersection_exit_time);
@@ -156,7 +168,7 @@ void Base::handleSelfMsg(cMessage *msg)
 {
 	Base::getBasicParameters();
 
-	if(axis_speed < 0.0001)
+	if(axis_speed < 0.01)
 	{
 		if(time_in_wait < 0.0)
 			time_in_wait = 0.0;
@@ -187,7 +199,7 @@ void Base::handleSelfMsg(cMessage *msg)
 	bool first = true;
 	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
 	{
-		if(it->second.distance_to_junction < distance_to_junction)
+		if(it->second.distance_to_junction < distance_to_junction && distance_to_junction < shared_data_radio)
 			first = false;
 	}
 
@@ -195,6 +207,12 @@ void Base::handleSelfMsg(cMessage *msg)
 	{
 		ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
 		sceman->saveWaitingTime(direction_junction, time_in_wait);
+
+		if(time_in_wait > 60)
+		{
+			stuck_reference_time = simTime().dbl();
+			stuck = std::max(stuck, time_in_wait);
+		}
 	}
 }
 
@@ -281,8 +299,9 @@ int Base::finalDirection()
 
 /**
  * Funcion para simular una detencion hacia la esquina
+ * TODO: mejorar version para detension en interseccion
  */
-void Base::smartDetention()
+void Base::detention()
 {
 	// Si esta fuera del radio de seleccion de lider, aun no es necesario que desacelere
 	bool verificador = (distance_to_junction > lider_select_radio);
@@ -300,7 +319,7 @@ void Base::smartDetention()
 			stoping = false;
 			stoped = false;
 
-			EV << "    Someone near is stoping before\n";
+			EV << "    Someone stoping in front\n";
 
 			break;
 		}
@@ -309,6 +328,7 @@ void Base::smartDetention()
 	if(verificador)
 		EV << ">>> Cant stop\n";
 
+	// TODO: arreglar modelo de detencion (verificar distancia ha interseccion y despues usar flags stop y stoping)
 	// Vehiculo puede detenerse: es el primero
 	if(!stoping && !verificador)
 	{
@@ -327,12 +347,22 @@ void Base::smartDetention()
 			traciVehicle->setSpeed(1.5);
 		else if(distance_to_junction > 17)
 			traciVehicle->setSpeed(0.75);
-		else if(distance_to_junction > 15)
+		else if(distance_to_junction <= 17)
 		{
 			traciVehicle->setSpeed(0.0);
 			stoped = true;
 		}
 	}
+}
+
+
+
+void Base::continueTravel()
+{
+	traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
+	traciVehicle->setSpeed(-1.0);
+	stoped = false;
+	stoping = false;
 }
 
 
@@ -413,18 +443,6 @@ void Base::getBasicParameters()
 	{
 		axis_speed = std::abs(velocity.x);
 		distance_to_junction = std::abs(traci->junction("1").getPosition().x - position.x);
-	}
-
-	// Aceleracion.
-	if(got_last_accel)
-	{
-		last_vel = axis_speed;
-		got_last_accel = false;
-	}
-	else
-	{
-		acceleration = (axis_speed - last_vel) / sim_update_interval;
-		got_last_accel = true;
 	}
 
 	// Tiempo aproximado para llegar a interseccion.

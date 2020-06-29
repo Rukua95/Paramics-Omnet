@@ -57,6 +57,8 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	if(!in_block_area)
 		priority = simTime().dbl() + time_to_junction;
 
+	EV << "    priority: " << priority << "\n";
+
 	if(cell_list.size() == 0)
 		getCells();
 
@@ -87,9 +89,10 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	if(distance_to_junction <= lider_select_radio)
 	{
 		if(!in_block_area)
+		{
 			priority = simTime().dbl();
-
-		in_block_area = true;
+			in_block_area = true;
+		}
 
 		EV << ">>> Zona de reparto y bloqueo de celdas\n";
 		double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
@@ -114,7 +117,6 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 			if(crossing)
 			{
 				EV << ">>> Out of junction <<<\n";
-				
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 				
@@ -144,10 +146,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 					{
 						alredy_blocked = false;
 						
-						if(cell_register[t].car_id_block != -1)
-							can_block_cell = false;
-
-						if(!cell_register[t].car_id_reserve.empty())
+						if(cell_register[t].car_id_block != -1 || !cell_register[t].car_id_reserve.empty())
 							can_block_cell = false;
 					}
 				}
@@ -156,11 +155,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 				if(alredy_blocked)
 				{
 					EV << ">>> I blocked cell\n";
-					traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-					traciVehicle->setSpeed(-1.0);
-
-					stoped = false;
-					stoping = false;
+					Base::continueTravel();
 
 					prepareMsgData(data, 2);
 
@@ -174,11 +169,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 					if(can_block_cell)
 					{
 						EV << ">>> Can block cells\n";
-						traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-						traciVehicle->setSpeed(-1.0);
-
-						stoped = false;
-						stoping = false;
+						Base::continueTravel();
 
 						prepareMsgData(data, 2);
 
@@ -190,7 +181,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 					else
 					{
 						EV << ">>> Cant block cells, stoping car\n";
-						smartDetention();
+						detention();
 
 					}
 				}

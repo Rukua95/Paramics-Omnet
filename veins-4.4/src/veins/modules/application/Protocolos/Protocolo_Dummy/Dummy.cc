@@ -53,6 +53,10 @@ void Dummy::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	if(distance_to_junction <= lider_select_radio)
 	{
+
+		traciVehicle->slowDown(0.5, 0.0);
+		return;
+
 		EV << ">>> Zona de reparto y bloqueo de celdas\n";
 		double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
 		double dist_y = std::abs(position.y - traci->junction("1").getPosition().y);

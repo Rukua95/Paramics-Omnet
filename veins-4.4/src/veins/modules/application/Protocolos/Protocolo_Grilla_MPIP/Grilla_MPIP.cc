@@ -152,10 +152,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 			if(id_cell_end == cell_list.size() - 1)
 			{
 				EV << "    Todas las celdas reservadas\n";
-				traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-				traciVehicle->setSpeed(-1);
-				stoped = false;
-				stoping = false;
+				Base::continueTravel();
 
 				// Determinar si vehiculo esta bloqueado
 				if(detention_time < 0.0 && axis_speed <= 0.01)
@@ -227,10 +224,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 					{
 						alredy_blocked = false;
 						
-						if(cell_register[t].car_id_block != -1)
-							can_block_cell = false;
-
-						if(!cell_register[t].car_id_reserve.empty())
+						if(cell_register[t].car_id_block != -1 || !cell_register[t].car_id_reserve.empty())
 							can_block_cell = false;
 					}
 
@@ -254,10 +248,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 					if(id_cell_end == cell_list.size() - 1)
 					{
 						EV << ">>> I blocked cell\n";
-						traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
-						traciVehicle->setSpeed(-1);
-						stoped = false;
-						stoping = false;
+						Base::continueTravel();
 
 						// Determinar si vehiculo esta bloqueado
 						if(detention_time < 0.0 && axis_speed < 0.001)
@@ -292,7 +283,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 				else
 				{
 					EV << ">>> Cant block cells, stoping car\n";
-					smartDetention();
+					detention();
 
 				}
 			}
@@ -691,10 +682,10 @@ void Grilla_MPIP::cellsUsed()
 void Grilla_MPIP::detentionLastCell()
 {
 	// TODO: mejorar presicion de detencion
+	traciVehicle->setColor(Veins::TraCIColor(0, 255, 255, 0));
 	stoped = false;
 	stoping = false;
 
-	traciVehicle->setColor(Veins::TraCIColor(0, 255, 255, 0));
 	EV << ">>> Preparando detencion dentro de interseccion\n";
 
 	if(id_cell_end == id_cell_begin)

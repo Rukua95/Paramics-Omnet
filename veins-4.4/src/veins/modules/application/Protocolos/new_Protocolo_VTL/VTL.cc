@@ -1,8 +1,8 @@
 /*
-Implementacion de protocolo de semaforos virtuales (VTL) con tiempo de espera.
+Implementacion de protocolo de semaforos virtuales (new_VTL).
 */
 
-#include <veins/modules/application/Protocolos/Protocolo_VTL/VTL.h>
+#include <veins/modules/application/Protocolos/new_Protocolo_VTL/VTL.h>
 #include <veins/modules/application/ExtTraCIScenarioManagerLaunchd/ExtTraCIScenarioManagerLaunchd.h>
 #include <veins/modules/mobility/traci/TraCIColor.h>
 #include <veins/modules/mobility/traci/TraCIScenarioManager.h>
@@ -10,9 +10,9 @@ Implementacion de protocolo de semaforos virtuales (VTL) con tiempo de espera.
 #include <algorithm>
 
 
-Define_Module(VTL);
+Define_Module(new_VTL);
 
-void VTL::initialize(int stage)
+void new_VTL::initialize(int stage)
 {
     Base::initialize(stage);
 
@@ -49,13 +49,13 @@ void VTL::initialize(int stage)
     }
 }
 
-void VTL::finish()
+void new_VTL::finish()
 {
     Base::finish();
 }
 
 
-void VTL::handleSelfMsg(cMessage *msg){
+void new_VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
@@ -100,10 +100,15 @@ void VTL::handleSelfMsg(cMessage *msg){
 		exist_lane_lider = false;
 		stop_time = -1.0;
 
-		Base::continueTravel();
+		stoped = false;
+		stoping = false;
 
 		isExtraWaitingTime = false;
 		extraWaitingTime = -1.0;
+
+
+		traciVehicle->setSpeed(-1);
+		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 
 		// Enviar mensajes sobre termino de tiempo de espera.
 		prepareMsgData(data, 2);
@@ -119,7 +124,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 
 	/////////////////////////////////////////////////////////////////
-	// Durante periodo de tiempo de espera extra.
+	// Periodo de tiempo de espera extra.
 	/////////////////////////////////////////////////////////////////
 	if(isExtraWaitingTime)
 	{
@@ -164,10 +169,13 @@ void VTL::handleSelfMsg(cMessage *msg){
 			exist_lane_lider = false;
 			stop_time = -1.0;
 
-			Base::continueTravel();
+			stoped = false;
+			stoping = false;
 
 			prepareMsgData(data, 2);
 
+			traciVehicle->setSpeed(-1);
+			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 		}
 
 		info_message->setData(data);
@@ -193,10 +201,13 @@ void VTL::handleSelfMsg(cMessage *msg){
 			exist_lane_lider = false;
 			stop_time = -1.0;
 
-			Base::continueTravel();
+			stoped = false;
+			stoping = false;
 
 			prepareMsgData(data, 2);
 
+			traciVehicle->setSpeed(-1);
+			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 		}
 	}
 
@@ -247,17 +258,22 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 		if(!exist_lider)
 		{
-			// Se decide el lider segun distancia y timepo de llegada estimada a interseccion.
+			// Se implementaron distintas formas de decidir el lider
+			//	1. segun diferencia de distancia a interseccion y tiempo de llegada estimada.
 			bool selected_lider = false;
 
-			for(int i=0; i<2; i++)
+			for(int i=0; i<=2; i+=2)
 			{
-				int d = (direction_junction + 1 + 2*i) % 4;
+				int d = (direction_junction + 1 + i) % 4;
 				for(auto it1 = carTable[d].begin(); it1 != carTable[d].end(); it1++)
 				{
+					int id1 = it1->first;
+					int direction1 = it1->second.direction_junction;
 					double time1 = it1->second.time_to_junction;
 					double dist1 = it1->second.distance_to_junction;
 
+					EV << "    id: " << id1 << "\n";
+					EV << "    direction: " << direction1 << "\n";
 					EV << "    time: " << time1 << "\n";
 					EV << "    dist: " << dist1 << "\n";
 					EV << "    delta t: " << std::abs(time1 - time_to_junction) << "\n";
@@ -310,7 +326,6 @@ void VTL::handleSelfMsg(cMessage *msg){
 			return ;
 		}
 
-		// TODO: verificar necesidad de la siguiente linea, modelo de 2 fases no presento colision
 		// Caso: auto va a doblar a la izquierda.
 		if(direction_to_left)
 		{
@@ -414,8 +429,9 @@ void VTL::handleSelfMsg(cMessage *msg){
 					{
 						if((std::abs(t_real1 - t_real2) <= 0.5 && secondary_best >= 3.0) || t_real1 < t_real2)
 						{
-							Base::continueTravel();
-
+							traciVehicle->setSpeed(-1.0);
+							stoped = false;
+							stoping = false;
 							crossing_left = true;
 						}
 						else
@@ -428,8 +444,9 @@ void VTL::handleSelfMsg(cMessage *msg){
 				}
 				else
 				{
-					Base::continueTravel();
-
+					traciVehicle->setSpeed(-1.0);
+					stoped = false;
+					stoping = false;
 					crossing_left = true;
 				}
 			}
@@ -465,12 +482,11 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 }
 
-void VTL::onData(WaveShortMessage *wsm)
+void new_VTL::onData(WaveShortMessage *wsm)
 {
 	// Auto que recibe mensaje salio de la interseccion.
 	if(outJunction)
 	{
-		distance_to_junction = -1;
 		EV << ">>> OUT OF JUNCTION <<<\n";
 		return ;
 	}
@@ -484,7 +500,6 @@ void VTL::onData(WaveShortMessage *wsm)
 
 
 	EV << ">>> Data message <<<\n";
-	Base::getBasicParameters();
 	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
 	vehicleData data = msg->getData();
 
@@ -520,9 +535,11 @@ void VTL::onData(WaveShortMessage *wsm)
 			if(is_lane_lider && direction_junction % 2 == data.direction_junction % 2)
 			{
 				is_lane_lider = false;
+				stoped = false;
+				stoping = false;
+				traciVehicle->setSpeed(-1);
 
-				Base::continueTravel();
-
+				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 			}
 
 			if(!data.isNewLider)
@@ -671,7 +688,7 @@ void VTL::onData(WaveShortMessage *wsm)
 	}
 }
 
-void VTL::onBeacon(WaveShortMessage *wsm){
+void new_VTL::onBeacon(WaveShortMessage *wsm){
 
 }
 
@@ -679,7 +696,7 @@ void VTL::onBeacon(WaveShortMessage *wsm){
 /**
  * Funcion que prepara contenido de mensaje enviado por los auto.
  */
-void VTL::prepareMsgData(vehicleData& data, int msgTipe)
+void new_VTL::prepareMsgData(vehicleData& data, int msgTipe)
 {
 	Base::prepareMsgData(data, msgTipe);
 
@@ -698,7 +715,7 @@ void VTL::prepareMsgData(vehicleData& data, int msgTipe)
 /**
  * Determina la direccion final de un auto
  */
-bool VTL::isGoingLeft()
+bool new_VTL::isGoingLeft()
 {
 	bool left = ((direction_junction + 3) % 4 == direction_out);
 	EV << "    arrival direction: " << direction_out << "\n";
@@ -716,7 +733,7 @@ bool VTL::isGoingLeft()
 /**
  * Funcion que determina si en otra calle puede existir un lider, ademas de calcular el tiempo de espera extra si getWaitingTime es true
  */
-void VTL::existNextLider(bool getWaitingTime)
+void new_VTL::existNextLider(bool getWaitingTime)
 {
 	// Revisar existencia de posible lider en la otra calle.
 	EV << ">>> Searching for next lider.\n";
@@ -755,7 +772,7 @@ void VTL::existNextLider(bool getWaitingTime)
 /**
  * Funcion que determina si una auto puede ser lider, dada la velocidad y distancia a interseccion.
  */
-bool VTL::canBeLider(double velocity, double distance)
+bool new_VTL::canBeLider(double velocity, double distance)
 {
 	double d = distance - 17.0;
 	double v = velocity;

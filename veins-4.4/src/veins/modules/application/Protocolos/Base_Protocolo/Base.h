@@ -97,7 +97,9 @@ protected:
 	double intersection_exit_time;
 	double time_in_wait;
 
-	bool vehicle_removed = false;
+	bool vehicle_removed;
+	double stuck_reference_time;
+	double stuck;
 
 
 	// Tablas de informacion
@@ -128,12 +130,14 @@ protected:
 	
 	int finalDirection();
 	void prepareMsgData(vehicleData& data, int msgTipe);
-	void smartDetention();
 	void timeToJunction();
 	void getBasicParameters();
 	void detectColision(vehicleData data);
 	void getCarPoint(std::vector<Coord> &lim, double theta);
 	void registerOutOfJunction();
+
+	void detention();
+	void continueTravel();
 
 };
 
