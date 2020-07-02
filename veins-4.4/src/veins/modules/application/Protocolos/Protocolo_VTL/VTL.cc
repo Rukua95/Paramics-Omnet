@@ -29,10 +29,9 @@ void VTL::initialize(int stage)
 		isExtraWaitingTime = false;
 
 		direction_to_left = false;
+		crossing_left = false;
 
 		stop_time = -1.0;
-
-		crossing_left = false;
 
 		firstCar = std::vector<int>(4, -1);
 		
@@ -309,32 +308,25 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 			return ;
 		}
+		
 
-		// TODO: verificar necesidad de la siguiente linea, modelo de 2 fases no presento colision
 		// Caso: auto va a doblar a la izquierda.
 		if(direction_to_left)
 		{
 			EV << ">>> Going left, waiting window to pass.\n";
 			// Determinamos auto que va primero en la pista contraria.
-			double best_time = 1e18;
-			double secondary_best = 1e18;
-			double best_distance = 1e18;
-			double best_speed = 0;
 
-			bool toLeft = true;
 			bool isFirst = true;
 			bool someone_crossing = false;
-
 
 			// Determinar si este vehiculo es primero
 			int d = direction_junction;
 			for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 			{
-				// Auto revisado esta en la misma pista y mas cerca de la interseccion
+				// Vehiculo actual no es el primero
 				if(it->second.distance_to_junction < distance_to_junction)
 				{
 					isFirst = false;
-					break;
 				}
 
 				if(it->second.crossing)
@@ -343,20 +335,35 @@ void VTL::handleSelfMsg(cMessage *msg){
 				}
 			}
 
+			double secondary_best_time = 1e18;
+			double secondary_best_dist = 1e18;
+			double best_time = 1e18;
+			double best_distance = 1e18;
+			double best_speed = 0;
+			bool toLeft = true;
+
 			// Determinar cual vehiculo es primero en pista contraria
 			d = (d+2) % 4;
 			for(auto it = carTable[d].begin(); it != carTable[d].end() && isFirst; it++)
 			{
-				// Auto revisado esta en la otra pista.
 				if(best_distance > it->second.distance_to_junction)
 				{
-					best_distance = it->second.distance_to_junction;
+					if(secondary_best_dist > best_distance)
+					{
+						secondary_best_time = best_time;
+						secondary_best_dist = best_distance;
+					}
 
-					secondary_best = best_time;
+					best_distance = it->second.distance_to_junction;
 					best_time = it->second.time_to_junction;
 
 					best_speed = it->second.axis_speed;
 					toLeft = it->second.goingLeft;
+				}
+				else if(secondary_best_dist > it->second.distance_to_junction)
+				{
+					secondary_best_dist = it->second.distance_to_junction;
+					secondary_best_time = it->second.time_to_junction;
 				}
 
 				if(it->second.crossing)
@@ -380,7 +387,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 			}
 			
 			
-			EV << ">>> Data del otro auto\n";
+			EV << ">>> Data de auto primer auto en pista contraria\n";
 			EV << "    best_time: " << best_time << "\n";
 			EV << "    best_speed: " << best_speed << "\n";
 			EV << "    best_distance: " << best_distance << "\n";
@@ -390,14 +397,16 @@ void VTL::handleSelfMsg(cMessage *msg){
 			// Decidir si doblar a la izquierda o no.
 			if(!crossing_left)
 			{
-				// Tiempo de llegada conciderando velocidad y aceleracion maxima
+				// Tiempo de llegada considerando velocidad y aceleracion maxima
 
 				double t_real1 = time_to_junction;
 				double t_real2 = best_time;
+				double t_real3 = secondary_best_time;
 
 				EV << ">>> Tiempos\n";
 				EV << "    t_real de este auto: " << t_real1 << "\n";
 				EV << "    t_real de otro auto: " << t_real2 << "\n";
+				EV << "    t_real de 2do auto: " << t_real3 << "\n";
 				EV << "    t_ventaja: " << t_real2 - t_real1 << "\n";
 
 				//////////////////////////////////////////////////////
@@ -412,10 +421,10 @@ void VTL::handleSelfMsg(cMessage *msg){
 					EV << ">>> No hay tiempo para doblar\n";
 					if(toLeft)
 					{
-						if((std::abs(t_real1 - t_real2) <= 0.5 && secondary_best >= 3.0) || t_real1 < t_real2)
+						//if((std::abs(t_real1 - t_real2) <= 0.5 && secondary_best >= 3.0) || t_real1 < t_real2)
+						if(t_real3 - t_real1 <= 4.0)
 						{
 							Base::continueTravel();
-
 							crossing_left = true;
 						}
 						else
@@ -429,7 +438,6 @@ void VTL::handleSelfMsg(cMessage *msg){
 				else
 				{
 					Base::continueTravel();
-
 					crossing_left = true;
 				}
 			}
