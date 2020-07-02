@@ -25,10 +25,12 @@ void Grilla_CCIP::initialize(int stage)
 		id_cell_in_use = -1;
 
 		in_block_area = false;
+		in_cell_selection_zone = false;
 
 		// Tabla: celdas para vehiculo con direccion inicial i y direccion final j.
 		cells_table = std::vector<std::vector<std::vector<int> > >(4, std::vector<std::vector<int>>(4, std::vector<int>()));
 		cell_register.resize(5);
+
 		setCells();
 
         break;
@@ -55,7 +57,18 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	// Calculo de prioridad
 	/////////////////////////////////////////////////////////////////
 	if(!in_block_area)
+	{
+		double aux_time = time_to_junction;
+		double aux_dist = distance_to_junction;
+
+		distance_to_junction += 13;
+		distance_to_junction -= lider_select_radio;
+		Base::timeToJunction();
+
 		priority = simTime().dbl() + time_to_junction;
+		time_to_junction = aux_time;
+		distance_to_junction = aux_dist;
+	}
 
 	EV << "    priority: " << priority << "\n";
 
@@ -106,11 +119,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
-			//cellsUsed();
-			prepareMsgData(data, 3);
-
 		}
-		// Vehiculo aun no llega a la interseccion o ya salio
 		else
 		{
 			// Vehiculo salio de la interseccion
@@ -129,60 +138,37 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 			// vehiculo entrando a la interseccion.
 			else
 			{
+				// mensaje para ciclo de obtencion de informacion
+				if(!in_cell_selection_zone)
+				{
+					in_cell_selection_zone = true;
+					info_message->setData(data);
+					sendWSM((WaveShortMessage*) info_message->dup());
+					
+					scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
+
+					return;
+				}
+				// TODO: cambiar forma de elegir si se puede cruzar
+				/*
+				- Revisar vehiculos que tienen mejor prioridad
+					-> tal vez hay que esperar un ciclo de simulacion
+				- Cuando un vehiculo se va de la interseccion, hay que revisar si mi prioridad me permite tomar las celdas
+				*/
 				// Comparacion de prioridades.
-				bool can_block_cell = true;
-				bool alredy_blocked = true;
-				for(int t : cell_list)
+
+				// Comparacion de prioridades con vehiculos en registrados.
+				for(int i=0; i<4; ++i)
 				{
-					EV << ">>> Cell " << t << ":\n";
-					EV << "    Block by: " << cell_register[t].car_id_block << "\n";
-					EV << "    Reserve by: ";
-					for(int c : cell_register[t].car_id_reserve)
-						EV << c << " ";
-
-					EV << "\n";
-
-					if(cell_register[t].car_id_block != myId)
+					if(better_priority_cars.size() > 0)
 					{
-						alredy_blocked = false;
-						
-						if(cell_register[t].car_id_block != -1 || !cell_register[t].car_id_reserve.empty())
-							can_block_cell = false;
+						EV << "Existen vehiculos de mejor prioridad\n";
+						Base::detention();
 					}
-				}
-
-				// Este vehiculo ya bloqueo las celdas
-				if(alredy_blocked)
-				{
-					EV << ">>> I blocked cell\n";
-					Base::continueTravel();
-
-					prepareMsgData(data, 2);
-
-					for(int t : cell_list)
-						cell_register[t].block(myId);
-
-				}
-				else
-				{
-					// Vehiculo no bloqueo las celdas, pero tiene prioridad para hacerlo.
-					if(can_block_cell)
-					{
-						EV << ">>> Can block cells\n";
-						Base::continueTravel();
-
-						prepareMsgData(data, 2);
-
-						for(int t : cell_list)
-							cell_register[t].block(myId);
-
-					}
-					// Vehiculo no tiene prioridad para reservar celdas, tiene que esperar
 					else
 					{
-						EV << ">>> Cant block cells, stoping car\n";
-						detention();
-
+						EV << "No existe vehiculo con mejor prioridad\n";
+						Base::continueTravel();
 					}
 				}
 			}
@@ -256,6 +242,8 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	double sender_dist = data.distance_to_junction;
 
 	std::vector<int> sender_cells = cells_table[sender_in][sender_out];
+	double sender_priority = data.priority;
+	int sender_cell_in_use = data.id_cell_begin;
 
 
 	/////////////////////////////////////////////////////////////////
@@ -268,98 +256,13 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	{
 		EV << ">>> Delete car " << sender << " from table <<<\n";
 		carTable[sender_in].erase(sender);
-
-		// TODO: cambiar lo siguiente para tipe == 2
-		for(int t : sender_cells)
-		{
-			if(cell_register[t].car_id_block == sender)
-				cell_register[t].unblock();
-
-			cell_register[t].release(sender);
-		}
+		better_priority_cars.erase(sender);
 
 		return ;
-	}
-
-	// Tipo de mensaje 2: vehiculo bloquea celdas
-	if(tipe == 2)
-	{
-		for(int t : sender_cells)
-		{
-			if(cell_register[t].car_id_block != sender && cell_register[t].car_id_block != -1)
-			{
-				EV << ">>> Parece haber un conflicto\n";
-				EV << "    Vehiculo " << sender << " esta bloqueando celda " << t << "\n";
-				EV << "    Pero vehiculo " << cell_register[t].car_id_block << " ya lo tiene bloqueado\n";
-
-				// Este conflicto no puede ser debido a un cambio en la prioridad de uno de los vehiculos
-				// Hay dos opciones: 1) ambos vehiculos bloquearon al mismo tiempo o 2) alguien esta bloqueando de forma forzada.
-
-				int id_conflict_car = cell_register[t].car_id_block;
-				int direction_conflict_car = -1;
-				double priority_conflict_car = 0.0;
-				double distance_conflict_car = 0.0;
-
-				EV << ">>> Obteniendo datos vehiculo " << id_conflict_car << "\n";
-				for(int i=0; i<4; ++i)
-				{
-					if(carTable[i].count(id_conflict_car))
-					{
-						direction_conflict_car = carTable[i][id_conflict_car].direction_junction;
-						priority_conflict_car = carTable[i][id_conflict_car].priority;
-						distance_conflict_car = carTable[i][id_conflict_car].distance_to_junction;
-					}
-				}
-
-				bool change_block = false;
-
-				// Si ambos vehiculos tienen la misma direccion inicial, bloque el vehiculo mas cercano.
-				if(direction_conflict_car == data.direction_junction)
-				{
-					if(sender_dist < distance_conflict_car)
-						change_block = true;
-				}
-				// En caso contrario, bloque el vehiculo de mejor prioridad.
-				else
-				{
-					if(data.priority < priority_conflict_car || (data.priority == priority_conflict_car && sender > id_conflict_car))
-						change_block = true;
-				}
-
-				// En caso que el auto que envia mensaje es el que debe bloquear.
-				if(change_block)
-				{
-					cell_register[t].block(sender);
-					cell_register[t].release(sender);
-				}
-
-			}
-			else
-			{
-				cell_register[t].block(sender);
-				cell_register[t].release(sender);
-			}
-		}
-	}
-
-
-	// Tipo de mensaje 3: Vehiculo esta cruzando
-	if(tipe == 3)
-	{
-		for(int i=0; i < sender_cells.size(); i++)
-		{
-			int t = sender_cells[i];
-			cell_register[t].block(sender);
-		}
 	}
 		
 	detectColision(data);
 	carTable[sender_in][sender] = data;
-
-
-	if(tipe == 2 || tipe == 3)
-		return ;
-	
 
 	EV << ">>> Sender data <<<\n";
 	EV << "    time to junction: " << data.time_to_junction << "\n";
@@ -373,50 +276,25 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	EV << "    sender priority = " << data.priority << "\n";
 	EV << "    sender last_priority = " << data.last_priority << "\n";
 
-	
-	/////////////////////////////////////////////////////////////////
-	// Comparacion de prioridades y reserva de celdas.
-	/////////////////////////////////////////////////////////////////
-
-
-	// Auto proviene de otra pista/calle o esta mas serca de la interseccion -> Comparacion de prioridades
-	if(sender_in != direction_junction)// || data.distance_to_junction < distance_to_junction)
+	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
+	if(sender_priority < priority || (sender_priority == priority && sender > myId))
 	{
-		EV << ">>> It is a rival -> comparing priorities\n";
-		if(data.priority > priority || (data.priority == priority && myId > sender))
+		EV << "Comparando posibilidad de colision\n";
+		if(compareCells(sender_in, sender_out, sender_cell_in_use))
 		{
-			// Otro auto tiene menor prioridad, hay que eliminarlo del registro de celdas reservados
-			EV << ">>> Minor priority -> deleting reserves\n";
-			for(int t : sender_cells)
-			{
-				cell_register[t].release(sender);
-			}
+			EV << "Existe posible colision\n";
+			better_priority_cars.insert(sender);
+		}
+		else
+		{
+			better_priority_cars.erase(sender);
 		}
 		
-		if(data.priority < priority || (data.priority == priority && myId < sender))
-		{
-			// Otro auto tiene mayor prioridad, hay que recordar celdas que usara.
-			EV << ">>> Major priority -> adding to reserves\n";
-			for(int t : sender_cells)
-			{
-				cell_register[t].reserve(sender);
-			}
-		}
 	}
 	else
 	{
-		if(data.distance_to_junction < distance_to_junction)
-		{
-			EV << ">>> Car is more close to junction -> adding to reserves\n";
-			for(int t : sender_cells)
-			{
-				cell_register[t].reserve(sender);
-			}
-		}
-		else
-			EV << ">>> Info not important\n";
+		better_priority_cars.erase(sender);
 	}
-	
 }
 
 
@@ -433,6 +311,7 @@ void Grilla_CCIP::prepareMsgData(vehicleData& data, int msgTipe)
 	Base::prepareMsgData(data, msgTipe);
 
 	data.priority = priority;
+	data.id_cell_begin = id_cell_in_use;
 }
 
 
@@ -517,4 +396,18 @@ void Grilla_CCIP::cellsUsed()
 	}
 
 	id_cell_in_use = i;
+}
+
+bool Grilla_CCIP::compareCells(int in, int out, int cell_in_use)
+{
+	bool colision = false;
+	std::vector<int> other_cell_list = cells_table[in][out];
+	for(int t : cell_list)
+	{
+		if(std::find(other_cell_list.begin(), other_cell_list.end(), t) != other_cell_list.end()) // en caso que se pueda liberar celdas, usar cell_in_use al comparar
+			colision = true;
+			
+	}
+
+	return colision;
 }

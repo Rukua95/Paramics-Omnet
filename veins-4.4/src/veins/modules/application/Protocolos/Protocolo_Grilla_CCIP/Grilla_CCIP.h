@@ -73,9 +73,12 @@ protected:
 	int id_cell_in_use;
 
 	bool in_block_area;
+	bool in_cell_selection_zone;
 
 	// Lista de celdas a usar segun origen y destino
 	std::vector<std::vector<std::vector<int> > > cells_table;
+
+	std::set<int> better_priority_cars;
 
 	// Prioridad
 	double priority;
@@ -95,6 +98,8 @@ protected:
 	void getCells();
 	void calculateIndividualPriority();
 	void cellsUsed();
+
+	bool compareCells(int in, int out, int cell_in_use);
 
 
 public:
