@@ -43,27 +43,9 @@ protected:
 				car_id_block = -1;
 			}
 
-			void reserve(int id_car)
-			{
-				car_id_reserve.insert(id_car);
-			}
-
-			void release(int id_car)
-			{
-				car_id_reserve.erase(id_car);
-			}
-
-			void block(int id_car)
-			{
-				car_id_block = id_car;
-			}
-
-			void unblock()
-			{
-				car_id_block = -1;
-			}
-			
 	};
+
+	// Parametros de protocolo
 
 	// Registro de celdas que se pueden usar
 	std::vector<Cell> cell_register;
@@ -72,16 +54,15 @@ protected:
 	std::vector<int> cell_list;
 	int id_cell_in_use;
 
-	bool in_block_area;
-	bool in_cell_selection_zone;
-
 	// Lista de celdas a usar segun origen y destino
 	std::vector<std::vector<std::vector<int> > > cells_table;
 
+	// Lista de vehiculos con mejor prioridad
 	std::set<int> better_priority_cars;
 
 	// Prioridad
 	double priority;
+	int allow_continue;
 
 
 	// Metodos
@@ -96,9 +77,7 @@ protected:
 
 	void setCells();
 	void getCells();
-	void calculateIndividualPriority();
-	void cellsUsed();
-
+	void cellInUse();
 	bool compareCells(int in, int out, int cell_in_use);
 
 

@@ -77,11 +77,6 @@ protected:
 	double min_accel;
 	double max_velocidad;
 
-	// Aceleracion (y variables extras utilizadas para calcular) y velocidad de vehiculo
-	double last_vel;
-	double acceleration;
-	bool got_last_accel;
-
 	double axis_speed;
 
 	// Vectores de velocidad y posicion
@@ -100,6 +95,10 @@ protected:
 	bool vehicle_removed;
 	double stuck_reference_time;
 	double stuck;
+	bool anti_block;
+	bool incorrect_exit;
+
+	bool anounce_msg;
 
 
 	// Tablas de informacion
@@ -138,6 +137,8 @@ protected:
 
 	void detention();
 	void continueTravel();
+
+	void removeVehicle(int reason);
 
 };
 

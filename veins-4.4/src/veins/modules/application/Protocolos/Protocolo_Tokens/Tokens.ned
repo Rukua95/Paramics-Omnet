@@ -20,7 +20,15 @@ simple Tokens extends BaseWaveApplLayer
 {
     parameters:
 		double ShareDataZoneRadio;
-		double LiderSelectZoneRadio;
+    double LiderSelectZoneRadio;
+
+    double share_data_radio;
+    double token_selection_radio;
+    
+    double k_velocity;
+    double k_idle_time;
+    double k_distance;
+    double k_cars;
 
     @class(Tokens);
     @display("i=block/app2");

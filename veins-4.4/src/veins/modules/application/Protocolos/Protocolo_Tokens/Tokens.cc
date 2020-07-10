@@ -21,25 +21,28 @@ void Tokens::initialize(int stage)
     {
     case 0:
 	{    
-		// Tokens a usar y prioridad
-		last_individual_priority = 0.0;
-		individual_priority = 0.0;
+		// Id del token actualmente en uso
+		id_token_in_use = -1;
+
+		// Prioridad
 		sum_priority = 0.0;
+		priority = 0.0;
+
+		allow_continue = 0;
+
+		share_data_radio = par("share_data_radio").doubleValue();
+		token_selection_radio = par("token_selection_radio").doubleValue();
 
 		// Parametros de prioridad
-		k_distance = 1.0;
-		k_velocity = 1.0;
-		k_idle_time = 1.0;
-		k_cars = 1.0;
+		k_distance = par("k_distance").doubleValue();
+		k_velocity = par("k_velocity").doubleValue();
+		k_idle_time = par("k_idle_time").doubleValue();
+		k_cars = par("k_cars").doubleValue();
 
 		// Para el calculo de tiempo en detencion
 		idling_time = 0.0;
 
-		// Id del token actualmente en uso
-		id_token_in_use = -1;
-
-
-		// tabla: tokens para vehiculo que va hacia i, y despues de interseccion va a j.
+		// Tabla: tokens para vehiculo que va hacia i, y despues de interseccion va a j.
 		token_table = std::vector<std::vector<std::vector<int> > >(4, std::vector<std::vector<int>>(4, std::vector<int>()));
 		token_vector.resize(17);
 		setTokens();
@@ -70,39 +73,20 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 
 	// Calculando tiempo en espera
-	if(axis_speed <= 0.05)
+	if(axis_speed <= 0.01)
 		idling_time += ping_interval.dbl();
 
-	last_individual_priority = individual_priority;
-	calculateIndividualPriority();
+	// Recalculando prioridad con informacion actual.
+	if(allow_continue != 1 || priority >= 0.0)
+		calculateIndividualPriority();
 
+	// Determinar tokens que se utilizaran
 	if(tokens_list.size() == 0)
 		getTokens();
 
 	EV << ">>> Tokens and priority\n";
-	EV << "    last_priority = " << last_individual_priority << "\n";
-	EV << "    priority = " << individual_priority << "\n";
 	EV << "    global_priority = " << sum_priority << "\n";
-
-	EV << ">>> Need token:\n";
-	for(int t : tokens_list)
-		EV << "    Token: " << t << "\n";
-
-	EV << ">>> Reserved tokens:\n";
-	for(int t : tokens_list)
-	{
-		EV << "    Token " << t << " " << token_vector[t].position_token << " reserved by:";
-		for(int a : token_vector[t].car_id_reserve)
-			EV << " car " << a;
-		
-		EV << "\n";
-	}
-
-	EV << ">>> Blocked tokens:\n";
-	for(int t : tokens_list)
-	{
-		EV << "    Token " << t << " blocked by " << token_vector[t].car_id_block << "\n";
-	}
+	EV << "    priority = " << priority << "\n";
 
 
 	/////////////////////////////////////////////////////////////////
@@ -113,11 +97,13 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	vehicleData data;
 	prepareMsgData(data, 0);
 
-	// Warm-up message
+	// Vehiculos mandan mensajes durante el ciclo de espera 
 	if(msg == sharedDataZoneMessage)
 	{
+		prepareMsgData(data, 0);
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
+
 		scheduleAt(simTime() + ping_interval, self_beacon);
 
 		return;
@@ -127,7 +113,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Verificacion de bloqueo de tokens
 	/////////////////////////////////////////////////////////////////
-	if(distance_to_junction <= lider_select_radio)
+	if(distance_to_junction <= token_selection_radio)
 	{
 		EV << ">>> Zona de reparto y bloqueo de tokens\n";
 		double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
@@ -139,13 +125,21 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			EV << ">>> Zona de cruce\n";
 			crossing = true;
 
+			// Actualizando indice de tokens que se esta ocupando actualmente.
+			tokenInUse();
+
+			if(anti_block) 
+			{
+				anti_block = false;
+				Base::continueTravel();
+			}
+
+			if(better_priority_cars.size() > 0)
+				incorrect_exit = true;
+
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
-			tokensUsed();
-			prepareMsgData(data, 3);
-
 		}
-		// Vehiculo aun no llega a la interseccion o ya salio
 		else
 		{
 			// Vehiculo salio de la interseccion
@@ -164,46 +158,44 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			// Vehiculo esta entrando a la interseccion.
 			else
 			{
-				// Comparacion de prioridades.
-				bool can_block_token = true;
-				bool alredy_blocked = true;
-				for(int t : tokens_list)
+				// TODO: nuevo manejo de prioridad
+				// Comparacion de prioridades con vehiculos registrados.
+				if(better_priority_cars.size() > 0)
 				{
-					if(token_vector[t].car_id_block != myId)
-						alredy_blocked = false;
-
-					if(token_vector[t].car_id_block != -1 || !token_vector[t].car_id_reserve.empty())
-						can_block_token = false;
-
-				}
-
-				// Detencion/Continuacion segun estado de los tokens.
-				if(alredy_blocked)
-				{
-					Base::continueTravel();
-
-					prepareMsgData(data, 2);
-
-					for(int t : tokens_list)
-						token_vector[t].block(myId);
-
+					EV << ">>> Existen vehiculos de mejor prioridad\n";
+					allow_continue = 0;
+					
+					Base::detention();
 				}
 				else
 				{
-					if(can_block_token)
+					if(allow_continue == 1)
 					{
-						Base::continueTravel();
+						EV << ">>> No existe vehiculo con mejor prioridad\n";
+						bool isFirst = true;
+						for(auto it=carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
+							if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
+								isFirst = false;
 
-						prepareMsgData(data, 2);
-
-						for(int t : tokens_list)
-							token_vector[t].block(myId);
-
+						if(isFirst)
+						{
+							EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
+							priority = -1.0;
+							Base::continueTravel();
+						}
+						else
+						{
+							EV << ">>> No se puede continuar, realizando detencion\n";
+							allow_continue = 0;
+							Base::detention();
+						}
 					}
 					else
 					{
-						detention();
-
+						EV << ">>> Hasta ahora no hay vehiculo con mejor prioridad\n";
+						EV << ">>> Esperando un ciclo de simulacion para asegurar\n";
+						allow_continue = 1;
+						Base::detention();
 					}
 				}
 			}
@@ -213,15 +205,15 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Area de envio de infomacion
 	/////////////////////////////////////////////////////////////////
-	if(distance_to_junction <= shared_data_radio)
+	if(distance_to_junction <= share_data_radio)
 	{
 		EV << ">>> Shared data zone <<<\n";
-		
+		prepareMsgData(data, 0);
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
 
-		// Verificar si recien entro a zona de informacion compartida.
-		// TODO: existe un ciclo de simulacion donde no se entrega informacion, hay que arreglarlo -> mensaje extra o booleano extra.
+		// Al entrar a la zona para compartir informacion, vehiculo realiza un ciclo de espera
+		// donde solo recive y envia mensajes de estado. No se realizan acciones adicionales.
 		if(!inSharedDataZone)
 		{
 			EV << ">>> New car in shared data zone, waiting one cicle of simulation...\n";
@@ -243,20 +235,6 @@ void Tokens::handleSelfMsg(cMessage *msg){
 
 void Tokens::onData(WaveShortMessage *wsm)
 {
-	EV << ">>> Data message <<<\n";
-	Base::getBasicParameters();
-	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
-	vehicleData data = msg->getData();
-
-	int tipe = data.msg_type;
-	int sender = wsm->getSenderAddress();
-	int recipient = wsm->getRecipientAddress();
-
-	EV << "    tipe: " << tipe << "\n";
-	EV << "    sender: " << sender << "\n";
-	EV << "    recipient: " << recipient << "\n";
-	EV << "    time: " << data.time_to_junction << "\n";
-
 	// Auto que recibe mensaje salio de la interseccion.
 	if(outJunction)
 	{
@@ -272,11 +250,26 @@ void Tokens::onData(WaveShortMessage *wsm)
 		return ;
 	}
 
+	EV << ">>> Data message <<<\n";
+	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
+	vehicleData data = msg->getData();
+
+	int tipe = data.msg_type;
+	int sender = wsm->getSenderAddress();
+	int recipient = wsm->getRecipientAddress();
+
 	int sender_in = data.direction_junction;
 	int sender_out = data.direction_out;
 	double sender_dist = data.distance_to_junction;
 
 	std::vector<int> sender_tokens = token_table[sender_in][sender_out];
+	double sender_priority = data.priority;
+	int sender_token_in_use = data.id_token_in_use;
+
+	EV << "    tipe: " << tipe << "\n";
+	EV << "    sender: " << sender << "\n";
+	EV << "    recipient: " << recipient << "\n";
+	EV << "    time: " << data.time_to_junction << "\n";
 
 
 	/////////////////////////////////////////////////////////////////
@@ -288,150 +281,55 @@ void Tokens::onData(WaveShortMessage *wsm)
 	{
 		EV << ">>> Delete car " << sender << " from table <<<\n";
 		carTable[sender_in].erase(sender);
-
-		// TODO: cambiar lo siguiente para tipe == 2
-		for(int t : sender_tokens)
-		{
-			if(token_vector[t].car_id_block == sender)
-				token_vector[t].unblock();
-
-			token_vector[t].release(sender);
-		}
+		better_priority_cars.erase(sender);
 
 		return ;
 	}
 
-	// Tipo de mensaje 2: vehiculo bloquea tokens
-	if(tipe == 2)
-	{
-		// Revisamos si tokens reservados por emisor intersectan los reservados por receptor
-		for(int t : sender_tokens)
-		{
-			if(token_vector[t].car_id_block != sender && token_vector[t].car_id_block != -1)
-			{
-				EV << ">>> Parece haber un conflicto\n";
-				EV << "    Vehiculo " << sender << " esta bloqueando token " << t << "\n";
-				EV << "    Pero vehiculo " << token_vector[t].car_id_block << " ya lo tiene bloqueado\n";
-
-				int id_conflict_car = token_vector[t].car_id_block;
-				int direction_conflict_car = -1;
-				double priority_conflict_car = 0.0;
-				double distance_conflict_car = 0.0;
-
-				for(int i=0; i<4; ++i)
-				{
-					if(carTable[i].count(id_conflict_car))
-					{
-						direction_conflict_car = carTable[i][id_conflict_car].direction_junction;
-						priority_conflict_car = carTable[i][id_conflict_car].priority;
-						distance_conflict_car = carTable[i][id_conflict_car].distance_to_junction;
-					}
-				}
-
-				bool change_block = false;
-				if(direction_conflict_car == data.direction_junction)
-				{
-					if(sender_dist < distance_conflict_car)
-						change_block = true;
-				}
-				else
-				{
-					if(data.priority > priority_conflict_car || (data.priority == priority_conflict_car && sender > id_conflict_car))
-						change_block = true;
-				}
-
-				if(change_block)
-				{
-					token_vector[t].block(sender);
-					token_vector[t].release(sender);
-				}
-
-			}
-			else
-			{
-				token_vector[t].block(sender);
-				token_vector[t].release(sender);
-			}
-		}
-	}
-
-	// Tipo de mensaje 3: Vehiculo esta cruzando
-	if(tipe == 3)
-	{
-		int id_token_use = data.id_token_in_use;
-		for(int i=0; i<id_token_use; i++)
-		{
-			int t = sender_tokens[i];
-			if(token_vector[t].car_id_block == sender)
-			{
-				EV << ">>> Token used, unblock token " << t << "\n";
-				token_vector[t].unblock();
-			}
-		}
-
-		for(int i=id_token_use; i < sender_tokens.size(); i++)
-		{
-			int t = sender_tokens[i];
-			token_vector[t].block(sender);
-		}
-	}
-		
-	double added_priority = data.priority - carTable[sender_in][sender].priority;
+	// En caso de un vehiculo en la misma pista, revisar si aporta a nuestra prioridad
+	if(sender_in == direction_junction && sender_dist > distance_to_junction)
+		sum_priority += (data.priority - carTable[sender_in][sender].priority);
 
 	detectColision(data);
 	carTable[sender_in][sender] = data;
 
-	if(tipe == 2 || tipe == 3)
-		return ;
-	
+	// Antes de compara, actualizar informacion
+	Base::getBasicParameters();
+	if(allow_continue != 1 || priority >= 0.0)
+		calculateIndividualPriority();
 
+	// TODO: nuevo manejo de prioridad
 	EV << ">>> Sender data <<<\n";
 	EV << "    time to junction: " << data.time_to_junction << "\n";
 	EV << "    distance to junction: " << sender_dist << "\n";
 
-	EV << ">>> Tokens y prioridad\n";
+	EV << ">>> Celdas y prioridad\n";
+	EV << "    sender prioridad = " << data.priority << "\n";
+	EV << "    propia proridad = " << priority << "\n";
 
-	for(int t : sender_tokens)
-		EV << "    Sender will use token: " << t << "\n";
-
-	EV << "    sender priority = " << data.priority << "\n";
-	EV << "    sender last_priority = " << data.last_priority << "\n";
-
-	
-	/////////////////////////////////////////////////////////////////
-	// Comparacion de prioridades y reserva de tokens.
-	/////////////////////////////////////////////////////////////////
-
-	// Auto proviene de la misma pista y esta mas lejos de la interseccion -> Se sumam las prioridades
-	if(sender_in == direction_junction && data.distance_to_junction > distance_to_junction)
+	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
+	bool priority_comp = comparePriority(sender_priority, sender);
+	if(priority_comp)
 	{
-		EV << ">>> Same lane with major distance -> adding priority\n";
-		sum_priority += added_priority;
-	}
-	// Auto proviene de otra pista/calle o esta mas serca de la interseccion -> Comparacion de prioridades
-	else
-	{
-		EV << ">>> It is a rival -> comparing priorities\n";
-		if(data.priority < individual_priority || (data.priority == individual_priority && myId > sender))
+		EV << "Comparando posibilidad de colision\n";
+		if(compareTokens(sender_in, sender_out, sender_token_in_use))
 		{
-			// Otro auto tiene menor prioridad, hay que eliminarlo del registro de tokens reservados
-			EV << ">>> Minor priority -> deleting reserves\n";
-			for(int t : sender_tokens)
-			{
-				token_vector[t].release(sender);
-			}
+			EV << "Existe posible colision\n";
+			better_priority_cars.insert(sender);
+		}
+		else
+		{
+			EV << "No existe colision\n";
+			better_priority_cars.erase(sender);
 		}
 		
-		if(data.priority > individual_priority || (data.priority == individual_priority && myId < sender))
-		{
-			// Otro auto tiene mayor prioridad, hay que recordar tokens que usara.
-			EV << ">>> Major priority -> adding to reserves\n";
-			for(int t : sender_tokens)
-			{
-				token_vector[t].reserve(sender);
-			}
-		}
 	}
+	else
+	{
+		EV << "Tengo mejor prioridad, eliminando del registro\n";
+		better_priority_cars.erase(sender);
+	}
+
 }
 
 
@@ -447,9 +345,7 @@ void Tokens::prepareMsgData(vehicleData& data, int msgTipe)
 {
 	Base::prepareMsgData(data, msgTipe);
 
-	data.last_priority = last_individual_priority;
-	data.priority = individual_priority;
-	
+	data.priority = priority;
 	data.id_token_in_use = id_token_in_use;
 }
 
@@ -479,7 +375,6 @@ void Tokens::setTokens()
 	Coord junction = traci->junction("1").getPosition();
 
 	double width_street = 3.7;
-
 	token_vector[1].create(1, junction + Coord(-width_street/2, -width_street));
 	token_vector[2].create(2, junction + Coord(width_street/2, -width_street));
 	token_vector[3].create(3, junction + Coord(-width_street, -width_street/2));
@@ -508,7 +403,6 @@ void Tokens::getTokens()
 {
 	tokens_list = token_table[direction_junction][direction_out];
 	id_token_in_use = 0;
-
 }
 
 
@@ -517,42 +411,84 @@ void Tokens::getTokens()
  */
 void Tokens::calculateIndividualPriority()
 {
-	double d = std::max(0.0, shared_data_radio - distance_to_junction);
-	individual_priority = (k_distance * d) + (k_velocity * axis_speed) + (k_idle_time * idling_time) + (k_cars * sum_priority);
+	double d = std::max(0.0, share_data_radio - distance_to_junction);
+	priority = (k_distance * d) + (k_velocity * axis_speed) + (k_idle_time * idling_time) + (k_cars * sum_priority);
+}
+
+/**
+ * Funcion que determina si prioridad de otro vehiculo es mejor que la del vehiculo actual.
+ */
+bool Tokens::comparePriority(double vhc_priority, int sender_id)
+{
+	if(priority < 0.0)
+		return false;
+	else
+		return (vhc_priority <= 0.0 || priority < vhc_priority - 1.0 || (std::abs(priority - vhc_priority) < 1.0 && sender_id < myId));
 }
 
 
 /**
  * Determina cual token se utilizara, dependiendo de la posicion del vehiculo
  */
-void Tokens::tokensUsed()
+void Tokens::tokenInUse()
 {
-	EV << ">>> Comparando posicion vehiculo y posicion tokens\n";
-	for(int i=id_token_in_use; i<tokens_list.size(); i++)
+	if(crossing)
 	{
-		bool right = (token_vector[tokens_list[i]].position_token.x < position.x);
-		bool down = (token_vector[tokens_list[i]].position_token.y < position.y);
-		bool left = (token_vector[tokens_list[i]].position_token.x > position.x);
-		bool up = (token_vector[tokens_list[i]].position_token.y > position.y);
-
-		EV << ">>> Comparando posicion respecto a token " << tokens_list[i] << "...\n";
-
-		bool verificacion1 = (direction_junction == 0 && down) || (direction_junction == 1 && left) || (direction_junction == 2 && up) || (direction_junction == 3 && right);
-		bool verificacion2 = (direction_out == 0 && down) || (direction_out == 1 && left) || (direction_out == 2 && up) || (direction_out == 3 && right);
-
-		if(!verificacion1 || !verificacion2)
+		EV << ">>> Comparando posicion vehiculo y posicion tokens\n";
+		// TODO: posiblemente sea mejor cambiar el criterio de uso de tokens, vehiculo esta usando el token que se encuentre mas cerca
+		for(int i=id_token_in_use; i<tokens_list.size(); i++)
 		{
-			EV << "    Token " << tokens_list[i] << " aun en uso\n";
-			id_token_in_use = i;
+			// Booleanos de posicion de vehiculo respecto del i-esimo token en su lista.
+			bool right = (token_vector[tokens_list[i]].position_token.x < position.x);
+			bool down = (token_vector[tokens_list[i]].position_token.y < position.y);
+			bool left = (token_vector[tokens_list[i]].position_token.x > position.x);
+			bool up = (token_vector[tokens_list[i]].position_token.y > position.y);
+
+			EV << ">>> Comparando posicion respecto a token " << tokens_list[i] << "...\n";
+			// Booleano de correcta posicion de vehiculo respecto al i-esimo token en su lista.
+			bool verificacion1 = (direction_junction == 0 && down) || (direction_junction == 1 && left) || (direction_junction == 2 && up) || (direction_junction == 3 && right);
+			bool verificacion2 = (direction_out == 0 && down) || (direction_out == 1 && left) || (direction_out == 2 && up) || (direction_out == 3 && right);
+
+			if(!verificacion1 || !verificacion2)
+			{
+				EV << "    Token " << tokens_list[i] << " aun en uso\n";
+				id_token_in_use = i;
+				break;
+			}
+		}
+	}
+}
+
+
+bool Tokens::compareTokens(int in, int out, int token_in_use)
+{
+	bool colision = false;
+	std::vector<int> other_token_list = token_table[in][out];
+
+	EV << ">>> Tokens vehiculo a comparar (desde token " << other_token_list[token_in_use] << " id: " << token_in_use << "):\n";
+	for(int i = token_in_use; i < other_token_list.size(); i++)
+		EV << other_token_list[i] << " ";
+
+	EV << "\n";
+
+	EV << ">>> Tokens vehiculo propio:\n";
+	for(int c : tokens_list)
+		EV << c << " ";
+	EV << "\n";
+
+
+	for(int i = token_in_use; i < other_token_list.size(); i++)
+	{
+		int t = other_token_list[i];
+		if(std::find(tokens_list.begin(), tokens_list.end(), t) != tokens_list.end())
+		{
+			colision = true;
 			break;
 		}
-
-		EV << "    Vehiculo paso token " << tokens_list[i] << "\n";
-		if(token_vector[tokens_list[i]].car_id_block == myId)
-		{
-			EV << "    Desbloqueando token " << tokens_list[i] << "de la lista\n";
-			token_vector[tokens_list[i]].unblock();
-		}
-
 	}
+
+	if(colision)
+		EV << ">>> Existe colision\n";
+
+	return colision;
 }

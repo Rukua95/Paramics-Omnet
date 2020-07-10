@@ -24,13 +24,14 @@ void Grilla_CCIP::initialize(int stage)
 		// Indice de la celda que se esta usando actualmente.
 		id_cell_in_use = -1;
 
-		in_block_area = false;
-		in_cell_selection_zone = false;
+		// Prioridad
+		priority = 1e8;
+
+		allow_continue = 0;
 
 		// Tabla: celdas para vehiculo con direccion inicial i y direccion final j.
 		cells_table = std::vector<std::vector<std::vector<int> > >(4, std::vector<std::vector<int>>(4, std::vector<int>()));
 		cell_register.resize(5);
-
 		setCells();
 
         break;
@@ -56,24 +57,16 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Calculo de prioridad
 	/////////////////////////////////////////////////////////////////
-	if(!in_block_area)
-	{
-		double aux_time = time_to_junction;
-		double aux_dist = distance_to_junction;
 
-		distance_to_junction += 13;
-		distance_to_junction -= lider_select_radio;
-		Base::timeToJunction();
+	// Recalculando prioridad.
+	if(allow_continue != 1 || priority >= 0.0)
+		priority = time_to_junction;
 
-		priority = simTime().dbl() + time_to_junction;
-		time_to_junction = aux_time;
-		distance_to_junction = aux_dist;
-	}
-
-	EV << "    priority: " << priority << "\n";
-
+	// Determinar celdas que se utilizaran
 	if(cell_list.size() == 0)
 		getCells();
+
+	EV << "    priority: " << priority << "\n";
 
 
 	/////////////////////////////////////////////////////////////////
@@ -87,6 +80,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	// Vehiculos mandan mensajes durante el ciclo de espera 
 	if(msg == sharedDataZoneMessage)
 	{
+		prepareMsgData(data, 0);
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
 
@@ -101,12 +95,6 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	if(distance_to_junction <= lider_select_radio)
 	{
-		if(!in_block_area)
-		{
-			priority = simTime().dbl();
-			in_block_area = true;
-		}
-
 		EV << ">>> Zona de reparto y bloqueo de celdas\n";
 		double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
 		double dist_y = std::abs(position.y - traci->junction("1").getPosition().y);
@@ -116,6 +104,18 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Zona de cruce\n";
 			crossing = true;
+
+			// Actualizando indice de celda que se esta ocupando actualmente
+			cellInUse();
+
+			if(anti_block) 
+			{
+				anti_block = false;
+				Base::continueTravel();
+			}
+
+			if(better_priority_cars.size() > 0)
+				incorrect_exit = true;
 
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
@@ -134,41 +134,48 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 				sendWSM((WaveShortMessage*) info_message->dup());
 
 				return;
+
 			}
 			// vehiculo entrando a la interseccion.
 			else
 			{
-				// mensaje para ciclo de obtencion de informacion
-				if(!in_cell_selection_zone)
+				// Comparacion de prioridades con vehiculos registrados.
+				if(better_priority_cars.size() > 0)
 				{
-					in_cell_selection_zone = true;
-					info_message->setData(data);
-					sendWSM((WaveShortMessage*) info_message->dup());
+					EV << ">>> Existen vehiculos de mejor prioridad\n";
+					allow_continue = 0;
 					
-					scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
-
-					return;
+					Base::detention();
 				}
-				// TODO: cambiar forma de elegir si se puede cruzar
-				/*
-				- Revisar vehiculos que tienen mejor prioridad
-					-> tal vez hay que esperar un ciclo de simulacion
-				- Cuando un vehiculo se va de la interseccion, hay que revisar si mi prioridad me permite tomar las celdas
-				*/
-				// Comparacion de prioridades.
-
-				// Comparacion de prioridades con vehiculos en registrados.
-				for(int i=0; i<4; ++i)
+				else
 				{
-					if(better_priority_cars.size() > 0)
+					if(allow_continue == 1)
 					{
-						EV << "Existen vehiculos de mejor prioridad\n";
-						Base::detention();
+						EV << ">>> No existe vehiculo con mejor prioridad\n";
+						bool isFirst = true;
+						for(auto it=carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
+							if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
+								isFirst = false;
+
+						if(isFirst)
+						{
+							EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
+							priority = -1.0;
+							Base::continueTravel();
+						}
+						else
+						{
+							EV << ">>> No se puede continuar, realizando detencion\n";
+							allow_continue = 0;
+							Base::detention();
+						}
 					}
 					else
 					{
-						EV << "No existe vehiculo con mejor prioridad\n";
-						Base::continueTravel();
+						EV << ">>> Hasta ahora no hay vehiculo con mejor prioridad\n";
+						EV << ">>> Esperando un ciclo de simulacion para asegurar\n";
+						allow_continue = 1;
+						Base::detention();
 					}
 				}
 			}
@@ -182,7 +189,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	if(distance_to_junction <= shared_data_radio)
 	{
 		EV << ">>> Shared data zone <<<\n";
-		
+		prepareMsgData(data, 0);
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
 
@@ -190,7 +197,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 		// donde solo recive y envia mensajes de estado. No se realizan acciones adicionales.
 		if(!inSharedDataZone)
 		{
-			EV << ">>> New car in shared data zone, waiting one cicle of simulation...\n";
+			EV << ">>> Entrando en zona de informacion, esperando un ciclo de simulacion...\n";
 			inSharedDataZone = true;
 			scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
@@ -209,19 +216,6 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 
 void Grilla_CCIP::onData(WaveShortMessage *wsm)
 {
-	EV << ">>> Data message <<<\n";
-	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
-	vehicleData data = msg->getData();
-
-	int tipe = data.msg_type;
-	int sender = wsm->getSenderAddress();
-	int recipient = wsm->getRecipientAddress();
-
-	EV << "    tipe: " << tipe << "\n";
-	EV << "    sender: " << sender << "\n";
-	EV << "    recipient: " << recipient << "\n";
-	EV << "    time: " << data.time_to_junction << "\n";
-
 	// Auto que recibe mensaje salio de la interseccion.
 	if(outJunction)
 	{
@@ -237,6 +231,14 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 		return ;
 	}
 
+	EV << ">>> Data message <<<\n";
+	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
+	vehicleData data = msg->getData();
+
+	int tipe = data.msg_type;
+	int sender = wsm->getSenderAddress();
+	int recipient = wsm->getRecipientAddress();
+
 	int sender_in = data.direction_junction;
 	int sender_out = data.direction_out;
 	double sender_dist = data.distance_to_junction;
@@ -244,6 +246,15 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	std::vector<int> sender_cells = cells_table[sender_in][sender_out];
 	double sender_priority = data.priority;
 	int sender_cell_in_use = data.id_cell_begin;
+
+	EV << "    tipe: " << tipe << "\n";
+	EV << "    sender: " << sender << "\n";
+	EV << "    recipient: " << recipient << "\n";
+	EV << "    time_junction: " << data.time_to_junction << "\n";
+	EV << "    sender_in: " << sender_in << "\n";
+	EV << "    sender_out: " << sender_out << "\n";
+	EV << "    sender_priority: " << sender_priority << "\n";
+	EV << "    sender_cell_in_use: " << sender_cell_in_use << "\n";
 
 
 	/////////////////////////////////////////////////////////////////
@@ -264,20 +275,22 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	detectColision(data);
 	carTable[sender_in][sender] = data;
 
+	// Antes de compara, actualizar informacion
+	Base::getBasicParameters();
+	if(allow_continue != 1 || priority >= 0.0)
+		priority = time_to_junction;
+
 	EV << ">>> Sender data <<<\n";
 	EV << "    time to junction: " << data.time_to_junction << "\n";
 	EV << "    distance to junction: " << sender_dist << "\n";
 
 	EV << ">>> Celdas y prioridad\n";
-
-	for(int t : sender_cells)
-		EV << "    Sender will use celda: " << t << "\n";
-
-	EV << "    sender priority = " << data.priority << "\n";
-	EV << "    sender last_priority = " << data.last_priority << "\n";
+	EV << "    sender prioridad = " << data.priority << "\n";
+	EV << "    propia proridad = " << priority << "\n";
 
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
-	if(sender_priority < priority || (sender_priority == priority && sender > myId))
+	bool priority_comp = (sender_priority + 0.5 < priority) || (std::abs(sender_priority - priority) < 0.5 && sender < myId);
+	if(priority_comp)
 	{
 		EV << "Comparando posibilidad de colision\n";
 		if(compareCells(sender_in, sender_out, sender_cell_in_use))
@@ -287,12 +300,14 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 		}
 		else
 		{
+			EV << "No existe colision\n";
 			better_priority_cars.erase(sender);
 		}
 		
 	}
 	else
 	{
+		EV << "Tengo mejor prioridad, eliminando del registro\n";
 		better_priority_cars.erase(sender);
 	}
 }
@@ -358,56 +373,70 @@ void Grilla_CCIP::getCells()
 }
 
 
-/**
- * Determina cual celda se utilizara, dependiendo de la posicion del vehiculo
- */
-void Grilla_CCIP::cellsUsed()
+void Grilla_CCIP::cellInUse()
 {
-	EV << ">>> Comparando posicion vehiculo y posicion celdas\n";
-	if(!crossing)
+	if(crossing)
 	{
-		EV << ">>> Not crossing\n";
-		return;
-	}
-
-	int i = id_cell_in_use;
-	for(; i < cell_list.size(); i++)
-	{
-		int t = cell_list[i];
-
-		Coord p1 = cell_register[t].p1;
-		Coord p2 = cell_register[t].p2;
-
-		EV << ">>> Celda " << t << " con puntos " << p1 << ", " << p2 << "\n";
-
-		double x = position.x;
-		double y = position.y;
-
-		if(p1.x < x && x <= p2.x && p2.y < y && y <= p1.y)
+		int i = id_cell_in_use;
+		for(; i < cell_list.size(); i++)
 		{
-			EV << ">>> Cell " << t << " in use\n";
-			id_cell_in_use = i;
-			return ;
+			int c = cell_list[i];
+
+			Coord p1 = cell_register[c].p1;
+			Coord p2 = cell_register[c].p2;
+
+			EV << ">> Celda " << c << " con puntos " << p1 << ", " << p2 << "\n";
+
+			double x = position.x;
+			double y = position.y;
+
+			if(p1.x < x && x <= p2.x && p2.y < y && y <= p1.y)
+			{
+				EV << ">>> Cell " << c << " in use\n";
+				id_cell_in_use = i;
+
+				return;
+			}
+			else
+				EV << ">>> Cell " << c << " not in use\n";
+			
 		}
+		id_cell_in_use = i;
 
-		else
-			EV << ">>> Cell " << t << " not in use\n";
-		
 	}
-
-	id_cell_in_use = i;
+	EV << ">>> Celda en uso: " << cell_list[id_cell_in_use] << "(" << id_cell_in_use << ")\n";
 }
+
 
 bool Grilla_CCIP::compareCells(int in, int out, int cell_in_use)
 {
 	bool colision = false;
 	std::vector<int> other_cell_list = cells_table[in][out];
-	for(int t : cell_list)
+
+	EV << ">>> Celdas vehiculo a comparar (desde celda " << other_cell_list[cell_in_use] << " id: " << cell_in_use << "):\n";
+	for(int i = cell_in_use; i < other_cell_list.size(); i++)
+		EV << other_cell_list[i] << " ";
+
+	EV << "\n";
+
+	EV << ">>> Celdas vehiculo propio:\n";
+	for(int c : cell_list)
+		EV << c << " ";
+	EV << "\n";
+
+
+	for(int i = cell_in_use; i < other_cell_list.size(); i++)
 	{
-		if(std::find(other_cell_list.begin(), other_cell_list.end(), t) != other_cell_list.end()) // en caso que se pueda liberar celdas, usar cell_in_use al comparar
+		int t = other_cell_list[i];
+		if(std::find(cell_list.begin(), cell_list.end(), t) != cell_list.end())
+		{
 			colision = true;
-			
+			break;
+		}
 	}
+
+	if(colision)
+		EV << ">>> Existe colision\n";
 
 	return colision;
 }

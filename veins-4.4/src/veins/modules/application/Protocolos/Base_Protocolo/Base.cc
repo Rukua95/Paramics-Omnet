@@ -38,8 +38,12 @@ void Base::initialize(int stage)
 		outJunction = false;
 		
 		crossing = false; 
+		anti_block = true;
+		incorrect_exit = false;
 		
 		inSharedDataZone = false;
+
+		anounce_msg = true;
 
 		// Direccion inicial de vehiculo
 		direction_junction = -1;
@@ -50,13 +54,9 @@ void Base::initialize(int stage)
 		// Tiempo estimado de llegada a interseccion
 		time_to_junction = -1.0;
 
-		// Variables para calculo de aceleracion.
-		last_vel = 0.0;
-		acceleration = 0.0;
-		got_last_accel = false;
-
 		vehicle_removed = false;
 		stuck = 0;
+		stuck_reference_time = 0.0;
 
 		// Variables de maxima y minima aceleracion, y maxima velocidad (ajustadas manualmente a la simulacion)
 		max_accel = 2.5; // traciVehicle->getDeccel();
@@ -145,8 +145,10 @@ void Base::finish()
 		recordScalar("DistanceJunction", distance_to_junction);
 	}
 
-	recordScalar("Stuck", stuck);
-	recordScalar("ReferenceTime", stuck_reference_time)
+	recordScalar("IncorrectExit", incorrect_exit);
+
+	recordScalar("MaxStuckTime", stuck);
+	recordScalar("StuckReferenceTime", stuck_reference_time);
 
 	recordScalar("IntersectionEnterTime", time_in_junction);
 	recordScalar("IntersectionExitTime", intersection_exit_time);
@@ -185,21 +187,31 @@ void Base::handleSelfMsg(cMessage *msg)
 		double dist_x = std::abs(position.x - intersection.x);
 		double dist_y = std::abs(position.y - intersection.y);
 
-		// Vehiculo esta dentro de la interseccion
-		if(!(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4))
+		// Vehiculo dentro de la interseccion
+		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
+		{
+			EV << ">>> Zona de cruce\n";
+		}
+		else
 		{
 			// Vehiculo salio de la interseccion
 			if(crossing)
 			{
+				Base::removeVehicle(0);
 				Base::registerOutOfJunction();
+			}
+			// vehiculo entrando a la interseccion.
+			else
+			{
 			}
 		}
 	}
 
-	bool first = true;
+
+	bool first = distance_to_junction < shared_data_radio;
 	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
 	{
-		if(it->second.distance_to_junction < distance_to_junction && distance_to_junction < shared_data_radio)
+		if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
 			first = false;
 	}
 
@@ -208,10 +220,10 @@ void Base::handleSelfMsg(cMessage *msg)
 		ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
 		sceman->saveWaitingTime(direction_junction, time_in_wait);
 
-		if(time_in_wait > 60)
+		if(time_in_wait > stuck)
 		{
 			stuck_reference_time = simTime().dbl();
-			stuck = std::max(stuck, time_in_wait);
+			stuck = time_in_wait;
 		}
 	}
 }
@@ -275,7 +287,6 @@ void Base::prepareMsgData(vehicleData& data, int msgTipe)
 
 	data.position = position;
 	data.speed = velocity;
-	data.acceleration = acceleration;
 	data.axis_speed = axis_speed;
 
 	data.stoped = stoped;
@@ -299,7 +310,6 @@ int Base::finalDirection()
 
 /**
  * Funcion para simular una detencion hacia la esquina
- * TODO: mejorar version para detension en interseccion
  */
 void Base::detention()
 {
@@ -327,26 +337,19 @@ void Base::detention()
 
 	if(verificador)
 		EV << ">>> Cant stop\n";
-
-	// TODO: arreglar modelo de detencion (verificar distancia ha interseccion y despues usar flags stop y stoping)
-	// Vehiculo puede detenerse: es el primero
-	if(!stoping && !verificador)
+	else
 	{
-		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
-		EV << ">>> STOPING <<<\n";
-		traciVehicle->setSpeed(6.0);
 		stoping = true;
-	}
-	else if(!stoped && !verificador)
-	{
+		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
+
 		if(distance_to_junction > 45)
-			traciVehicle->setSpeed(6.0);
+			traciVehicle->setSpeed(5.0);
 		else if(distance_to_junction > 35)
-			traciVehicle->setSpeed(4.0);
+			traciVehicle->setSpeed(3.5);
 		else if(distance_to_junction > 25)
-			traciVehicle->setSpeed(1.5);
+			traciVehicle->setSpeed(2.0);
 		else if(distance_to_junction > 17)
-			traciVehicle->setSpeed(0.75);
+			traciVehicle->setSpeed(1.0);
 		else if(distance_to_junction <= 17)
 		{
 			traciVehicle->setSpeed(0.0);
@@ -371,7 +374,7 @@ void Base::continueTravel()
  */
 void Base::timeToJunction()
 {
-	double d_obj = distance_to_junction - 13;
+	double d_obj = std::max(0.0, distance_to_junction - 17);
 	double t_acel = (max_velocidad - axis_speed) / max_accel;
 	double t_with_acel = (-axis_speed + std::sqrt(axis_speed * axis_speed + 2 * max_accel * d_obj)) / max_accel;
 
@@ -383,7 +386,7 @@ void Base::timeToJunction()
 		time_to_junction = t_acel + (d_obj - d_with_acel1) / max_velocidad;
 	}
 
-	if(time_to_junction < 0.0)
+	if(time_to_junction < 0.0 || d_obj < 0.0)
 		time_to_junction = 0.0;
 
 }
@@ -405,28 +408,20 @@ void Base::getBasicParameters()
 	intersection = traci->junction("1").getPosition();
 	position.x = -(position.x - intersection.x) + intersection.x;
 
-	EV << "    position: " << position << "\n";
-	EV << "    velocity: " << velocity << "\n";
-	EV << "    intersection: " << intersection << "\n";
+	
 
 	laneId = traciVehicle->getLaneId();
 	roadId = traciVehicle->getRoadId();
 	startId = roadId.substr(0, roadId.find(":"));
 	endId = roadId.substr(roadId.find(":")+1, roadId.size() - roadId.find(":") - 1);
 
-	EV << "    Lane ID: " << laneId << "\n";
-	EV << "    Start: " << startId << "\n";
-	EV << "    End: " << endId << "\n";
+	
 
 	// Obtencion de direccion inicial y final.
 	if(direction_junction == -1 && directionMap.count(startId))
 		direction_junction = directionMap[startId];
 
 	direction_out = finalDirection();
-
-	EV << "    stoped: " << stoped << "\n";
-	EV << "    direction_junction: " << direction_junction << "\n";
-	EV << "    direction_out: " << direction_out << "\n";
 
 
 	/////////////////////////////////////////////////////////////////
@@ -448,10 +443,16 @@ void Base::getBasicParameters()
 	// Tiempo aproximado para llegar a interseccion.
 	timeToJunction();
 	
-	EV << "    got_last_accel: " << got_last_accel << "\n";
+	EV << "    position: " << position << "\n";
+	EV << "    velocity: " << velocity << "\n";
+	EV << "    intersection: " << intersection << "\n";
+	EV << "    Lane ID: " << laneId << "\n";
+	EV << "    Start: " << startId << "\n";
+	EV << "    End: " << endId << "\n";
+	EV << "    stoped: " << stoped << "\n";
+	EV << "    direction_junction: " << direction_junction << "\n";
+	EV << "    direction_out: " << direction_out << "\n";
 	EV << "    axis_speed: " << axis_speed << "\n";
-	EV << "    last_vel: " << last_vel << "\n";
-	EV << "    acceleration: " << acceleration << "\n";
 	EV << "    distance_to_junction: " << distance_to_junction << "\n";
 	EV << "    time to junction: " << time_to_junction << "\n";
 }
@@ -571,4 +572,18 @@ void Base::registerOutOfJunction()
 	ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
 	intersection_exit_time = simTime().dbl();
 	sceman->carOutOfJunction(myId, direction_junction, intersection_exit_time - time_in_junction);
+}
+
+
+/**
+ *Funcion para remover vehiculos cuando hay bloque producto de conflicto entre paramics y la simulacion.
+ */
+void Base::removeVehicle(int reason)
+{
+	traciVehicle->remove(reason);
+	vehicle_removed = true;
+
+	// Por ahora suponemos que reason = 0 es para simular un arrivo
+	if(reason == 0)
+		Base::registerOutOfJunction();
 }

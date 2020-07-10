@@ -44,26 +44,6 @@ protected:
 				car_id_block = -1;
 			}
 
-			void reserve(int id_car)
-			{
-				car_id_reserve.insert(id_car);
-			}
-
-			void release(int id_car)
-			{
-				car_id_reserve.erase(id_car);
-			}
-
-			void block(int id_car)
-			{
-				car_id_block = id_car;
-			}
-
-			void unblock()
-			{
-				car_id_block = -1;
-			}
-			
 	};
 
 	// Registro de celdas que se pueden usar
@@ -71,20 +51,18 @@ protected:
 
 	// Lista de celdas a usar por el vehiculo (lista de enteros)
 	std::vector<int> cell_list;
-
 	int id_cell_begin;
 	int id_cell_end;
-
-	bool in_block_area;
 
 	// Lista de celdas a usar segun origen y destino
 	std::vector<std::vector<std::vector<int> > > cells_table;
 
+	std::set<int> better_priority_cars;
+
 	// Prioridad
 	double priority;
-
-	// Variables para determinar bloqueo por Paramics
-	double detention_time;
+	double intersection_priority;
+	int allow_continue;
 
 
 	// Metodos
@@ -100,8 +78,9 @@ protected:
 	void setCells();
 	void getCells();
 	void calculateIndividualPriority();
-	void cellsUsed();
+	void cellsInUse();
 	void detentionLastCell();
+	bool compareCells(int in, int out, int id_begin, int id_end);
 
 	void removeVehicle(int reason);
 

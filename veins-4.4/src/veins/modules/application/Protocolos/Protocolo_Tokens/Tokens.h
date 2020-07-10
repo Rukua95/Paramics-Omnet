@@ -31,42 +31,15 @@ protected:
 			Coord position_token;
 			int id_token;
 
-			std::set<int> car_id_reserve;
-			int car_id_block;
-
 			void create(int id, Coord position)
 			{
 				id_token = id;
 				position_token = position;
-
-				car_id_block = -1;
-			}
-
-			void reserve(int id_car)
-			{
-				car_id_reserve.insert(id_car);
-			}
-
-			void release(int id_car)
-			{
-				car_id_reserve.erase(id_car);
-			}
-
-			void block(int id_car)
-			{
-				car_id_block = id_car;
-			}
-
-			void unblock()
-			{
-				car_id_block = -1;
 			}
 			
 	};
 
 	// Parametros de protocolo
-
-	// Tokens
 
 	// Lista de Token que se pueden usar.
 	std::vector<Token> token_vector;
@@ -78,10 +51,13 @@ protected:
 	// Lista de tokens a usar segun origen y destino
 	std::vector<std::vector<std::vector<int> > > token_table;
 
+	// Lista de vehiculos con mejor prioridad
+	std::set<int> better_priority_cars;
+
 	// Prioridad
-	double last_individual_priority;
-	double individual_priority;
 	double sum_priority;
+	double priority;
+	int allow_continue;
 
 	// Tiempo en espera
 	double idling_time;
@@ -91,6 +67,9 @@ protected:
 	double k_velocity;
 	double k_idle_time;
 	double k_cars;
+
+	double share_data_radio;
+	double token_selection_radio;
 
 
 	// Metodos
@@ -105,7 +84,10 @@ protected:
 	void setTokens();
 	void getTokens();
 	void calculateIndividualPriority();
-	void tokensUsed();
+	void tokenInUse();
+
+	bool comparePriority(double vhc_priority, int sender_id);
+	bool compareTokens(int sender_in, int sender_out, int sender_token_in_use);
 
 };
 
