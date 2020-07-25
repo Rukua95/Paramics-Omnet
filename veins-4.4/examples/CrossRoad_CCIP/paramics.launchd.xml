@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- debug config -->
+<launch>
+	<basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\CrossRoad_CCIP" /> 
+	<network name="CrossRoad" />
+	<!--<seed value="735875"/>-->
+</launch>
+ 
