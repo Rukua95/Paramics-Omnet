@@ -1,8 +1,8 @@
 ## Author thi-s
 ## Created Date Wednesday-November-6-2019 12-57-39
-## Modified Date Sunday-April-12-2020 19-57-02
+## Modified Date Monday-August-3-2020 00-45-01
 ## Modified By thi-s
-## Network C:/Users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/Cross_road/CrossRoad2
+## Network C:/users/thi-s/Documents/NicLabs/Paramics-Omnet/Omnet-Veins/veins-4.4/examples/CrossRoad_Tokens/CrossRoad
 ## Notes 
 Zone Count 4
 
@@ -11,37 +11,37 @@ lookup
   4   3
 
 zone 1 4 
--244 m -4 m
--360 m -4 m
--360 m 4 m
--244 m 4 m
-max -244 m 4 m
-min -360 m -4 m
-centroid -302 m 0 m
+-395 m -12 m
+-502 m -12 m
+-502 m 11 m
+-395 m 11 m
+max -395 m 11 m
+min -502 m -12 m
+centroid -449 m -1 m
 
 zone 2 4 
-4 m -360 m
--4 m -360 m
--4 m -244 m
-4 m -244 m
-max 4 m -244 m
-min -4 m -360 m
-centroid 0 m -302 m
+4 m -501 m
+-4 m -501 m
+-4 m -385 m
+4 m -385 m
+max 4 m -385 m
+min -4 m -501 m
+centroid 0 m -443 m
 
 zone 4 4 
-4 m 244 m
--4 m 244 m
--4 m 360 m
-4 m 360 m
-max 4 m 360 m
-min -4 m 244 m
-centroid 0 m 302 m
+4 m 385 m
+-4 m 385 m
+-4 m 501 m
+4 m 501 m
+max 4 m 501 m
+min -4 m 385 m
+centroid 0 m 443 m
 
 zone 3 4 
-360 m -4 m
-244 m -4 m
-244 m 4 m
-360 m 4 m
-max 360 m 4 m
-min 244 m -4 m
-centroid 302 m 0 m
+501 m -4 m
+385 m -4 m
+385 m 4 m
+501 m 4 m
+max 501 m 4 m
+min 385 m -4 m
+centroid 443 m 0 m
