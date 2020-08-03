@@ -58,6 +58,7 @@ protected:
 	double sum_priority;
 	double priority;
 	int allow_continue;
+	double block_time;
 
 	// Tiempo en espera
 	double idling_time;

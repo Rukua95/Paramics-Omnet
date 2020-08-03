@@ -64,6 +64,10 @@ protected:
 	double priority;
 	int allow_continue;
 
+	// Radios
+	double shared_data_radio;
+	double cell_selection_radio;
+
 
 	// Metodos
     void initialize(int stage);

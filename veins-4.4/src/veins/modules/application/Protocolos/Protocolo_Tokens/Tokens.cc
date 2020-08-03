@@ -27,11 +27,7 @@ void Tokens::initialize(int stage)
 		// Prioridad
 		sum_priority = 0.0;
 		priority = 0.0;
-
 		allow_continue = 0;
-
-		share_data_radio = par("share_data_radio").doubleValue();
-		token_selection_radio = par("token_selection_radio").doubleValue();
 
 		// Parametros de prioridad
 		k_distance = par("k_distance").doubleValue();
@@ -47,6 +43,9 @@ void Tokens::initialize(int stage)
 		token_vector.resize(17);
 		setTokens();
 
+		// Radios de zonas
+		share_data_radio = par("share_data_radio").doubleValue();
+		token_selection_radio = par("token_selection_radio").doubleValue();
 
         break;
 	}
@@ -58,6 +57,7 @@ void Tokens::initialize(int stage)
 void Tokens::finish()
 {
     Base::finish();
+	recordScalar("FinishPriority", priority);
 }
 
 
@@ -77,15 +77,14 @@ void Tokens::handleSelfMsg(cMessage *msg){
 		idling_time += ping_interval.dbl();
 
 	// Recalculando prioridad con informacion actual.
-	if(allow_continue != 1 || priority >= 0.0)
+	if(allow_continue != 2 || priority >= 0.0)
 		calculateIndividualPriority();
 
 	// Determinar tokens que se utilizaran
 	if(tokens_list.size() == 0)
 		getTokens();
 
-	EV << ">>> Tokens and priority\n";
-	EV << "    global_priority = " << sum_priority << "\n";
+	EV << "    sum_priority = " << sum_priority << "\n";
 	EV << "    priority = " << priority << "\n";
 
 
@@ -124,6 +123,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Zona de cruce\n";
 			crossing = true;
+			Base::registerInOfJunction();
 
 			// Actualizando indice de tokens que se esta ocupando actualmente.
 			tokenInUse();
@@ -146,6 +146,8 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			if(crossing)
 			{
 				EV << ">>> Out of junction <<<\n";
+				Base::registerOutOfJunction();
+
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 				
@@ -153,23 +155,27 @@ void Tokens::handleSelfMsg(cMessage *msg){
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
 
+				Base::removeVehicle(0);
+
 				return;
+
 			}
 			// Vehiculo esta entrando a la interseccion.
 			else
 			{
-				// TODO: nuevo manejo de prioridad
 				// Comparacion de prioridades con vehiculos registrados.
 				if(better_priority_cars.size() > 0)
 				{
 					EV << ">>> Existen vehiculos de mejor prioridad\n";
+					for(auto it=better_priority_cars.begin(); it!=better_priority_cars.end(); it++)
+						EV << "    " << *it << "\n";
 					allow_continue = 0;
 					
 					Base::detention();
 				}
 				else
 				{
-					if(allow_continue == 1)
+					if(allow_continue == 2)
 					{
 						EV << ">>> No existe vehiculo con mejor prioridad\n";
 						bool isFirst = true;
@@ -181,6 +187,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 						{
 							EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
 							priority = -1.0;
+							block_time = simTime().dbl();
 							Base::continueTravel();
 						}
 						else
@@ -194,13 +201,14 @@ void Tokens::handleSelfMsg(cMessage *msg){
 					{
 						EV << ">>> Hasta ahora no hay vehiculo con mejor prioridad\n";
 						EV << ">>> Esperando un ciclo de simulacion para asegurar\n";
-						allow_continue = 1;
+						allow_continue++;
 						Base::detention();
 					}
 				}
 			}
 		}
 	}
+
 
 	/////////////////////////////////////////////////////////////////
 	// Area de envio de infomacion
@@ -270,11 +278,16 @@ void Tokens::onData(WaveShortMessage *wsm)
 	EV << "    sender: " << sender << "\n";
 	EV << "    recipient: " << recipient << "\n";
 	EV << "    time: " << data.time_to_junction << "\n";
+	EV << "    sender_in: " << sender_in << "\n";
+	EV << "    sender_out: " << sender_out << "\n";
+	EV << "    sender_priority: " << sender_priority << "\n";
+	EV << "    sender_cell_in_use: " << sender_token_in_use << "\n";
 
 
 	/////////////////////////////////////////////////////////////////
 	// Tipos de mensaje
 	/////////////////////////////////////////////////////////////////
+
 
 	// Tipo de mensaje 1: Vehiculo ya salio de la interseccion
 	if(tipe == 1)
@@ -290,15 +303,13 @@ void Tokens::onData(WaveShortMessage *wsm)
 	if(sender_in == direction_junction && sender_dist > distance_to_junction)
 		sum_priority += (data.priority - carTable[sender_in][sender].priority);
 
-	detectColision(data);
 	carTable[sender_in][sender] = data;
 
 	// Antes de compara, actualizar informacion
 	Base::getBasicParameters();
-	if(allow_continue != 1 || priority >= 0.0)
+	if(allow_continue != 2 || priority >= 0.0)
 		calculateIndividualPriority();
 
-	// TODO: nuevo manejo de prioridad
 	EV << ">>> Sender data <<<\n";
 	EV << "    time to junction: " << data.time_to_junction << "\n";
 	EV << "    distance to junction: " << sender_dist << "\n";
@@ -309,6 +320,13 @@ void Tokens::onData(WaveShortMessage *wsm)
 
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
 	bool priority_comp = comparePriority(sender_priority, sender);
+
+	if(sender_in == direction_junction && sender_dist > distance_to_junction)
+		priority_comp = false;
+
+	if(sender_in == direction_junction && sender_dist < distance_to_junction && !data.crossing)
+		priority_comp = true;
+
 	if(priority_comp)
 	{
 		EV << "Comparando posibilidad de colision\n";
@@ -329,7 +347,6 @@ void Tokens::onData(WaveShortMessage *wsm)
 		EV << "Tengo mejor prioridad, eliminando del registro\n";
 		better_priority_cars.erase(sender);
 	}
-
 }
 
 
@@ -423,7 +440,7 @@ bool Tokens::comparePriority(double vhc_priority, int sender_id)
 	if(priority < 0.0)
 		return false;
 	else
-		return (vhc_priority <= 0.0 || priority < vhc_priority - 1.0 || (std::abs(priority - vhc_priority) < 1.0 && sender_id < myId));
+		return (vhc_priority <= 0.0 || priority < vhc_priority - 0.5 || (std::abs(priority - vhc_priority) < 0.5 && sender_id < myId));
 }
 
 

@@ -19,9 +19,6 @@ import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 simple Tokens extends BaseWaveApplLayer
 {
     parameters:
-		double ShareDataZoneRadio;
-    double LiderSelectZoneRadio;
-
     double share_data_radio;
     double token_selection_radio;
     
