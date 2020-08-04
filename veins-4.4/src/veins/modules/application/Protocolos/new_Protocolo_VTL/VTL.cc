@@ -20,13 +20,11 @@ void new_VTL::initialize(int stage)
     {
     case 0:
 		is_lider = false;
-		is_lane_lider = false;
-		exist_lider = false;
-		exist_lane_lider = false;
-		is_new_lider = false;
 
-		extraWaitingTime = -1.0;
-		isExtraWaitingTime = false;
+		first_query = false;
+		block_movement = false;
+
+		last_lider = -1;
 
 		direction_to_left = false;
 
@@ -34,15 +32,14 @@ void new_VTL::initialize(int stage)
 
 		crossing_left = false;
 
-		firstCar = std::vector<int>(4, -1);
+		liders_list = std::vector<int>(4, -1);
+		vehicles_to_wait = std::set<int>();
+
+		tiempo_semaforo = par("tiempo_semaforo").doubleValue();
+
+		shared_data_radio = par("shared_data_radio").doubleValue();
+		lider_selection_radio = par("lider_selection_radio").doubleValue();
 		
-        break;
-
-    case 1:
-    {
-		tiempo_semaforo = par("TiempoSemaforo").doubleValue();
-
-    }
         break;
     default:
         break;
@@ -63,6 +60,14 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 
 	// Determinar si este auto dobla hacia la izquierda.
 	direction_to_left = isGoingLeft();
+
+	EV << "> stop_time: " << stop_time << "\n";
+	EV << "> actual_time: " << simTime().dbl() << "\n";
+	EV << "> lideres:\n";
+	// Vehiculo verifica si existe algun lider
+	for(int i=0; i<4; i++)
+		EV << "  direccion " << i << ": " << liders_list[i] <<"\n";
+			
 
 
 	/////////////////////////////////////////////////////////////////
@@ -86,128 +91,115 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 
 
 	/////////////////////////////////////////////////////////////////
-	// Termino de periodo de tiempo extra.
+	// Espera de vehiculo que faltan por salir de interseccion
 	/////////////////////////////////////////////////////////////////
-	if(is_lider && isExtraWaitingTime && simTime() - stop_time >= tiempo_semaforo + extraWaitingTime + 1.0)
+	if(is_lider && lider_extra_waiting)
 	{
-		// Revisar existencia de posible lider en la otra calle.
-		existNextLider(false);
-
-		// Resetear variables relacionadas a lider.
-		is_lider = false;
-		is_lane_lider = false;
-		exist_lider = is_new_lider;
-		exist_lane_lider = false;
-		stop_time = -1.0;
-
-		stoped = false;
-		stoping = false;
-
-		isExtraWaitingTime = false;
-		extraWaitingTime = -1.0;
-
-
-		traciVehicle->setSpeed(-1);
-		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
-
-		// Enviar mensajes sobre termino de tiempo de espera.
-		prepareMsgData(data, 2);
-		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
-
-		is_new_lider = false;
-
-		scheduleAt(simTime() + ping_interval, self_beacon);
-
-		return ;
-	}
-
-
-	/////////////////////////////////////////////////////////////////
-	// Periodo de tiempo de espera extra.
-	/////////////////////////////////////////////////////////////////
-	if(isExtraWaitingTime)
-	{
-		// Revisar existencia de posible lider en la otra calle.
-		existNextLider(false);
-
-		// Enviar mensajes sobre tiempo de espera.
-		prepareMsgData(data, 3);
-		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
-
-		scheduleAt(simTime() + ping_interval, self_beacon);
-
-		return;
-	}
-
-
-	/////////////////////////////////////////////////////////////////
-	// Termino de semaforo para lider.
-	/////////////////////////////////////////////////////////////////
-	if(is_lider && simTime() - stop_time >= tiempo_semaforo + 1.0)
-	{
-		EV << ">>> Time-out stop time: lider car " << myId << " can continue\n";
-		EV << ">>> Calculating extra waiting time...\n";
-		
-		// Revisar existencia de posible lider en la otra calle.
-		existNextLider(true);
-
-		// Caso: hay que esperar autos rezagados.
-		EV << ">>> Extra waiting time: " << extraWaitingTime << "\n";
-		if(isExtraWaitingTime)
+		EV << ">>> Tiempo de espera extra: busqueda de proximo lider\n";
+		if(next_lider == -1)
 		{
-			prepareMsgData(data, 3);
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
+			searchNextLider();
+
+			if(next_lider != -1)
+			{
+				prepareMsgData(data, 3);
+
+				info_message->setData(data);
+				sendWSM((WaveShortMessage*) info_message->dup());
+
+				scheduleAt(simTime() + ping_interval, self_beacon);
+
+				return ;
+			}
 		}
-		// Caso: no hay que esperar autos rezagados.
-		else
+
+		// Vehiculo revisa si aun existen vehiculos a los que esperar
+		if(vehicles_to_wait.empty())
 		{
+			EV << "> Lider no tiene que esperar vehiculos\n";
+
+			// Eliminamos status de lider
 			is_lider = false;
-			is_lane_lider = false;
-			exist_lider = false;
-			exist_lane_lider = false;
-			stop_time = -1.0;
+			liders_list[direction_junction] = -1;
 
-			stoped = false;
-			stoping = false;
+			Base::continueTravel();
 
+			// Mensaje fin tiempo de lider
 			prepareMsgData(data, 2);
 
-			traciVehicle->setSpeed(-1);
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
+			info_message->setData(data);
+			sendWSM((WaveShortMessage*) info_message->dup());
+
+			scheduleAt(simTime() + ping_interval, self_beacon);
+
+			return ;
 		}
-
-		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
-
-		scheduleAt(simTime() + ping_interval, self_beacon);
-
-		return;
 		
 	}
 
-	// Lider deja semaforo en caso que no se acerquen vehiculos por la otra calle.
+
+	/////////////////////////////////////////////////////////////////
+	// Fin de tiempo de semaforo y verde rapida
+	/////////////////////////////////////////////////////////////////
 	if(is_lider)
 	{
-		int d1 = (direction_junction + 1) % 4;
-		int d2 = (d1 + 2) % 4;
+		// Termino de semaforo
+		bool end_time = ((simTime().dbl() - stop_time.dbl()) >= tiempo_semaforo);
 
-		if(carTable[d1].empty() && carTable[d2].empty())
+		// Verde rapida 
+		// TODO: adaptar a solo vehiculos en zona de colision
+		bool no_more_cars = (carTable[(direction_junction + 1) % 4].empty() && carTable[(direction_junction + 3) % 4].empty());
+
+		EV << ">>> Analizando termino de liderazgo\n";
+
+		// Termino de liderazgo
+		if(end_time || no_more_cars)
 		{
-			is_lider = false;
-			is_lane_lider = false;
-			exist_lider = false;
-			exist_lane_lider = false;
-			stop_time = -1.0;
+			EV << "> Fin de tiempo de lider\n";
 
-			stoped = false;
-			stoping = false;
+			EV << ">>> Busqueda de proximo lider\n";
+			searchNextLider();
 
-			prepareMsgData(data, 2);
+			// No existen vehiculos a esperar -> lider puede continuar con viaje
+			if(vehicles_to_wait.empty())
+			{
+				EV << "> Lider no tiene que esperar vehiculos\n";
 
-			traciVehicle->setSpeed(-1);
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
+				// Eliminamos status de lider
+				is_lider = false;
+				liders_list[direction_junction] = -1;
+
+				Base::continueTravel();
+
+				// Mensaje fin tiempo de lider
+				prepareMsgData(data, 2);
+
+			}
+			else
+			{
+				EV << "> Lider tiene que esperar vehiculos\n";
+
+				// Agregar status de espera extra
+				lider_extra_waiting = true;
+
+				// Mensaje notificacion de inicio de tiempo extra de lider
+				if(next_lider != -1)
+					prepareMsgData(data, 3);
+				else
+					prepareMsgData(data, 0);
+			}
+			
+			info_message->setData(data);
+			sendWSM((WaveShortMessage*) info_message->dup());
+
+			scheduleAt(simTime() + ping_interval, self_beacon);
+
+			return ;
+		}
+		else
+		{
+			double delta_time = tiempo_semaforo - (simTime().dbl() - stop_time.dbl());
+			EV << "> Aun existen vehiculos, tiempo restante de semaforo: " << delta_time << "\n";
 		}
 	}
 
@@ -215,23 +207,26 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Area de seleccion de lider.
 	/////////////////////////////////////////////////////////////////
-	if(distance_to_junction <= lider_select_radio)
+	if(distance_to_junction <= lider_selection_radio)
 	{
-		EV << ">>> Lider selection zone <<<\n";
+		EV << ">>> Zona de colision <<<\n";
 
-		EV << ">>> Zona de reparto y bloqueo de celdas\n";
+		// Posicion relativa al centro de la interseccion
 		double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
 		double dist_y = std::abs(position.y - traci->junction("1").getPosition().y);
 
-		// Vehiculo esta dentro de la interseccion
+		// Vehiculo se encuentra dentro de la interseccion
 		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
 		{
-			EV << ">>> Zona de cruce\n";
+			EV << ">>> Zona de cruce <<<\n";
+
+			// Estados de vehiculo
 			crossing = true;
 
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
+			// Registrar entrada en interseccion
+			Base::registerInOfJunction();
 
-			//cellsUsed();
+			// Mensaje broadcast
 			prepareMsgData(data, 0);
 			info_message->setData(data);
 			sendWSM((WaveShortMessage*) info_message->dup());
@@ -241,67 +236,69 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 			return ;
 
 		}
-		// Vehiculo aun no llega a la interseccion o ya salio
+		// Vehiculo salio de la interseccion
 		else if(crossing)
 		{
-			EV << ">>> Out of junction <<<\n";
+			EV << ">>> Fuera de interseccion <<<\n";
+
+			// Estados de vehiculo
+			crossing = false;
 			outJunction = true;
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
+
+			// Registrar salida en interseccion
+			Base::registerOutOfJunction();
 			
+			// Mensaje de salida de vehiculo
 			prepareMsgData(data, 1);
 			info_message->setData(data);
 			sendWSM((WaveShortMessage*) info_message->dup());
 
+			// Removemos de forma temprana el vehiculo
+			Base::removeVehicle(0);
+
+			// Vehiculo no vuelve a mandar mensajes
 			return;
 		}
 
+		// Vehiculo verifica si existe algun lider
+		bool exist_lider = false;
+		for(int id : liders_list)
+			if(id != -1)
+				exist_lider = true;
 
+		// Si no existe lider, verificamos que vehiculo no colisiona
 		if(!exist_lider)
 		{
-			// Se implementaron distintas formas de decidir el lider
-			//	1. segun diferencia de distancia a interseccion y tiempo de llegada estimada.
-			bool selected_lider = false;
+			EV << ">>> No existe lider, calculando si debo ser lider\n";
 
-			for(int i=0; i<=2; i+=2)
+			// Reviso si hay vehiculos de la otra calle en la zona de colision
+			bool vehicle_other_street = false;
+			for(int i=1; i<4; i+=2)
 			{
-				int d = (direction_junction + 1 + i) % 4;
-				for(auto it1 = carTable[d].begin(); it1 != carTable[d].end(); it1++)
+				int d = (direction_junction + i) % 4;
+				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 				{
-					int id1 = it1->first;
-					int direction1 = it1->second.direction_junction;
-					double time1 = it1->second.time_to_junction;
-					double dist1 = it1->second.distance_to_junction;
-
-					EV << "    id: " << id1 << "\n";
-					EV << "    direction: " << direction1 << "\n";
-					EV << "    time: " << time1 << "\n";
-					EV << "    dist: " << dist1 << "\n";
-					EV << "    delta t: " << std::abs(time1 - time_to_junction) << "\n";
-					EV << ">>>> <<<<\n";
-
-					// Comparar direccion y tiempos de llegada a interseccion para determinar posible colision.
-					if(std::abs(time1 - time_to_junction) < 3.0)// && time_to_junction > time1)
-					{
-						EV << ">>> I'm gonna crash!! <<<\n";
-						selected_lider = selected_lider | (dist1 < distance_to_junction);
-					}
+					vehicle_other_street = vehicle_other_street || (it->second.distance_to_junction < lider_selection_radio);
 				}
 			}
 
-			if(selected_lider)
+			// Si vehiculo puede llegar a colisionar, y tarda mas en llegar a interseccion, se vuelve lider
+			if(vehicle_other_street && !first_query)
 			{
-				EV << ">>> I think i'm the lider\n";
-				detention();
+				EV << "> Existen vehiculo en la otra calle, puede haber colision => Tomo liderazgo\n";
 
-				exist_lider = true;
-				exist_lane_lider = true;
-				
+				Base::detention();
+
+				// Asignacion de parametros de lider
 				is_lider = true;
-				is_lane_lider = true;
-				stop_time = simTime();
+				liders_list[direction_junction] = myId;
+				stop_time = simTime().dbl();
 
+				// Solo se realiza una query de colision
+				first_query = true;
+
+				// Se manda mensaje especial para notificar liderazgo
 				prepareMsgData(data, 0);
-
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
 
@@ -309,147 +306,35 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 
 				return;
 			}
-		} 
-		// Caso: auto es un lider de pista.
-		else if(is_lane_lider)
-		{
-			EV << ">>> Stoping lane lider...\n";
-			detention();
-
-			prepareMsgData(data, 0);
-
-			info_message->setData(data);
-			sendWSM((WaveShortMessage*) info_message->dup());
-
-			scheduleAt(simTime() + ping_interval, self_beacon);
-
-			return ;
 		}
 
-		// Caso: auto va a doblar a la izquierda.
-		if(direction_to_left)
+		// Solo se realiza una query de colision
+		first_query = true;
+
+		// Detencion de lider
+		if(is_lider)
 		{
-			EV << ">>> Going left, waiting window to pass.\n";
-			// Determinamos auto que va primero en la pista contraria.
-			double best_time = 1e18;
-			double secondary_best = 1e18;
-			double best_distance = 1e18;
-			double best_speed = 0;
+			EV << "> Detencion de lider\n";
 
-			bool toLeft = true;
-			bool isFirst = true;
-			bool someone_crossing = false;
+			Base::detention();
+		}
+		// Detencion de primer vehiculo en pista contraria a un lider, en caso de haber lider
+		else
+		{
+			EV << ">>> Confirmando lider en otra pista\n";
+			int l = liders_list[(direction_junction + 2) % 4];
 
-
-			// Determinar si este vehiculo es primero
-			int d = direction_junction;
-			for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
+			if(l != -1 && !block_movement)
 			{
-				// Auto revisado esta en la misma pista y mas cerca de la interseccion
-				if(it->second.distance_to_junction < distance_to_junction)
-				{
-					isFirst = false;
-					break;
-				}
-
-				if(it->second.crossing)
-				{
-					someone_crossing = true;
-				}
+				EV << "> Existe lider en la otra pista, hay que detenerse\n";
+				Base::detention();
 			}
-
-			// Determinar cual vehiculo es primero en pista contraria
-			d = (d+2) % 4;
-			for(auto it = carTable[d].begin(); it != carTable[d].end() && isFirst; it++)
+			else
 			{
-				// Auto revisado esta en la otra pista.
-				if(best_distance > it->second.distance_to_junction)
-				{
-					best_distance = it->second.distance_to_junction;
-
-					secondary_best = best_time;
-					best_time = it->second.time_to_junction;
-
-					best_speed = it->second.axis_speed;
-					toLeft = it->second.goingLeft;
-				}
-
-				if(it->second.crossing)
-				{
-					if(!it->second.goingLeft)
-						someone_crossing = true;
-				}
-			}
-
-			// Revisar si vehiculos en otra calle estan cruzando la interseccion
-			for(int i = 1; i <= 3; i+=2)
-			{
-				d = (d + i) % 4;
-				for(auto it = carTable[d].begin(); it != carTable[d].end() && isFirst; it++)
-				{
-					if(it->second.crossing)
-					{
-						someone_crossing = true;
-					}
-				}
+				if(stoping || stoped)
+					Base::continueTravel();
 			}
 			
-			
-			EV << ">>> Data del otro auto\n";
-			EV << "    best_time: " << best_time << "\n";
-			EV << "    best_speed: " << best_speed << "\n";
-			EV << "    best_distance: " << best_distance << "\n";
-			EV << "    toLeft: " << toLeft << "\n";
-			EV << "    crossing_left: " << crossing_left << "\n";
-			
-			// Decidir si doblar a la izquierda o no.
-			if(!crossing_left)
-			{
-				// Tiempo de llegada conciderando velocidad y aceleracion maxima
-
-				double t_real1 = time_to_junction;
-				double t_real2 = best_time;
-
-				EV << ">>> Tiempos\n";
-				EV << "    t_real de este auto: " << t_real1 << "\n";
-				EV << "    t_real de otro auto: " << t_real2 << "\n";
-				EV << "    t_ventaja: " << t_real2 - t_real1 << "\n";
-
-				//////////////////////////////////////////////////////
-
-				if(someone_crossing)
-				{
-					EV << ">>> Alguien esta cruzando\n";
-					detention();
-				}
-				else if(t_real2 - t_real1 <= 4.0)
-				{
-					EV << ">>> No hay tiempo para doblar\n";
-					if(toLeft)
-					{
-						if((std::abs(t_real1 - t_real2) <= 0.5 && secondary_best >= 3.0) || t_real1 < t_real2)
-						{
-							traciVehicle->setSpeed(-1.0);
-							stoped = false;
-							stoping = false;
-							crossing_left = true;
-						}
-						else
-							if(isFirst)
-								detention();
-					}
-					else
-						if(isFirst)
-							detention();
-				}
-				else
-				{
-					traciVehicle->setSpeed(-1.0);
-					stoped = false;
-					stoping = false;
-					crossing_left = true;
-				}
-			}
 		}
 	}
 
@@ -459,15 +344,17 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	if(distance_to_junction <= shared_data_radio)
 	{
-		EV << ">>> Shared data zone <<<\n";
-		
+		EV << ">>> Zona de informacion <<<\n";
+
+		// Mensaje broadcast
+		prepareMsgData(data, 0);
 		info_message->setData(data);
 		sendWSM((WaveShortMessage*) info_message->dup());
 
 		// Verificar si recien entro a zona de informacion compartida.
 		if(!inSharedDataZone)
 		{
-			EV << ">>> New car in shared data zone, waiting one cicle of simulation...\n";
+			EV << ">>> Nuevo vehiculo en zona de informacion, realizando ciclo de espera...\n";
 			inSharedDataZone = true;
 			scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
 		} 
@@ -505,191 +392,183 @@ void new_VTL::onData(WaveShortMessage *wsm)
 
 	int tipe = data.msg_type;
 	int sender = wsm->getSenderAddress();
-	int recipient = wsm->getRecipientAddress();
+	//int recipient = wsm->getRecipientAddress();
+
+	int sender_in = data.direction_junction;
+	int sender_out = data.direction_out;
+
+	bool sender_lider = data.isLider;
+	double sender_dist = data.distance_to_junction;
+	double sender_stop_time = data.stop_time;
+
 
 	EV << "    tipe: " << tipe << "\n";
 	EV << "    send: " << sender << "\n";
-	EV << "    rcp: " << recipient << "\n";
 	EV << "    time: " << data.time_to_junction << "\n";
+
+	EV << "    sender_in: " << sender_in << "\n";
+	EV << "    sender_out: " << sender_out << "\n";
+	EV << "    sender_stop_time: " << sender_stop_time << "\n";
 
 
 	// Auto ha salido de la interseccion
 	if(tipe == 1)
 	{
 		EV << ">>> Delete car " << sender << " from table <<<\n";
+
 		carTable[data.direction_junction].erase(sender);
 
+		// Eliminar elemento en caso que lider se encuentre en tiempo de espera extra
+		if(is_lider && lider_extra_waiting)
+			vehicles_to_wait.erase(sender);
+
 		return ;
 	}
 
-	// Se acabo tiempo de espera de auto lider:
-	// -> tipo 2: auto lider termino tiempo de espera
-	// -> tipo 3: auto lider esta en tiempo extra de espera
-	if(tipe == 2 || tipe == 3)
+	// Termino tiempo de lider
+	if(tipe == 2)
 	{
-		carTable[data.direction_junction][sender] = data;
+		EV << ">>> Lider en direccion " << sender_in << " termino como semaforo\n";
 
-		if(tipe == 2)
+		liders_list[sender_in] = -1;
+	}
+
+	// Lider actual selecciona su heredero
+	if(tipe == 3)
+	{
+		// Lider entrega identificador del siguiente lider
+		int id_next_lider = data.next_lider;
+		EV << ">>> Lider en tiempo de espera extra, vehiculo " << id_next_lider << " es el siguiente lider\n";
+
+		// Busqueda de direccion de siguiente lider
+		int dir_next_lider = -1;
+		for(int i=0; i<4; i++)
 		{
-			EV << ">>> Car " << sender << " lider time is ending <<<\n";
-			if(is_lane_lider && direction_junction % 2 == data.direction_junction % 2)
-			{
-				is_lane_lider = false;
-				stoped = false;
-				stoping = false;
-				traciVehicle->setSpeed(-1);
-
-				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
-			}
-
-			if(!data.isNewLider)
-			{
-				exist_lider = false;
-				exist_lane_lider = false;
-
-				return ;
-			}
+			if(carTable[i].count(id_next_lider) != 0)
+				dir_next_lider = -1;
 		}
-		
-		// Estoy fuera de zona de detencion y en calle perpendicular
-		bool ver = (canBeLider(axis_speed, distance_to_junction)) && (direction_junction % 2 != data.direction_junction % 2);
 
-		EV << "    Calculating if i am the next lider...\n";
-		for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end() && ver; it++)
+		// Memorizar siguiente lider
+		if(dir_next_lider != -1)
 		{
-			EV << "    Comparing with car " << it->first << "\n";
-
-			int direction = it->second.direction_junction;
-			double dist = it->second.distance_to_junction;
-			double time = it->second.time_to_junction;
-			double vel = it->second.axis_speed;
-
-			EV << "    > direction: " << direction << "\n";
-			EV << "    > distance to junction: " << dist << "\n";
-			EV << "    > time to junction: " << time << "\n";
-			
-			// Auto con el que me comparo esta dentro de la zona de eleccion de lider -> no puede ser el siguiente lider.
-			if(!canBeLider(vel, dist))
-				continue;
-
-			// Auto con el que me comparo es mejor opcion que yo -> no puedo ser lider
-			if(direction_junction % 2 == direction % 2 && dist < distance_to_junction)
-				ver = false;
-
+			liders_list[dir_next_lider] = id_next_lider
 		}
-		
-		if(ver)
+
+		if(myId == id_next_lider)
 		{
-			EV << "    Soy el proximo lider!!!\n";
 			is_lider = true;
-			is_lane_lider = true;
-
-			exist_lider = true;
-			exist_lane_lider = true;
-
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
-			stop_time = simTime();
-		}
-
-		return ;
-	}
-
-
-	detectColision(data);
-	carTable[data.direction_junction][sender] = data;
-
-	if(data.crossing)
-		return ;
-
-	EV << ">>> Sender data <<<\n";
-	EV << "    isLider " << data.isLider << "\n";
-	EV << "    isLaneLider: " << data.isLaneLider << "\n";
-	EV << "    time to junction: " << data.time_to_junction << "\n";
-	EV << "    distance to junction: " << data.distance_to_junction << "\n";
-	EV << "    stop time: " << data.stop_time << "\n";
-	
-	if(data.stop_time > 0.0)
-		EV << "    delta time: " << simTime() - data.stop_time << "\n";
-
-
-	/////////////////////////////////////////////////
-	// Mensaje viene del lider de una pista
-	/////////////////////////////////////////////////
-	if(data.isLaneLider)
-	{
-		EV << ">>> Message from lane lider <<<\n";
-		EV << "    data direction: " << data.direction_junction << "\n";
-		EV << "    my direction: " << direction_junction << "\n";
-		// Auto esta en la misma pista que el lider de pista.
-		if(data.direction_junction == direction_junction)
-		{
-			EV << "    Message from mine lane lider <<<\n";
-			exist_lane_lider = true;
-
-			// Verificar que no hay lider de pista extra.
-			if(is_lane_lider)
-			{
-				if(data.distance_to_junction < distance_to_junction)
-				{
-					is_lane_lider = false;
-					traciVehicle->setColor(Veins::TraCIColor::fromTkColor("grey"));
-				}
-			}
 		}
 	}
 
+	carTable[sender_in][sender] = data;
 
-	/////////////////////////////////////////////////
-	// Mensaje del lider de una calle
-	/////////////////////////////////////////////////
-	if(data.isLider)
+	Base::getBasicParameters();
+
+	// En caso de tener un lider incorrecto
+	if(!data.isLider && liders_list[sender_in] == sender)
+		liders_list[sender_in] = -1;
+
+	// Reaccion a mensaje de un vehiculo lider
+	if(data.isLider && !crossing)
 	{
-		EV << ">>> Message from street lider, direction: " << data.direction_junction << " <<<\n";
-		exist_lider = true;
+		EV << ">>> Existe lider en la interseccion\n";
 
-		// Auto esta en la misma calle que el lider de calle.
-		if(data.direction_junction % 2 == direction_junction % 2)
+		// Lider esta en la misma pista
+		if(sender_in == direction_junction)
 		{
-			// Verificar que no mas de un lider de calle en la misma calle.
-			if(is_lider && data.distance_to_junction < distance_to_junction)
-			{
-				EV << "    I'm a false lider!!!\n";
-				is_lider = false;
-				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("grey"));
+			EV << ">>> Mensaje de lider en mi pista\n";
 
-				return;
-			}
-
-			EV << "    Estoy en la misma calle que el lider, pero en otra pista\n";
-			// Verificar hay sublider en la pista.
-			if(!exist_lane_lider && direction_junction != data.direction_junction)
+			// Verificar si creo ser lider tambien
+			if(is_lider)
 			{
-				bool ver = (canBeLider(axis_speed, distance_to_junction));
-				for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end() && ver; it++)
+				EV << "> Existe conflicto de liderazgo\n";
+
+				// Elegir el lider mas cercano
+				if(sender_dist < distance_to_junction)
 				{
-					int direction = it->second.direction_junction;
-					double distance = it->second.distance_to_junction;
+					EV << "> Soy el falso lider\n";
 
-					if(direction_junction == direction && distance < distance_to_junction)
-						ver = false;
+					// Reseteando parametros de lider
+					is_lider = false;
+					last_lider = -1;
+					liders_list[sender_in] = sender;
 
+					last_lider = -1;
+					stop_time = -1.0;
+
+					if(stoping || stoped)
+						Base::continueTravel();
 				}
+			}
+			else
+				liders_list[sender_in] = sender;
+
+		}
+		// Lider esta en la misma calle
+		else if(sender_in % 2 == direction_junction)
+		{
+			EV << ">>> Mensaje de lider en otra pista\n";
+
+			if(is_lider)
+			{
+				EV << "> Existe conflicto de liderazgo\n";
+
+				// Elegir el que lleve mas tiempo como lider
+				if(sender_dist < distance_to_junction)
+				{
+					EV << "> Soy el falso lider\n";
+
+					// Reseteando parametros de lider
+					is_lider = false;
+					last_lider = -1;
+					liders_list[sender_in] = sender;
+					liders_list[direction_junction] = -1;
+
+					last_lider = -1;
+					stop_time = -1.0;
+
+					if(stoping || stoped)
+						Base::continueTravel();
+				}
+			}
+			else
+				liders_list[sender_in] = sender;
 				
-
-				if(ver)
+		}
+		// Lider esta en la otra calle
+		else
+		{
+			EV << ">>> Mensaje de lider en otra calle\n";
+			// Si hay conflicto durante revision de colision, elegir como lider el vehiculo con menos vehiculos delante de el
+			if(is_lider)
+			{
+				if(!(data.last_lider == myId || sender == last_lider))
 				{
-					EV << "    Soy el proximo lider de pista!!!\n";
-					is_lane_lider = true;
-					exist_lane_lider = true;
-					traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
+					EV << "> Liderazgo no fue heredado\n";
+					if(stop_time > sender_stop_time)
+					{
+						is_lider = false;
+						liders_list[sender_in] = sender;
+						liders_list[direction_junction] = -1;
+						stop_time = -1.0;
+
+						if(stoping || stoped)
+							Base::continueTravel();
+					}
 				}
+				else
+					liders_list[sender_in] = sender;
+
 			}
+			else
+				liders_list[sender_in] = sender;
+			
 		}
 	}
 }
 
-void new_VTL::onBeacon(WaveShortMessage *wsm){
-
+void new_VTL::onBeacon(WaveShortMessage *wsm)
+{
 }
 
 
@@ -700,14 +579,12 @@ void new_VTL::prepareMsgData(vehicleData& data, int msgTipe)
 {
 	Base::prepareMsgData(data, msgTipe);
 
-
-	data.isLaneLider = is_lane_lider;
 	data.isLider = is_lider;
-	data.isNewLider = is_new_lider;
 
-	data.isExtraTime = isExtraWaitingTime;
+	data.last_lider = last_lider;
+	data.next_lider = next_lider;
+
 	data.stop_time = stop_time.dbl();
-
 	data.goingLeft = direction_to_left;
 }
 
@@ -731,84 +608,34 @@ bool new_VTL::isGoingLeft()
 
 
 /**
- * Funcion que determina si en otra calle puede existir un lider, ademas de calcular el tiempo de espera extra si getWaitingTime es true
+ * 
  */
-void new_VTL::existNextLider(bool getWaitingTime)
+void new_VTL::searchNextLider()
 {
-	// Revisar existencia de posible lider en la otra calle.
-	EV << ">>> Searching for next lider.\n";
-	for(int i=0; i<=2; i+=2)
+	// Buscamos proximo lider
+	next_lider = -1;
+	double best_dist_to_junction = 1e8;
+
+	for(int i=1; i<4; i+=2)
 	{
-		int d = (direction_junction + 1 + i) % 4;
+		int d = (direction_junction + i) % 4;
 		for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 		{
-			int direction = it->second.direction_junction;
 			double dist = it->second.distance_to_junction;
-			double time = it->second.time_to_junction;
-			double vel = it->second.axis_speed;
-
-			EV << "    > direction: " << direction << "\n";
-			EV << "    > distance to junction: " << dist << "\n";
-			EV << "    > time to junction: " << time << "\n";
-
-			if(canBeLider(vel, dist))
+			if(dist < best_dist_to_junction && dist > lider_selection_radio)
 			{
-				is_new_lider = true;
-				continue;
+				next_lider = it->first;
+				best_dist_to_junction = dist;
 			}
-			else
+
+			// Vehiculo con permiso para salir de interseccion
+			if(dist <= lider_selection_radio)
 			{
-				if(extraWaitingTime < time && getWaitingTime)
-				{
-					isExtraWaitingTime = true;
-					extraWaitingTime = time;
-				}
+				EV << "> Esperando a vehiculo " << it->first << "\n";
+				vehicles_to_wait.insert(it->first);
 			}
 		}
 	}
-}
 
-
-/**
- * Funcion que determina si una auto puede ser lider, dada la velocidad y distancia a interseccion.
- */
-bool new_VTL::canBeLider(double velocity, double distance)
-{
-	double d = distance - 17.0;
-	double v = velocity;
-	double a = -4.5;
-
-	EV << "    dist: " << d << "\n";
-	EV << "    vel: " << v << "\n";
-	EV << "    a_min: " << a << "\n";
-
-	double t_detention = (-v) / a;
-	double d_detention = v*t_detention + (1.0/2.0)*a*t_detention*t_detention;
-
-	EV << "    time_det: " << t_detention << "\n";
-	EV << "    dist_det: " << d_detention << "\n";
-
-	// Velocidad es negativa(?)
-	if(t_detention < 0)
-	{
-		EV << "    Cant be lider\n";
-		return false;
-	}
-
-	// Esta dentro de la interseccion.
-	if(d < 0)
-	{
-		EV << "    Cant be lider\n";
-		return false;
-	}
-
-	// Si frena, se detiene despues de la interseccion.
-	if(d_detention > d)
-	{
-		EV << "    Cant be lider\n";
-		return false;
-	}
-
-	return true;
-	
+	EV << "> Proximo lider: " << next_lider << "\n";
 }
