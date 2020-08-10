@@ -47,9 +47,11 @@ protected:
 	// Identificador de lider anterior y heredero
 	int last_lider;
 	int next_lider;
+	int sub_next_lider;
 
 	// Tiempo en que comienza lider
 	SimTime stop_time;
+	SimTime lider_start_time;
 
 	// Lista de lideres activos
 	std::vector<int> liders_list;
@@ -72,10 +74,11 @@ protected:
 	void updateEstate();
 
 	void searchNextLider();
+	void selectIgnorants();
+
 
 	void prepareMsgData(vehicleData& data, int msgTipe);
 	bool isGoingLeft();
-	bool canBeLider(double velocity, double distance);
 	void existNextLider(bool getWaitingTime);
 
 };

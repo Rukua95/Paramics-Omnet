@@ -18,6 +18,7 @@ struct vehicleData {
 	float acceleration;
 
 	float time_to_junction = -1.0;
+	float time_in_wait = -1.0;
 	float distance_to_junction = -1.0;
 
 	bool stoping = false;
@@ -26,14 +27,18 @@ struct vehicleData {
 
 
 	bool isLider = false;
-	bool isLaneLider = false;
-	bool isNewLider = false;
-	bool goingLeft = false;
+	int last_lider = -1;
+	int next_lider = -1;
+	int sub_next_lider = -1;
+
 
 	float stop_time = -1.0;
+	bool goingLeft = false;
 
+	bool isLaneLider = false;
+	bool isNewLider = false;
 	bool isExtraTime = false;
-
+	
 
 
 	int tokens;
