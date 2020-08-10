@@ -32,12 +32,18 @@ public:
     bool shuttingDown();
 
 	void carOutOfJunction(int carId, int direction, double timeInJunction);
+    void carInOfJunction(int carId, Coord coord_position, Coord coord_speed);
 	void carFlux();
 	void meanTime();
     void calculateMetrics();
 
+    void saveWaitingTime(int direction, double time_in_wait);
+    void detectColision();
+    void getCarPoint(std::vector<Coord> &lim, double theta);
+
 private:
     bool shut_down;
+    bool registered_stuck;
 
     std::time_t start_time;
     std::time_t end_time;
@@ -48,6 +54,10 @@ private:
 
     // Variables para calculo de flujo y tiempo promedio
 	std::vector<int> out_of_junction_count;
+    std::vector<int> first_car_wait_time;
+
+    std::map<int, std::pair<Coord, Coord> > car_position_intersection;
+    std::map<std::pair<int, int>, double> collision_register;
 	
 	std::vector<double> flux, aux_mean_time, mean_time, aux_standard_deviation, standard_deviation;
     double total_flux, total_mean_time, total_standard_deviation;

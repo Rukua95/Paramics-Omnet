@@ -65,10 +65,6 @@ protected:
 	double distance_to_junction;
 	double time_to_junction;
 
-	// Radios de distintas zonas.
-	double shared_data_radio;
-	double lider_select_radio;
-
 
 	// Cinematica vehiculos.
 
@@ -117,6 +113,7 @@ protected:
 	// Colision list: car id, simulation time
 	std::map<int, double> colision_list;
 
+
 	// Metodos
     void initialize(int stage);
     void finish();
@@ -134,6 +131,7 @@ protected:
 	void detectColision(vehicleData data);
 	void getCarPoint(std::vector<Coord> &lim, double theta);
 	void registerOutOfJunction();
+	void registerInOfJunction();
 
 	void detention();
 	void continueTravel();

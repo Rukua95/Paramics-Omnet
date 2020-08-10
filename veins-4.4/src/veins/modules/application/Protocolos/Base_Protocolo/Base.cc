@@ -36,13 +36,10 @@ void Base::initialize(int stage)
 		stoped = false;
 
 		outJunction = false;
-		
 		crossing = false; 
 		anti_block = true;
 		incorrect_exit = false;
-		
 		inSharedDataZone = false;
-
 		anounce_msg = true;
 
 		// Direccion inicial de vehiculo
@@ -100,17 +97,13 @@ void Base::initialize(int stage)
         SimTime beginTime = SimTime(uniform(0.0, sim_update_interval / 2));
 
 		// Intervalo de tiempo entre self-message
-		ping_interval = SimTime(sim_update_interval / 2);
+		ping_interval = SimTime(sim_update_interval / 1);
 
         self_beacon = new cMessage();
 		sharedDataZoneMessage = new cMessage();
 
 		// Envio de self-message
         scheduleAt(simTime() + beginTime, self_beacon);
-
-		// Variables tamaño de zona para compartir informacion y zona de eleccion de lider (y bloqueo de tokens)
-		shared_data_radio = par("ShareDataZoneRadio").doubleValue();
-		lider_select_radio = par("LiderSelectZoneRadio").doubleValue();
 
     }
         break;
@@ -145,24 +138,11 @@ void Base::finish()
 		recordScalar("DistanceJunction", distance_to_junction);
 	}
 
-	recordScalar("IncorrectExit", incorrect_exit);
-
 	recordScalar("MaxStuckTime", stuck);
 	recordScalar("StuckReferenceTime", stuck_reference_time);
 
 	recordScalar("IntersectionEnterTime", time_in_junction);
 	recordScalar("IntersectionExitTime", intersection_exit_time);
-	recordScalar("NumberOfCollisions", colision_list.size());
-
-	// Resgistro de tiempo y vehiculo con el que se realizo colision
-	for(auto it = colision_list.begin(); it != colision_list.end(); it++)
-	{
-		std::string s = "CollisionTimeWith-" + std::to_string(it->first);
-		char *c;
-		strcpy(c, s.c_str());
-
-		recordScalar(c, it->second);
-	}
 }
 
 
@@ -182,33 +162,7 @@ void Base::handleSelfMsg(cMessage *msg)
 		time_in_wait = -1.0;
 	}
 
-	if(distance_to_junction <= lider_select_radio)
-	{
-		double dist_x = std::abs(position.x - intersection.x);
-		double dist_y = std::abs(position.y - intersection.y);
-
-		// Vehiculo dentro de la interseccion
-		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
-		{
-			EV << ">>> Zona de cruce\n";
-		}
-		else
-		{
-			// Vehiculo salio de la interseccion
-			if(crossing)
-			{
-				Base::removeVehicle(0);
-				Base::registerOutOfJunction();
-			}
-			// vehiculo entrando a la interseccion.
-			else
-			{
-			}
-		}
-	}
-
-
-	bool first = distance_to_junction < shared_data_radio;
+	bool first = true; //distance_to_junction < shared_data_radio;
 	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
 	{
 		if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
@@ -314,7 +268,7 @@ int Base::finalDirection()
 void Base::detention()
 {
 	// Si esta fuera del radio de seleccion de lider, aun no es necesario que desacelere
-	bool verificador = (distance_to_junction > lider_select_radio);
+	bool verificador = false; //(distance_to_junction > lider_select_radio);
 
 	// Verificar si no hay vehiculo que se este deteniendo mas adelante
 	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
@@ -343,9 +297,9 @@ void Base::detention()
 		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
 
 		if(distance_to_junction > 45)
-			traciVehicle->setSpeed(5.0);
+			traciVehicle->setSpeed(4.0);
 		else if(distance_to_junction > 35)
-			traciVehicle->setSpeed(3.5);
+			traciVehicle->setSpeed(3.0);
 		else if(distance_to_junction > 25)
 			traciVehicle->setSpeed(2.0);
 		else if(distance_to_junction > 17)
@@ -459,112 +413,6 @@ void Base::getBasicParameters()
 
 
 /**
- * Funcion que detecta colision de vehiculo con otro, dada la info que envie este ultimo
- */
-void Base::detectColision(vehicleData data)
-{
-	Coord p1 = position;
-	Coord v1 = velocity;
-
-	double theta1 = atan2(v1.y, v1.x);
-	std::vector<Coord> lim1 = {Coord(1.0, 0.8), Coord(1.0, -0.8), Coord(-1.0, -0.8), Coord(-1.0, 0.8)};
-
-	EV << ">>> p1: " << p1 << "   v1: " << v1 << "   theta1: " << theta1 <<"\n";
-
-	getCarPoint(lim1, theta1);
-
-	EV << ">>> Car points:\n    ";
-	for(int i=0; i<4; i++)
-	{
-		EV << lim1[i] << " ";
-		lim1[i] += p1;
-	}
-	EV << "\n";
-
-
-	Coord p2 = data.position;
-	Coord v2 = data.speed;
-
-	double theta2 = atan2(v2.y, v2.x);
-
-	std::vector<Coord> lim2 = {Coord(1.0, 0.8), Coord(1.0, -0.8), Coord(-1.0, -0.8), Coord(-1.0, 0.8)};
-
-	EV << ">>> p2: " << p2 << "   v2: " << v2 << "   theta2: " << theta2 <<"\n";
-
-	getCarPoint(lim2, theta2);
-
-	EV << ">>> Car sender points:\n    ";
-	for(int i=0; i<4; i++)
-	{
-		EV << lim2[i] << " ";
-		lim2[i] += p2;
-	}
-	EV << "\n";
-
-
-	bool car_intersect = false;
-
-	for(int i=0; i<4; i++)
-	{
-		for(int j=0; j<4; j++)
-		{
-			Coord vec = lim1[(i + 1) % 4] - lim1[i];
-			Coord q1 = lim2[j] - lim1[i];
-			Coord q2 = lim2[(j + 1) % 4] - lim1[i];
-
-			double val1 = q1.x * vec.y - q1.y * vec.x;
-			double val2 = q2.x * vec.y - q2.y * vec.x;
-
-			bool ver1 = (val1*val2 < 0);
-
-
-			vec = lim2[(j + 1) % 4] - lim2[j];
-			q1 = lim1[i] - lim2[j];
-			q2 = lim1[(i + 1) % 4] - lim2[j];
-
-			val1 = q1.x * vec.y - q1.y * vec.x;
-			val2 = q2.x * vec.y - q2.y * vec.x;
-
-			bool ver2 = (val1*val2 < 0);
-
-
-			car_intersect = car_intersect || (ver1 && ver2);
-
-		}
-	}
-
-	if(car_intersect)
-	{
-		// Escribir en alguna parte que hay colision
-		// puedo dejar un registro dentro del vehiculo la cantidad de colisiones.
-
-		EV << ">>> Colision registrada\n";
-
-		colision_list[data.vehicle_id] = simTime().dbl();
-
-	}
-
-}
-
-
-/**
- * Funcion que obtiene las coordenadas de los vertices que representan un vehiculo
- */
-void Base::getCarPoint(std::vector<Coord> &lim, double theta)
-{
-	EV << ">>> cos(theta): " << cos(theta) << "   sin(theta): " << sin(theta) << "\n";
-	for(int i=0; i<4; ++i) 
-	{
-		double aux_x = lim[i].x;
-		double aux_y = lim[i].y;
-
-		lim[i].x = aux_x * cos(theta) - aux_y * sin(theta);
-		lim[i].y = aux_x * sin(theta) + aux_y * cos(theta);
-	}
-}
-
-
-/**
  * Registra un vehiculo fuera de la interseccion
  */
 void Base::registerOutOfJunction()
@@ -572,6 +420,22 @@ void Base::registerOutOfJunction()
 	ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
 	intersection_exit_time = simTime().dbl();
 	sceman->carOutOfJunction(myId, direction_junction, intersection_exit_time - time_in_junction);
+}
+
+
+/**
+ * Registra un vehiculo dentro de la interseccion
+ */
+void Base::registerInOfJunction()
+{
+	traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
+	
+	ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
+	intersection_exit_time = simTime().dbl();
+
+	Coord coord_position = position;
+	Coord coord_speed = velocity;
+	sceman->carInOfJunction(myId, coord_position, coord_speed);
 }
 
 
@@ -587,3 +451,5 @@ void Base::removeVehicle(int reason)
 	if(reason == 0)
 		Base::registerOutOfJunction();
 }
+
+// TODO: eliminar del registro, vehiculos que no se hayan comunicado
