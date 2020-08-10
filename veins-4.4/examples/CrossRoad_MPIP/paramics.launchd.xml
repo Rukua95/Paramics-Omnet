@@ -3,5 +3,7 @@
 <launch>
 	<basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\CrossRoad_MPIP" /> 
 	<network name="CrossRoad" />
+	<!-- Error seeds -->
+	<seed value="780515" />
 </launch>
  
