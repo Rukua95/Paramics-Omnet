@@ -32,7 +32,6 @@ protected:
 			int id_cell;
 
 			std::set<int> car_id_reserve;
-			std::queue<int> car_id_block_queue;
 			int car_id_block;
 
 			void create(int id, Coord position1, Coord position2)
@@ -46,23 +45,34 @@ protected:
 
 	};
 
+	// Parametros de protocolo
+
 	// Registro de celdas que se pueden usar
 	std::vector<Cell> cell_register;
 
 	// Lista de celdas a usar por el vehiculo (lista de enteros)
 	std::vector<int> cell_list;
+	int id_cell_in_use;
 	int id_cell_begin;
 	int id_cell_end;
 
 	// Lista de celdas a usar segun origen y destino
 	std::vector<std::vector<std::vector<int> > > cells_table;
 
+	// Lista de vehiculos con mejor prioridad
 	std::set<int> better_priority_cars;
+	std::vector<std::set<int> > bloqued_cells;
 
 	// Prioridad
 	double priority;
-	double intersection_priority;
 	int allow_continue;
+	bool block_priority;
+	bool has_bloqued_cells;
+	int in_junction_stop_time;
+
+	// Radios
+	double shared_data_radio;
+	double cell_selection_radio;
 
 
 	// Metodos
@@ -77,14 +87,11 @@ protected:
 
 	void setCells();
 	void getCells();
-	void calculateIndividualPriority();
-	void cellsInUse();
+	void cellInUse();
+	int lastCell();
+	bool compareCells(int in, int out, int cell_in_use);
 	void detentionLastCell();
-	bool compareCells(int in, int out, int id_begin, int id_end);
 
-	void removeVehicle(int reason);
-
-	void processMsg(NodeInfoMessage* msg);
 
 public:
 	std::string test = "nada";

@@ -18,9 +18,9 @@ import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 
 simple Dummy extends BaseWaveApplLayer
 {
-    parameters:
-		double ShareDataZoneRadio;
-		double LiderSelectZoneRadio;
+    //parameters:
+		//double shared_data_radio;
+		//double lider_selection_radio;
 
     @class(Dummy);
     @display("i=block/app2");

@@ -34,15 +34,12 @@ void VTL::initialize(int stage)
 		stop_time = -1.0;
 
 		firstCar = std::vector<int>(4, -1);
+
+		tiempo_semaforo = par("tiempo_semaforo").doubleValue();
+		shared_data_radio = par("shared_data_radio").doubleValue();
+		lider_selection_radio = par("lider_selection_radio").doubleValue();
 		
-        break;
-
-    case 1:
-    {
-		tiempo_semaforo = par("TiempoSemaforo").doubleValue();
-
-    }
-        break;
+		break;
     default:
         break;
     }
@@ -99,7 +96,8 @@ void VTL::handleSelfMsg(cMessage *msg){
 		exist_lane_lider = false;
 		stop_time = -1.0;
 
-		Base::continueTravel();
+		if(!direction_to_left)
+			Base::continueTravel();
 
 		isExtraWaitingTime = false;
 		extraWaitingTime = -1.0;
@@ -163,7 +161,8 @@ void VTL::handleSelfMsg(cMessage *msg){
 			exist_lane_lider = false;
 			stop_time = -1.0;
 
-			Base::continueTravel();
+			if(!direction_to_left)
+				Base::continueTravel();
 
 			prepareMsgData(data, 2);
 
@@ -192,9 +191,17 @@ void VTL::handleSelfMsg(cMessage *msg){
 			exist_lane_lider = false;
 			stop_time = -1.0;
 
-			Base::continueTravel();
+			if(!direction_to_left)
+				Base::continueTravel();
 
 			prepareMsgData(data, 2);
+
+			info_message->setData(data);
+			sendWSM((WaveShortMessage*) info_message->dup());
+
+			scheduleAt(simTime() + ping_interval, self_beacon);
+
+			return ;
 
 		}
 	}
@@ -203,7 +210,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Area de seleccion de lider.
 	/////////////////////////////////////////////////////////////////
-	if(distance_to_junction <= lider_select_radio)
+	if(distance_to_junction <= lider_selection_radio)
 	{
 		EV << ">>> Lider selection zone <<<\n";
 
@@ -216,6 +223,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Zona de cruce\n";
 			crossing = true;
+			Base::registerInOfJunction();
 
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
@@ -233,6 +241,8 @@ void VTL::handleSelfMsg(cMessage *msg){
 		else if(crossing)
 		{
 			EV << ">>> Out of junction <<<\n";
+			Base::registerOutOfJunction();
+			
 			outJunction = true;
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 			
@@ -275,6 +285,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 			{
 				EV << ">>> I think i'm the lider\n";
 				detention();
+				crossing_left = false;
 
 				exist_lider = true;
 				exist_lane_lider = true;
@@ -298,6 +309,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Stoping lane lider...\n";
 			detention();
+			crossing_left = false;
 
 			prepareMsgData(data, 0);
 
@@ -329,17 +341,20 @@ void VTL::handleSelfMsg(cMessage *msg){
 					isFirst = false;
 				}
 
+				/*
 				if(it->second.crossing)
 				{
 					someone_crossing = true;
 				}
+				*/
 			}
 
 			double secondary_best_time = 1e18;
 			double secondary_best_dist = 1e18;
 			double best_time = 1e18;
 			double best_distance = 1e18;
-			double best_speed = 0;
+			double best_speed = -1;
+			int name_best = -1;
 			bool toLeft = true;
 
 			// Determinar cual vehiculo es primero en pista contraria
@@ -354,6 +369,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 						secondary_best_dist = best_distance;
 					}
 
+					name_best = it->first;
 					best_distance = it->second.distance_to_junction;
 					best_time = it->second.time_to_junction;
 
@@ -419,26 +435,44 @@ void VTL::handleSelfMsg(cMessage *msg){
 				else if(t_real2 - t_real1 <= 4.0)
 				{
 					EV << ">>> No hay tiempo para doblar\n";
-					if(toLeft)
+					if(toLeft && std::abs(t_real2 - t_real1) <= 4.5)
 					{
 						//if((std::abs(t_real1 - t_real2) <= 0.5 && secondary_best >= 3.0) || t_real1 < t_real2)
-						if(t_real3 - t_real1 <= 4.0)
+						if(t_real3 - t_real1 >= 4.0)
 						{
-							Base::continueTravel();
-							crossing_left = true;
+							if(isFirst)
+							{
+								Base::continueTravel();
+								crossing_left = true;
+							}
+							else
+								detention();
 						}
 						else
-							if(isFirst)
+						{
+							//if(isFirst)
+							if(myId < name_best && isFirst)
+							{
+								Base::continueTravel();
+								crossing_left = true;
+							}
+							else
 								detention();
+						}
 					}
 					else
-						if(isFirst)
-							detention();
+						//if(isFirst)
+						detention();
 				}
 				else
 				{
-					Base::continueTravel();
-					crossing_left = true;
+					if(isFirst)
+					{
+						Base::continueTravel();
+						crossing_left = true;
+					}
+					else
+						detention();
 				}
 			}
 		}
@@ -585,8 +619,6 @@ void VTL::onData(WaveShortMessage *wsm)
 		return ;
 	}
 
-
-	detectColision(data);
 	carTable[data.direction_junction][sender] = data;
 
 	if(data.crossing)
@@ -656,6 +688,7 @@ void VTL::onData(WaveShortMessage *wsm)
 			if(!exist_lane_lider && direction_junction != data.direction_junction)
 			{
 				bool ver = (canBeLider(axis_speed, distance_to_junction));
+				exist_lane_lider = true;
 				for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end() && ver; it++)
 				{
 					int direction = it->second.direction_junction;
@@ -671,7 +704,6 @@ void VTL::onData(WaveShortMessage *wsm)
 				{
 					EV << "    Soy el proximo lider de pista!!!\n";
 					is_lane_lider = true;
-					exist_lane_lider = true;
 					traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 				}
 			}

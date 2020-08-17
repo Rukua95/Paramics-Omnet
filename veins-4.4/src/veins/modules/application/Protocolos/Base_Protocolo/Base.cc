@@ -56,6 +56,7 @@ void Base::initialize(int stage)
 		stuck_reference_time = 0.0;
 
 		// Variables de maxima y minima aceleracion, y maxima velocidad (ajustadas manualmente a la simulacion)
+		// TODO: estos valores deberian obtenerse a traves de veins
 		max_accel = 2.5; // traciVehicle->getDeccel();
 		min_accel = -4.5; // traciVehicle->getAccel();
 		max_velocidad = 16;
@@ -97,7 +98,7 @@ void Base::initialize(int stage)
         SimTime beginTime = SimTime(uniform(0.0, sim_update_interval / 2));
 
 		// Intervalo de tiempo entre self-message
-		ping_interval = SimTime(sim_update_interval / 1);
+		ping_interval = SimTime(sim_update_interval * 2);
 
         self_beacon = new cMessage();
 		sharedDataZoneMessage = new cMessage();
@@ -251,7 +252,7 @@ void Base::prepareMsgData(vehicleData& data, int msgTipe)
 
 
 /**
- * Determina la direccion final de un auto
+ * Determina la direccion final de un vehiculo
  */
 int Base::finalDirection()
 {
@@ -263,7 +264,7 @@ int Base::finalDirection()
 
 
 /**
- * Funcion para simular una detencion hacia la esquina
+ * Funcion para simular una detencion en interseccion
  */
 void Base::detention()
 {
@@ -313,7 +314,9 @@ void Base::detention()
 }
 
 
-
+/**
+ * Funcion para continuar viaje de un vehiculo en detencion
+ */
 void Base::continueTravel()
 {
 	traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
@@ -347,8 +350,7 @@ void Base::timeToJunction()
 
 
 /**
- * Funcion que establece variables como velocidad, aceleracion, distancia a interseccion y tiempo estimado de llegada
- * a interseccion
+ * Funcion que determina parametros basicos, como velocidad y distancia a interseccion
  */
 void Base::getBasicParameters()
 {
@@ -361,15 +363,12 @@ void Base::getBasicParameters()
 	velocity = mobility->getCurrentSpeed();
 	intersection = traci->junction("1").getPosition();
 	position.x = -(position.x - intersection.x) + intersection.x;
-
 	
-
 	laneId = traciVehicle->getLaneId();
 	roadId = traciVehicle->getRoadId();
 	startId = roadId.substr(0, roadId.find(":"));
 	endId = roadId.substr(roadId.find(":")+1, roadId.size() - roadId.find(":") - 1);
 
-	
 
 	// Obtencion de direccion inicial y final.
 	if(direction_junction == -1 && directionMap.count(startId))
@@ -397,6 +396,7 @@ void Base::getBasicParameters()
 	// Tiempo aproximado para llegar a interseccion.
 	timeToJunction();
 	
+	// 
 	EV << "    position: " << position << "\n";
 	EV << "    velocity: " << velocity << "\n";
 	EV << "    intersection: " << intersection << "\n";
@@ -413,7 +413,7 @@ void Base::getBasicParameters()
 
 
 /**
- * Registra un vehiculo fuera de la interseccion
+ * Funcion que registra un vehiculo que sale de la interseccion
  */
 void Base::registerOutOfJunction()
 {
@@ -424,7 +424,7 @@ void Base::registerOutOfJunction()
 
 
 /**
- * Registra un vehiculo dentro de la interseccion
+ * Funcion que registra un vehiculo que entra en la interseccion
  */
 void Base::registerInOfJunction()
 {
@@ -451,5 +451,3 @@ void Base::removeVehicle(int reason)
 	if(reason == 0)
 		Base::registerOutOfJunction();
 }
-
-// TODO: eliminar del registro, vehiculos que no se hayan comunicado

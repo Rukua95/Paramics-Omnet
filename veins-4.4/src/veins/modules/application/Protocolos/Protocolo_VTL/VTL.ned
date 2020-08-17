@@ -19,9 +19,9 @@ import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 simple VTL extends BaseWaveApplLayer
 {
     parameters:
-		double TiempoSemaforo;
-		double ShareDataZoneRadio;
-		double LiderSelectZoneRadio;
+		double tiempo_semaforo;
+		double shared_data_radio;
+		double lider_selection_radio;
 
     @class(VTL);
     @display("i=block/app2");

@@ -41,11 +41,14 @@ protected:
 	bool direction_to_left;
 	bool crossing_left;
 
-	double tiempo_semaforo;
-
 	SimTime stop_time;
 
 	std::vector<int> firstCar;
+
+	double tiempo_semaforo;
+	double shared_data_radio;
+	double lider_selection_radio;
+
 
 	// Metodos
     void initialize(int stage);

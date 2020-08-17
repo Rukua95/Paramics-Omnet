@@ -19,8 +19,8 @@ import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 simple Grilla_MPIP extends BaseWaveApplLayer
 {
     parameters:
-		double ShareDataZoneRadio;
-		double LiderSelectZoneRadio;
+      double shared_data_radio;
+      double cell_selection_radio;
 
     @class(Grilla_MPIP);
     @display("i=block/app2");

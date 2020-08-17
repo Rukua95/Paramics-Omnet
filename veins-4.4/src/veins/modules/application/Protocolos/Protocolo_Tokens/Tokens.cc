@@ -440,7 +440,7 @@ bool Tokens::comparePriority(double vhc_priority, int sender_id)
 	if(priority < 0.0)
 		return false;
 	else
-		return (vhc_priority <= 0.0 || priority < vhc_priority - 0.5 || (std::abs(priority - vhc_priority) < 0.5 && sender_id < myId));
+		return (vhc_priority <= 0.0 || priority < vhc_priority - 1 || (std::abs(priority - vhc_priority) < 1 && sender_id < myId));
 }
 
 

@@ -30,59 +30,31 @@ void Dummy::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
 
+	EV << ">>> Zona de reparto y bloqueo de celdas\n";
+	double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
+	double dist_y = std::abs(position.y - traci->junction("1").getPosition().y);
 
-	/////////////////////////////////////////////////////////////////
-	// Preparar mensaje
-	/////////////////////////////////////////////////////////////////
-	info_message = prepareNIM("data", beaconLengthBits, type_CCH, beaconPriority, -1, -1);
-
-	vehicleData data;
-
-	// Vehiculos mandan mensajes durante el ciclo de espera 
-	if(msg == sharedDataZoneMessage)
+	// Vehiculo esta dentro de la interseccion
+	if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
 	{
-		info_message->setData(data);
-		scheduleAt(simTime() + ping_interval, self_beacon);
+		EV << ">>> Zona de cruce\n";
+		crossing = true;
+		Base::registerInOfJunction();
 
-		return;
+		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
+
 	}
-
-
-	/////////////////////////////////////////////////////////////////
-	// Verificacion de bloqueo de celdas
-	/////////////////////////////////////////////////////////////////
-	if(distance_to_junction <= lider_select_radio)
+	else
 	{
-
-		traciVehicle->slowDown(0.5, 0.0);
-		return;
-
-		EV << ">>> Zona de reparto y bloqueo de celdas\n";
-		double dist_x = std::abs(position.x - traci->junction("1").getPosition().x);
-		double dist_y = std::abs(position.y - traci->junction("1").getPosition().y);
-
-		// Vehiculo esta dentro de la interseccion
-		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
+		// Vehiculo salio de la interseccion
+		if(crossing)
 		{
-			EV << ">>> Zona de cruce\n";
-			crossing = true;
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
+			EV << ">>> Out of junction <<<\n";
+			Base::registerOutOfJunction();
+			Base::removeVehicle(0);
 
-		}
-		// Vehiculo aun no llega a la interseccion o ya salio
-		else
-		{
-			// Vehiculo salio de la interseccion
-			if(crossing)
-			{
-				EV << ">>> Out of junction <<<\n";
-				
-				outJunction = true;
-				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
-				info_message->setData(data);
+			return;
 
-				return;
-			}
 		}
 	}
 
@@ -93,6 +65,24 @@ void Dummy::handleSelfMsg(cMessage *msg){
 
 void Dummy::onData(WaveShortMessage *wsm)
 {
+	// Auto que recibe mensaje salio de la interseccion.
+	if(outJunction)
+	{
+		EV << ">>> OUT OF JUNCTION <<<\n";
+		// TODO: autos que esperaban que pasara tienen que eliminarlo de la lista de espera
+		return ;
+	}
+
+	// Auto aun no esta en area para compartir informacion.
+	if(!inSharedDataZone)
+	{
+		EV << ">>> CANT RECEIVE, OUT OF SHARED DATA ZONE <<<\n";
+		return ;
+	}
+
+	EV << ">>> Data message <<<\n";
+	NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
+	vehicleData data = msg->getData();
 }
 
 

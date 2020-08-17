@@ -301,7 +301,7 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	EV << "    propia proridad = " << priority << "\n";
 
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
-	bool priority_comp = (sender_priority + 0.5 < priority) || (std::abs(sender_priority - priority) < 0.5 && sender < myId);
+	bool priority_comp = (sender_priority + 1 < priority) || (std::abs(sender_priority - priority) < 1 && sender < myId);
 	
 	if(sender_in == direction_junction && sender_dist > distance_to_junction)
 		priority_comp = false;
