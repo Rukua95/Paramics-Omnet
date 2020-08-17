@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gapreports xmlns="http://www.quadstoneparamics.com/gapreports/6.9.3">
+ <report name="New Report 1" node="1" vtypes="10"/>
+</gapreports>

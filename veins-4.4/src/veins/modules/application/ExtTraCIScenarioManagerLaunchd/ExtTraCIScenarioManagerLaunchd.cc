@@ -76,25 +76,31 @@ void ExtTraCIScenarioManagerLaunchd::finish()
     recordScalar("TotalDuration", difftime(end_time, start_time));
 	
 	// Registro de flujo total y por direccion
+	/*
 	recordScalar("TotalFlux", total_flux);
 	recordScalar("Direction-South-Flux", flux[0]);
 	recordScalar("Direction-West-Flux", flux[1]);
 	recordScalar("Direction-North-Flux", flux[2]);
 	recordScalar("Direction-East-Flux", flux[3]);
+	*/
 
 	// Registro de tiempo en interseccion promedio total y por direccion
+	/*
 	recordScalar("TotalMeanTime", total_mean_time);
 	recordScalar("Direction-South-MeanTime", mean_time[0]);
 	recordScalar("Direction-West-MeanTime", mean_time[1]);
 	recordScalar("Direction-North-MeanTime", mean_time[2]);
 	recordScalar("Direction-East-MeanTime", mean_time[3]);
+	*/
 
 	// Registro de desviacion estandar de tiempo promedio
+	/*
 	recordScalar("TotalStandardDeviation", total_standard_deviation);
 	recordScalar("Direction-South-StDev", standard_deviation[0]);
 	recordScalar("Direction-West-StDev", standard_deviation[1]);
 	recordScalar("Direction-North-StDev", standard_deviation[2]);
 	recordScalar("Direction-East-StDev", standard_deviation[3]);
+	*/
 
 	// Registro de colisiones
 	recordScalar("TotalCollision", collision_register.size());
@@ -112,7 +118,7 @@ void ExtTraCIScenarioManagerLaunchd::finish()
 void ExtTraCIScenarioManagerLaunchd::handleSelfMsg(cMessage *msg)
 {
 	// Calculo de flujo y tiempo en interseccion promedio
-	calculateMetrics();
+	//calculateMetrics();
 
 	// Determinar colision de vehiculos dentro de interseccion
 	detectColision();
@@ -142,7 +148,7 @@ void ExtTraCIScenarioManagerLaunchd::handleSelfMsg(cMessage *msg)
 
 
 /**
- * Funcion que registra cuando un vehiculo sale de la interseccion.
+ * Funcion que registra salida de vehiculos de la interseccion.
  */
 void ExtTraCIScenarioManagerLaunchd::carOutOfJunction(int carId, int direction, double timeInJunction)
 {
@@ -155,12 +161,14 @@ void ExtTraCIScenarioManagerLaunchd::carOutOfJunction(int carId, int direction, 
 }
 
 
+/**
+ * Funcion que registra entrada de vehiculos a la interseccion.
+ */
 void ExtTraCIScenarioManagerLaunchd::carInOfJunction(int carId, Coord coord_position, Coord coord_speed)
 {
 	car_position_intersection[carId] = std::pair<Coord, Coord>(coord_position, coord_speed);
 	//detectColision();
 }
-
 
 
 /**
@@ -274,9 +282,8 @@ void ExtTraCIScenarioManagerLaunchd::getCarPoint(std::vector<Coord> &lim, double
 }
 
 
-
 /**
- * Calculo de metricas: flujo, tiempo promedio y su desviacion estandar
+ * Fucino que calcula: flujo vehicular y tiempo promedio en interseccion, y su desviacion estandar
  */
 void ExtTraCIScenarioManagerLaunchd::calculateMetrics()
 {
@@ -349,6 +356,9 @@ void ExtTraCIScenarioManagerLaunchd::calculateMetrics()
 }
 
 
+/**
+ * Funcion que registra tiempo en detencion que lleva el vehiculo primero en la pista
+ */
 void ExtTraCIScenarioManagerLaunchd::saveWaitingTime(int direction, double time_in_wait)
 {
 	first_car_wait_time[direction] = time_in_wait;

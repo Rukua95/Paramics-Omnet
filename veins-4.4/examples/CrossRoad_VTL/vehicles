@@ -1,0 +1,20 @@
+vehicle types
+type 1  car   matrix 1 proportion 58.4 perturbation 5 familiarity 85
+type 2  car   matrix 1 proportion  2.2 perturbation 5 familiarity 85
+type 3  car   matrix 1 proportion  9.0 perturbation 5 familiarity 85
+type 4  car   matrix 1 proportion  0.2 perturbation 5 familiarity 85
+type 5  car   matrix 1 proportion  5.5 perturbation 5 familiarity 85
+type 6  car   matrix 1 proportion  1.7 perturbation 5 familiarity 85
+type 7  car   matrix 1 proportion  0.6 perturbation 5 familiarity 85
+type 8  car   matrix 1 proportion  0.2 perturbation 5 familiarity 85
+type 9  car   matrix 1 proportion  4.7 perturbation 5 familiarity 85
+type 10 car   matrix 1 proportion  2.5 perturbation 5 familiarity 85
+
+type 12 lgv   matrix 1 proportion  7.8 perturbation 5 familiarity 85
+type 13 ogv1  matrix 1 proportion  3.2 perturbation 5 familiarity 85
+type 14 ogv2  matrix 1 proportion  2.8 perturbation 5 familiarity 85
+
+type 15 coach matrix 1 proportion  1.2 perturbation 5 familiarity 85
+
+type 11 minibus fixed route
+type 16 bus     fixed route

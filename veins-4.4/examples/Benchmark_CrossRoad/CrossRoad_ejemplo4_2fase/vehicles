@@ -1,7 +1,7 @@
 vehicle types
 
 type 10 car 	
-	colour 0x00f0f0f0 
+	top speed 160.00 kph crawl speed 80.50 kph colour 0x00f0f0f0 mdh factor 15.00 mth factor 2.00 dprt 1.00 
 	name "Car"
 	matrix 1 proportion 100.000 perturbation 0.0 familiarity 85.00
 

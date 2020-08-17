@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- debug config -->
 <launch>
-	<basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\Benchmarck_CrossRoad" />
+	<basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\Benchmark_CrossRoad" />
 	
 	<!-- <network name="CrossRoad_ejemplo1_2fase" /> -->
 	<!-- <network name="CrossRoad_ejemplo1_3faseA" /> -->
@@ -13,12 +13,12 @@
 	<!-- <network name="CrossRoad_ejemplo2_3faseB" /> -->
 	<!-- <network name="CrossRoad_ejemplo2_4fase" /> -->
 
-	 <network name="CrossRoad_ejemplo3_2fase" /> 
+	<!-- <network name="CrossRoad_ejemplo3_2fase" /> -->
 	<!-- <network name="CrossRoad_ejemplo3_3faseA" /> -->
 	<!-- <network name="CrossRoad_ejemplo3_3faseB" /> -->
 	<!-- <network name="CrossRoad_ejemplo3_4fase" /> -->
 
-	<!-- <network name="CrossRoad_ejemplo4_2fase" /> -->
+	 <network name="CrossRoad_ejemplo4_2fase" /> 
 	<!-- <network name="CrossRoad_ejemplo4_3faseA" /> -->
 	<!-- <network name="CrossRoad_ejemplo4_3faseB" /> -->
 	<!-- <network name="CrossRoad_ejemplo4_4fase" /> -->

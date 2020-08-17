@@ -66,8 +66,8 @@ _API_VERSION = 1
 _LAUNCHD_VERSION = 'paramics-launchd.py 1.00'
 _CMD_GET_VERSION = 0x00
 _CMD_FILE_SEND = 0x75
-#_SIMULATION_MODE = 'modeller'
-_SIMULATION_MODE = 'processor'
+_SIMULATION_MODE = 'modeller'
+#_SIMULATION_MODE = 'processor'
 
 
 class UnusedPortLock:

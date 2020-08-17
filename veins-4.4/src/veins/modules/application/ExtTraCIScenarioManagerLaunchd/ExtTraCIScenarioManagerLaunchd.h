@@ -33,8 +33,6 @@ public:
 
 	void carOutOfJunction(int carId, int direction, double timeInJunction);
     void carInOfJunction(int carId, Coord coord_position, Coord coord_speed);
-	void carFlux();
-	void meanTime();
     void calculateMetrics();
 
     void saveWaitingTime(int direction, double time_in_wait);
