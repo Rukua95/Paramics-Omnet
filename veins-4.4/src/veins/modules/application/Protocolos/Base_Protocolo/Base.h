@@ -96,6 +96,10 @@ protected:
 
 	bool anounce_msg;
 
+	int intervals_per_selfmsg;
+	int intervals_counting;
+	bool first_msg;
+
 
 	// Tablas de informacion
 

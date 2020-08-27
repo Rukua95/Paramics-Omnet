@@ -47,6 +47,12 @@ void Tokens::initialize(int stage)
 		share_data_radio = par("share_data_radio").doubleValue();
 		token_selection_radio = par("token_selection_radio").doubleValue();
 
+		// Cantidad de intervalos entre mensajes de vehiculo
+		intervals_per_selfmsg = 4;
+		intervals_counting = intervals_per_selfmsg - 1;
+
+		first_msg = false;
+
         break;
 	}
     default:
@@ -66,6 +72,9 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
+
+	intervals_counting++;
+	
 
 
 	/////////////////////////////////////////////////////////////////
@@ -218,13 +227,18 @@ void Tokens::handleSelfMsg(cMessage *msg){
 		EV << ">>> Shared data zone <<<\n";
 		prepareMsgData(data, 0);
 		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
+		
+		if(!first_msg || intervals_counting % intervals_per_selfmsg == 0)
+		{
+			sendWSM((WaveShortMessage*) info_message->dup());
+			first_msg = true;
+		}
 
 		// Al entrar a la zona para compartir informacion, vehiculo realiza un ciclo de espera
 		// donde solo recive y envia mensajes de estado. No se realizan acciones adicionales.
 		if(!inSharedDataZone)
 		{
-			EV << ">>> New car in shared data zone, waiting one cicle of simulation...\n";
+			EV << ">>> Entrando en zona de informacion, esperando un ciclo de simulacion...\n";
 			inSharedDataZone = true;
 			scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
@@ -437,10 +451,12 @@ void Tokens::calculateIndividualPriority()
  */
 bool Tokens::comparePriority(double vhc_priority, int sender_id)
 {
+	double priority_delta = 1.5;
+
 	if(priority < 0.0)
 		return false;
 	else
-		return (vhc_priority <= 0.0 || priority < vhc_priority - 1 || (std::abs(priority - vhc_priority) < 1 && sender_id < myId));
+		return (vhc_priority <= 0.0 || priority < vhc_priority - priority_delta || (std::abs(priority - vhc_priority) < priority_delta && sender_id < myId));
 }
 
 
@@ -452,6 +468,27 @@ void Tokens::tokenInUse()
 	if(crossing)
 	{
 		EV << ">>> Comparando posicion vehiculo y posicion tokens\n";
+		int id_near_token = -1;
+		double dist_near_token = 1e8;
+
+		for(int i=id_token_in_use; i<tokens_list.size(); i++)
+		{
+			Coord dist_vec = token_vector[tokens_list[i]].position_token - position;
+			double dist = dist_vec.squareLength();
+			EV << ">>> Comparando posicion respecto a token " << tokens_list[i] << "...\n";
+
+			if(dist < dist_near_token)
+			{
+				EV << "    Cambiando token mas cercano: " << id_near_token << " a " << i << "\n";
+				id_near_token = i;
+				dist_near_token = dist;
+			}
+		}
+
+		id_token_in_use = id_near_token;
+		EV << "    Token " << id_token_in_use << " en uso\n";
+
+		/*
 		// TODO: posiblemente sea mejor cambiar el criterio de uso de tokens, vehiculo esta usando el token que se encuentre mas cerca
 		for(int i=id_token_in_use; i<tokens_list.size(); i++)
 		{
@@ -473,6 +510,7 @@ void Tokens::tokenInUse()
 				break;
 			}
 		}
+		*/
 	}
 }
 

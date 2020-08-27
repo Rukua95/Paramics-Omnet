@@ -38,6 +38,12 @@ void Grilla_CCIP::initialize(int stage)
 		shared_data_radio = par("shared_data_radio").doubleValue();
 		cell_selection_radio = par("cell_selection_radio").doubleValue();
 
+		// Cantidad de intervalos entre mensajes de vehiculo
+		intervals_per_selfmsg = 4;
+		intervals_counting = intervals_per_selfmsg - 1;
+
+		first_msg = false;
+
         break;
 	}
     default:
@@ -57,6 +63,8 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
+
+	intervals_counting++;
 	
 
 	/////////////////////////////////////////////////////////////////
@@ -204,7 +212,12 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 		EV << ">>> Shared data zone <<<\n";
 		prepareMsgData(data, 0);
 		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
+		
+		if(!first_msg || intervals_counting % intervals_per_selfmsg == 0)
+		{
+			sendWSM((WaveShortMessage*) info_message->dup());
+			first_msg = true;
+		}
 
 		// Al entrar a la zona para compartir informacion, vehiculo realiza un ciclo de espera
 		// donde solo recive y envia mensajes de estado. No se realizan acciones adicionales.
@@ -301,7 +314,8 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	EV << "    propia proridad = " << priority << "\n";
 
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
-	bool priority_comp = (sender_priority + 1 < priority) || (std::abs(sender_priority - priority) < 1 && sender < myId);
+	double priority_delta = 1.5;
+	bool priority_comp = (sender_priority + priority_delta < priority) || (std::abs(sender_priority - priority) < priority_delta && sender < myId);
 	
 	if(sender_in == direction_junction && sender_dist > distance_to_junction)
 		priority_comp = false;

@@ -49,6 +49,12 @@ void new_VTL::initialize(int stage)
 		tiempo_semaforo = par("tiempo_semaforo").doubleValue();
 		shared_data_radio = par("shared_data_radio").doubleValue();
 		lider_selection_radio = par("lider_selection_radio").doubleValue();
+
+		// Cantidad de intervalos entre mensajes de vehiculo
+		intervals_per_selfmsg = 4;
+		intervals_counting = intervals_per_selfmsg - 1;
+
+		first_msg = false;
 		
         break;
     default:
@@ -74,6 +80,7 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 	EV << "> stop_time: " << stop_time << "\n";
 	EV << "> actual_time: " << simTime().dbl() << "\n";
 	EV << "> lideres:\n";
+
 	// Vehiculo verifica si existe algun lider
 	for(int i=0; i<4; i++)
 		EV << "  direccion " << i << ": " << liders_list[i] <<"\n";
@@ -341,7 +348,7 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 			EV << ">>> Confirmando lider en otra pista\n";
 			int l = liders_list[(direction_junction + 2) % 4];
 
-			// TODO: modulo para desactivar comunicacion de vehiculos que estand detras de un lider
+			// TODO: modulo para desactivar comunicacion de vehiculos que estand detras de un lider(?)
 
 			if(l != -1 && !block_movement)
 			{
@@ -364,11 +371,14 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 	if(distance_to_junction <= shared_data_radio)
 	{
 		EV << ">>> Zona de informacion <<<\n";
-
-		// Mensaje broadcast
 		prepareMsgData(data, 0);
 		info_message->setData(data);
-		sendWSM((WaveShortMessage*) info_message->dup());
+
+		if(!first_msg || intervals_counting % intervals_per_selfmsg == 0)
+		{
+			sendWSM((WaveShortMessage*) info_message->dup());
+			first_msg = true;
+		}
 
 		// Verificar si recien entro a zona de informacion compartida.
 		// TODO: generalizar mensaje de ciclo de espera 
@@ -377,6 +387,7 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 			EV << ">>> Nuevo vehiculo en zona de informacion, realizando ciclo de espera...\n";
 			inSharedDataZone = true;
 			scheduleAt(simTime() + ping_interval, sharedDataZoneMessage);
+			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
 		} 
 		else
 			scheduleAt(simTime() + ping_interval, self_beacon);

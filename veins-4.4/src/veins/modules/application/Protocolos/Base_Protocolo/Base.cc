@@ -28,6 +28,7 @@ void Base::initialize(int stage)
 		velocity = Coord(0.0, 0.0);
 
 		// Dimensiones de vehiculos (ajustadas manualmente a la simulacion)
+		// TODO: agregar funcionalidad en plugin o utilizarla si es que existe
 		car_lenght = 4.0;
 		car_width = 1.6;
 
@@ -35,8 +36,13 @@ void Base::initialize(int stage)
 		stoping = false;
 		stoped = false;
 
+		// Flag de vehiculo fuera de interseccion
 		outJunction = false;
+
+		// Flag de vehiculo cruzando interseccion
 		crossing = false; 
+
+		// Flag extras
 		anti_block = true;
 		incorrect_exit = false;
 		inSharedDataZone = false;
@@ -98,7 +104,7 @@ void Base::initialize(int stage)
         SimTime beginTime = SimTime(uniform(0.0, sim_update_interval / 2));
 
 		// Intervalo de tiempo entre self-message
-		ping_interval = SimTime(sim_update_interval * 2);
+		ping_interval = SimTime(sim_update_interval);
 
         self_beacon = new cMessage();
 		sharedDataZoneMessage = new cMessage();
