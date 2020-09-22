@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <!-- debug config -->
 <launch>
-	 <basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\CrossRoad_VTL" /> 
+	 <basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\veins-4.4\examples\CrossRoad_VTL" /> 
 	 <network name="CrossRoad" /> 
 
-	 <!-- seed error -->
-	 <seed value="687601" />
+	 <seed value="385779" />
 	
 	<!-- <basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\Benchmark_CrossRoad" /> -->
 

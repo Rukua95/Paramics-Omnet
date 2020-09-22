@@ -52,9 +52,9 @@ protected:
 
 	// Lista de celdas a usar por el vehiculo (lista de enteros)
 	std::vector<int> cell_list;
-	int id_cell_in_use;
 	int id_cell_begin;
 	int id_cell_end;
+	int id_last_cell_reserved;
 
 	// Lista de celdas a usar segun origen y destino
 	std::vector<std::vector<std::vector<int> > > cells_table;
@@ -89,7 +89,8 @@ protected:
 	void getCells();
 	void cellInUse();
 	int lastCell();
-	bool compareCells(int in, int out, int cell_in_use);
+	bool compareCells(int in, int out, int id_cell_in_use);
+	bool comparePriority(vehicleData data, int sender_id);
 	void detentionLastCell();
 
 

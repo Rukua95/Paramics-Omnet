@@ -167,7 +167,6 @@ void ExtTraCIScenarioManagerLaunchd::carOutOfJunction(int carId, int direction, 
 void ExtTraCIScenarioManagerLaunchd::carInOfJunction(int carId, Coord coord_position, Coord coord_speed)
 {
 	car_position_intersection[carId] = std::pair<Coord, Coord>(coord_position, coord_speed);
-	//detectColision();
 }
 
 

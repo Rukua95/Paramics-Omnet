@@ -28,7 +28,10 @@ class new_VTL : public Base
 protected:
 
 	// Identificador de lider.
+	int lider_id;
+	int sub_lider_id;
 	bool is_lider;
+	bool is_sub_lider;
 
 	// Identificadores para tiempo extra de espera
 	bool lider_extra_waiting;
@@ -80,6 +83,7 @@ protected:
 	void prepareMsgData(vehicleData& data, int msgTipe);
 	bool isGoingLeft();
 	void existNextLider(bool getWaitingTime);
+	void searchSubLider();
 
 };
 

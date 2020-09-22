@@ -1,7 +1,3 @@
-/*
-Implementacion de variacion de protocolo de espacios discretos: CC-IP.
-*/
-
 #include <veins/modules/application/Protocolos/Protocolo_Grilla_MPIP/Grilla_MPIP.h>
 #include <veins/modules/application/ExtTraCIScenarioManagerLaunchd/ExtTraCIScenarioManagerLaunchd.h>
 #include <veins/modules/mobility/traci/TraCIColor.h>
@@ -9,9 +5,11 @@ Implementacion de variacion de protocolo de espacios discretos: CC-IP.
 #include <cstdlib>
 #include <algorithm>
 
+/*
+Implementacion de variacion de protocolo de espacios discretos: CC-IP.
+*/
 
 Define_Module(Grilla_MPIP);
-
 
 void Grilla_MPIP::initialize(int stage)
 {
@@ -24,6 +22,7 @@ void Grilla_MPIP::initialize(int stage)
 		// Indice de la celda que se esta usando actualmente.
 		id_cell_begin = -1;
 		id_cell_end = -1;
+		id_last_cell_reserved = -1;
 
 		// Prioridad
 		priority = 1e8;
@@ -41,6 +40,12 @@ void Grilla_MPIP::initialize(int stage)
 		// Radios de zonas
 		shared_data_radio = par("shared_data_radio").doubleValue();
 		cell_selection_radio = par("cell_selection_radio").doubleValue();
+
+		// Cantidad de intervalos entre mensajes de vehiculo
+		intervals_per_selfmsg = 2;
+		intervals_counting = rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
+
+		first_msg = false;
 
         break;
 	}
@@ -62,7 +67,15 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
 	
+	if(outJunction)
+	{
+		Base::removeVehicle(0);
+		return;
+	}
 
+	intervals_counting++;
+
+	
 	/////////////////////////////////////////////////////////////////
 	// Calculo de prioridad
 	/////////////////////////////////////////////////////////////////
@@ -115,49 +128,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 		// Vehiculo esta dentro de la interseccion
 		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
 		{
-			EV << ">>> Zona de cruce\n";
-			crossing = true;
-			Base::registerInOfJunction();
-
-			// Actualizando indice de celda que se esta ocupando actualmente
-			cellInUse();
-
-			// Actualizar indice de ultima celda que se puede utilizar
-			id_cell_end = lastCell();
-
-			if(id_cell_end == cell_list.size() - 1)
-			{
-				// Revisar que vehiculo no se encuentra bloqueado
-				if(in_junction_stop_time == 4*3)
-				{
-					EV << "placeholder\n";
-				}
-
-
-				// Contador para determinar salida prematura
-				if(axis_speed < 0.1)
-				{
-					in_junction_stop_time++;
-				}
-				else
-				{
-					in_junction_stop_time = 0;
-				}
-				Base::continueTravel();
-			}
-			else
-			{
-				detentionLastCell();
-			}
-
-			prepareMsgData(data, 2);
-			info_message->setData(data);
-			sendWSM((WaveShortMessage*) info_message->dup());
-			scheduleAt(simTime() + ping_interval, self_beacon);
-
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
-
-			return;
+			
 
 		}
 		else
@@ -168,6 +139,7 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 				EV << ">>> Out of junction <<<\n";
 				Base::registerOutOfJunction();
 
+				crossing = false;
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 				
@@ -175,89 +147,14 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
 
-				Base::removeVehicle(0);
+				scheduleAt(simTime() + ping_interval, self_beacon);
 
 				return;
-
 			}
 			// vehiculo entrando a la interseccion.
 			else
 			{
-				// Comparacion de prioridades con vehiculos registrados.
-				int id_last_posible_cell = lastCell();
-				for(int i=1; i<=4; i++)
-				{
-					EV << "Bloqueos en celda " << i << ": ";
-					for(int vh : bloqued_cells[i])
-						EV << vh << " ";
-					EV << "\n";
-				}
 
-				// Vehiculo puede utilizar todas las celdas de forma inmediata
-				if(id_last_posible_cell == cell_list.size() - 1)
-				{
-					if(allow_continue == 2)
-					{
-						EV << "Vehiculo puede cruzar directamente\n";
-						priority = -1.0;
-						block_priority = true;
-						has_bloqued_cells = true;
-						Base::continueTravel();
-
-						// enviar mensaje especial
-						id_cell_end = id_last_posible_cell;
-						better_priority_cars.clear();
-
-						prepareMsgData(data, 2);
-						info_message->setData(data);
-						sendWSM((WaveShortMessage*) info_message->dup());
-						scheduleAt(simTime() + ping_interval, self_beacon);
-
-						return;
-					}
-					else
-					{
-						allow_continue++;
-						Base::detention();
-					}
-
-				}
-				// Vehiculo solo puede utilizar algunas de las celdas
-				else if(id_last_posible_cell >= 0)
-				{
-					// TODO: agregar un ciclo de espera para vehiculos que reservan celdas
-					// TODO: agregar cambio de id final
-					// Vehiculo puede pasar despues de pasar por ciclo de espera
-					if(allow_continue == 2)
-					{
-						id_cell_end = id_last_posible_cell;
-
-						has_bloqued_cells = true;
-						better_priority_cars.clear();
-
-						detentionLastCell();
-
-						// enviar mensaje especial
-						prepareMsgData(data, 2);
-						info_message->setData(data);
-						sendWSM((WaveShortMessage*) info_message->dup());
-						scheduleAt(simTime() + ping_interval, self_beacon);
-
-						return;
-					}
-					else
-					{
-						allow_continue++;
-						Base::detention();
-					}
-				}
-				else
-				{
-					EV << "No se puede avanzar por la interseccion\n";
-					allow_continue = 0;
-					has_bloqued_cells = false;
-					Base::detention();
-				}
 			}
 		}
 	}
@@ -355,37 +252,11 @@ void Grilla_MPIP::onData(WaveShortMessage *wsm)
 
 		return ;
 	}
-
+	
+	// Mensaje especial de vehiculos que se encuentran cruzando interseccion y se detendran en alguna celda
 	if(tipe == 2)
 	{
-		EV << ">>> Bloqueo parcial de celdas por vehiculo " << sender << "\n";
 
-		// TODO: reemplazar por borrado cuando sea necesario 
-		for(int i=1; i<=4; i++)
-		{
-			bool ver = false;
-
-			for(int j = sender_cell_begin; j <= sender_cell_end; j++)
-			{
-				int cell_id = cells_table[sender_in][sender_out][i];
-				if(i == cell_id)
-				{
-					ver = true;
-					break;
-				}
-			}
-
-			if(ver)
-				bloqued_cells[i].insert(sender);
-			else
-				bloqued_cells[i].erase(sender);
-			
-		}
-
-		better_priority_cars.erase(sender);
-		carTable[sender_in][sender] = data;
-
-		return ;
 	}
 
 	carTable[sender_in][sender] = data;
@@ -403,19 +274,15 @@ void Grilla_MPIP::onData(WaveShortMessage *wsm)
 	EV << "    sender prioridad = " << data.priority << "\n";
 	EV << "    propia proridad = " << priority << "\n";
 
-	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
-	bool priority_comp = (sender_priority + 0.5 < priority) || (std::abs(sender_priority - priority) < 0.5 && sender < myId);
-	
-	if(sender_in == direction_junction && sender_dist > distance_to_junction)
-		priority_comp = false;
+	// Revisar diferencia de prioridad con vehiculo que envio msg, utilizando un intervalo de confianza.
+	double priority_comp = comparePriority(data, sender);
 
-	if(sender_in == direction_junction && sender_dist < distance_to_junction && !data.crossing)
-		priority_comp = true;
 
-	if(priority_comp && !has_bloqued_cells)
+	// Si hay diferencia en prioridad y vehiculo cumple las condiciones, se compara las celdas que se estan utilizando
+	if(priority_comp)
 	{
 		EV << "Comparando posibilidad de colision\n";
-		if(compareCells(sender_in, sender_out, sender_cell_begin))
+		if(Grilla_MPIP::compareCells(sender_in, sender_out, sender_cell_begin))
 		{
 			EV << "Existe posible colision\n";
 			better_priority_cars.insert(sender);
@@ -495,8 +362,12 @@ void Grilla_MPIP::getCells()
 }
 
 
+/**
+ * Funcion para determinar la celda que esta actualmente en uso.
+ */
 void Grilla_MPIP::cellInUse()
 {
+	// Aseguramos que vehiculo esta cruzando
 	if(crossing)
 	{
 		int i = id_cell_begin;
@@ -512,6 +383,7 @@ void Grilla_MPIP::cellInUse()
 			double x = position.x;
 			double y = position.y;
 
+			// Identificar si vehiculo se encuentra dentro de la celda
 			if(p1.x < x && x <= p2.x && p2.y < y && y <= p1.y)
 			{
 				EV << ">>> Cell " << c << " in use\n";
@@ -526,19 +398,25 @@ void Grilla_MPIP::cellInUse()
 		id_cell_begin = i;
 
 	}
+
 	EV << ">>> Celda en uso: " << cell_list[id_cell_begin] << "(" << id_cell_begin << ")\n";
 }
 
 
+/**
+ * Funcion para determinar cual es la ultima celda que se puede alcanzar
+ */
 int Grilla_MPIP::lastCell()
 {
 	// Determinamos la ultima celda que puede ser utilizada, considerando la prioridad que tienen otros vehiculos
 	int id_last_posible_cell = cell_list.size() - 1;
 
+	// Comparamos con vehiculos que intersectan con mejor prioridad
 	for(auto it=better_priority_cars.begin(); it!=better_priority_cars.end(); it++)
 	{
 		int id = *it;
 
+		// Identificamos direccion de entrada y salida de vehiculo
 		int vh_in = 0, vh_out = 0;
 		for(int i=0; i<4; i++)
 		{
@@ -584,6 +462,49 @@ int Grilla_MPIP::lastCell()
 }
 
 
+/**
+ * Funcion que compara la prioridades
+ */
+bool Grilla_MPIP::comparePriority(vehicleData data, int sender_id)
+{
+	double sender_priority = data.priority;
+	double sender_in = data.direction_junction;
+	double sender_dist = data.distance_to_junction;
+	double sender = sender_id;
+
+	double priority_delta = 2.0;
+	
+	//bool priority_comp = (sender_priority + priority_delta < priority) || (std::abs(sender_priority - priority) < priority_delta && sender < myId);
+	bool priority_comp = (sender < myId);
+	
+	// Solo se toma en cuenta informacion de los vehiculos que van primeros en pista o estan cruzando.
+	bool is_sender_first = true; 
+	for(auto it=carTable[sender_in].begin(); it!=carTable[sender_in].end(); it++)
+	{
+		// Omitimos vehiculo que envio msg
+		if(it->first == sender)
+			continue;
+
+		if(it->second.distance_to_junction < sender_dist && !it->second.crossing)
+			is_sender_first = false;
+	}
+
+	// Vehiculos cruzando siempre se toman en cuenta.
+	if(data.crossing)
+		is_sender_first = true;
+
+	// Vehiculo que no esta primero NO se toma en cuenta, independiente de que pueda tener mejor prioridad.
+	if(!is_sender_first)
+		priority_comp = false;
+
+	return priority_comp;
+}
+
+
+/**
+ * Funcion que determina si hay colision con otro vehiculo. 
+ * Una colision ocurre si ambos vehiculos comparte celdas en su recorrido.
+ */
 bool Grilla_MPIP::compareCells(int in, int out, int cell_in_use)
 {
 	bool colision = false;
@@ -617,6 +538,10 @@ bool Grilla_MPIP::compareCells(int in, int out, int cell_in_use)
 	return colision;
 }
 
+
+/**
+ * Metodo para detencion de vehiculos en ultima celda posible
+ */
 void Grilla_MPIP::detentionLastCell()
 {
 	// TODO: adaptar al cambio del manejo de prioridades

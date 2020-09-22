@@ -6,6 +6,7 @@ Implementacion de protocolo en base a reserva de tokens.
 #include <veins/modules/application/ExtTraCIScenarioManagerLaunchd/ExtTraCIScenarioManagerLaunchd.h>
 #include <veins/modules/mobility/traci/TraCIColor.h>
 #include <veins/modules/mobility/traci/TraCIScenarioManager.h>
+#include <stdlib.h>
 #include <cstdlib>
 #include <algorithm>
 
@@ -48,8 +49,8 @@ void Tokens::initialize(int stage)
 		token_selection_radio = par("token_selection_radio").doubleValue();
 
 		// Cantidad de intervalos entre mensajes de vehiculo
-		intervals_per_selfmsg = 4;
-		intervals_counting = intervals_per_selfmsg - 1;
+		intervals_per_selfmsg = 2;
+		intervals_counting = rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
 
 		first_msg = false;
 
@@ -137,6 +138,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			// Actualizando indice de tokens que se esta ocupando actualmente.
 			tokenInUse();
 
+/*
 			if(anti_block) 
 			{
 				anti_block = false;
@@ -145,7 +147,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 
 			if(better_priority_cars.size() > 0)
 				incorrect_exit = true;
-
+*/
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
 		}

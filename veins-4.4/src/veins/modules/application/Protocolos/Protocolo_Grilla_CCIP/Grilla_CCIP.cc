@@ -6,6 +6,7 @@ Implementacion de variacion de protocolo de espacios discretos: CC-IP.
 #include <veins/modules/application/ExtTraCIScenarioManagerLaunchd/ExtTraCIScenarioManagerLaunchd.h>
 #include <veins/modules/mobility/traci/TraCIColor.h>
 #include <veins/modules/mobility/traci/TraCIScenarioManager.h>
+#include <stdlib.h>
 #include <cstdlib>
 #include <algorithm>
 
@@ -39,8 +40,8 @@ void Grilla_CCIP::initialize(int stage)
 		cell_selection_radio = par("cell_selection_radio").doubleValue();
 
 		// Cantidad de intervalos entre mensajes de vehiculo
-		intervals_per_selfmsg = 4;
-		intervals_counting = intervals_per_selfmsg - 1;
+		intervals_per_selfmsg = 2;
+		intervals_counting = rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
 
 		first_msg = false;
 
@@ -63,6 +64,12 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
+
+	if(outJunction)
+	{
+		Base::removeVehicle(0);
+		return;
+	}
 
 	intervals_counting++;
 	
@@ -122,15 +129,6 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 			// Actualizando indice de celda que se esta ocupando actualmente
 			cellInUse();
 
-			if(anti_block) 
-			{
-				anti_block = false;
-				Base::continueTravel();
-			}
-
-			if(better_priority_cars.size() > 0)
-				incorrect_exit = true;
-
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
 		}
@@ -142,6 +140,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 				EV << ">>> Out of junction <<<\n";
 				Base::registerOutOfJunction();
 
+				crossing = false;
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 				
@@ -149,7 +148,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
 
-				Base::removeVehicle(0);
+				scheduleAt(simTime() + ping_interval, self_beacon);
 
 				return;
 
@@ -183,6 +182,14 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 							priority = -1.0;
 							//block_time = simTime().dbl();
 							Base::continueTravel();
+
+							prepareMsgData(data, 0);
+							info_message->setData(data);
+							sendWSM((WaveShortMessage*) info_message->dup());
+
+							scheduleAt(simTime() + ping_interval, self_beacon);
+
+							return;
 						}
 						else
 						{
@@ -217,6 +224,8 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 		{
 			sendWSM((WaveShortMessage*) info_message->dup());
 			first_msg = true;
+
+			intervals_counting = 0;
 		}
 
 		// Al entrar a la zona para compartir informacion, vehiculo realiza un ciclo de espera
@@ -314,15 +323,27 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	EV << "    propia proridad = " << priority << "\n";
 
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
-	double priority_delta = 1.5;
+	double priority_delta = 2.0;
 	bool priority_comp = (sender_priority + priority_delta < priority) || (std::abs(sender_priority - priority) < priority_delta && sender < myId);
 	
-	if(sender_in == direction_junction && sender_dist > distance_to_junction)
+	// Solo se toma en cuenta informacion de los vehiculos que van primeros en pista o estan cruzando.
+	bool is_sender_first = true; 
+	for(auto it=carTable[sender_in].begin(); it!=carTable[sender_in].end(); it++)
+	{
+		if(it->first == sender)
+			continue;
+
+		if(it->second.distance_to_junction < sender_dist && !it->second.crossing)
+			is_sender_first = false;
+	}
+
+	if(data.crossing)
+		is_sender_first = true;
+
+	if(!is_sender_first)
 		priority_comp = false;
 
-	if(sender_in == direction_junction && sender_dist < distance_to_junction && !data.crossing)
-		priority_comp = true;
-
+	// En caso de diferencia de prioridad, se compara las celdas que los vehiculos estan usaran
 	if(priority_comp)
 	{
 		EV << "Comparando posibilidad de colision\n";

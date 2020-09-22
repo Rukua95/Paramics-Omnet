@@ -9,6 +9,7 @@ Base para protocolos implementados
 #include <cstdlib>
 #include <algorithm>
 #include <math.h>
+#include <random>
 
 
 void Base::initialize(int stage)
@@ -101,7 +102,14 @@ void Base::initialize(int stage)
     case 1:
     {
         // Organizacion de selfbeacons
-        SimTime beginTime = SimTime(uniform(0.0, sim_update_interval / 2));
+		//std::uniform_real_distribution<double> unif(0, 1.0);
+		//std::default_random_engine re;
+		double delta = uniform(0.0, 1.0);//unif(re);
+
+		EV << ">>> Delta initial selfmsg: " << delta << "\n";
+		EV << ">>> Interval time: " << sim_update_interval << "\n";
+
+        SimTime beginTime = SimTime(delta);
 
 		// Intervalo de tiempo entre self-message
 		ping_interval = SimTime(sim_update_interval);
@@ -390,8 +398,6 @@ void Base::getBasicParameters()
 	// Velocidad y distancia a interseccion.
 	axis_speed = std::abs(velocity.y);
 	distance_to_junction = std::abs(traci->junction("1").getPosition().y - position.y);
-	if(distance_to_junction < 0.0)
-		distance_to_junction = 0.0;
 		
 	if(direction_junction % 2 == 1)
 	{
@@ -437,7 +443,6 @@ void Base::registerInOfJunction()
 	traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 	
 	ExtTraCIScenarioManagerLaunchd* sceman = dynamic_cast<ExtTraCIScenarioManagerLaunchd*>(mobility->getManager());
-	intersection_exit_time = simTime().dbl();
 
 	Coord coord_position = position;
 	Coord coord_speed = velocity;
