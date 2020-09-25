@@ -730,8 +730,11 @@ def main():
                       metavar="COMMAND")
 
     #################################################
-    # Path hacia plugin
-    parser.add_option("-u", "--plugin", dest="plugin", default=os.path.join("C:\Users\\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins", "modeller.dll"),
+    # Path hacia plugin                                                      C:\Users\\thi-s\Documents\Niclabs\Paramics-Omnet
+    plugin_folder = os.getcwd()
+    print plugin_folder
+    print os.listdir(plugin_folder)
+    parser.add_option("-u", "--plugin", dest="plugin", default=os.path.join(plugin_folder, "modeller.dll"),
                       help="location of the TraCI Paramics Plugin [default: %plugin]", metavar="PLUGIN")
     #################################################
 

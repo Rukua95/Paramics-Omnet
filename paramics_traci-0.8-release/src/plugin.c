@@ -169,7 +169,7 @@ void qpx_VHC_release(VEHICLE* vehicle)
 {
     // Aumento de agresividad y atencion frente a intersecciones
     //qps_VHC_aggression(vehicle, 0);
-    //qps_VHC_awareness(vehicle, 40);
+    //qps_VHC_awareness(vehicle, 15);
     traci_api::VehicleManager::getInstance()->vehicleDepart(vehicle);
 }
 
