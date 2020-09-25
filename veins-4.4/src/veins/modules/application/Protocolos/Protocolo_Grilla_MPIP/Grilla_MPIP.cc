@@ -42,7 +42,7 @@ void Grilla_MPIP::initialize(int stage)
 		cell_selection_radio = par("cell_selection_radio").doubleValue();
 
 		// Cantidad de intervalos entre mensajes de vehiculo
-		intervals_per_selfmsg = 2;
+		intervals_per_selfmsg = 1;
 		intervals_counting = rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
 
 		first_msg = false;
@@ -129,7 +129,6 @@ void Grilla_MPIP::handleSelfMsg(cMessage *msg){
 		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
 		{
 			
-
 		}
 		else
 		{
@@ -521,14 +520,18 @@ bool Grilla_MPIP::compareCells(int in, int out, int cell_in_use)
 		EV << c << " ";
 	EV << "\n";
 
-
-	for(int i = cell_in_use; i < other_cell_list.size(); i++)
+	// Iteramos por las celdas que utiliza el otro vehiculo
+	for(int i = cell_in_use; i < other_cell_list.size() && !colision; i++)
 	{
 		int t = other_cell_list[i];
-		if(std::find(cell_list.begin(), cell_list.end(), t) != cell_list.end())
+		// Iteramos por las celdas que utiliza este vehiculo
+		for(int j=id_cell_begin; j < cell_list.size(); j++)
 		{
-			colision = true;
-			break;
+			if(t == cell_list[j])
+			{
+				colision = true;
+				break;
+			}
 		}
 	}
 
