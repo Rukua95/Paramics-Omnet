@@ -16,14 +16,14 @@
 package org.car2x.veins.modules.application.Protocolos.Protocolo_VTL;
 import org.car2x.veins.modules.application.ieee80211p.BaseWaveApplLayer;
 
-simple VTL extends BaseWaveApplLayer
+simple new_VTL extends BaseWaveApplLayer
 {
     parameters:
-		double tiempo_semaforo;
-		double shared_data_radio;
-		double lider_selection_radio;
+    double tiempo_semaforo;
+    double shared_data_radio;
+    double lider_selection_radio;
 
-    @class(VTL);
+    @class(new_VTL);
     @display("i=block/app2");
     bool sendWhileParking  = default(false); //send messages when the car is parked
 }

@@ -13,39 +13,57 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 
-#ifndef SRC_VEINS_MODULES_APPLICATION_PVEINS_VTL_H_
-#define SRC_VEINS_MODULES_APPLICATION_PVEINS_VTL_H_
+#ifndef SRC_VEINS_MODULES_APPLICATION_PVEINS_new_VTL_H_
+#define SRC_VEINS_MODULES_APPLICATION_PVEINS_new_VTL_H_
 
 #include "veins/modules/application/Protocolos/Base_Protocolo/Base.h"
 #include "veins/modules/mobility/traci/TraCIMobility.h"
 #include "veins/modules/mobility/traci/TraCICommandInterface.h"
+//#include "veins/modules/application/Protocolos/new_Protocolo_VTL/VTL_msg_m.h"
 #include "veins/modules/messages/NodeInfoMessage_m.h"
 #include <mutex>
 
-class VTL : public Base
+class new_VTL : public Base
 {
 protected:
 
-	// Identificadores de lideres.
+	// Identificador de lider.
+	int lider_id;
+	int sub_lider_id;
 	bool is_lider;
-	bool is_lane_lider;
-	bool exist_lider;
-	bool exist_lane_lider;
-	bool is_new_lider;
+	bool is_sub_lider;
 
+	// Identificadores para tiempo extra de espera
+	bool lider_extra_waiting;
+	bool fast_exit;
 
-	// Parametros para saber si el lider esta en tiempo extra.
-	bool isExtraWaitingTime;
-	double extraWaitingTime;
-
+	// Identificador de viraje a izquierda
 	bool direction_to_left;
 	bool crossing_left;
 
+	// Identificador de primera entrada en zona de colision
+	bool first_query;
+
+	// Estado que permite ignorar existencia de lider, y continuar con el viaje
+	bool block_movement;
+
+	// Identificador de lider anterior y heredero
+	int last_lider;
+	int next_lider;
+	int sub_next_lider;
+
+	// Tiempo en que comienza lider
 	SimTime stop_time;
+	SimTime lider_start_time;
 
-	std::vector<int> firstCar;
+	// Lista de lideres activos
+	std::vector<int> liders_list;
+	std::set<int> vehicles_to_wait;
 
+	// Tiempo de semaforo
 	double tiempo_semaforo;
+	
+	// Radios de zonas
 	double shared_data_radio;
 	double lider_selection_radio;
 
@@ -58,10 +76,14 @@ protected:
     void onBeacon(WaveShortMessage *wsm);
 	void updateEstate();
 
+	void searchNextLider();
+	void selectIgnorants();
+
+
 	void prepareMsgData(vehicleData& data, int msgTipe);
 	bool isGoingLeft();
-	bool canBeLider(double velocity, double distance);
 	void existNextLider(bool getWaitingTime);
+	void searchSubLider();
 
 };
 
