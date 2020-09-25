@@ -1,11 +1,11 @@
 # Omnet files and folders
 omnetpp-5.0/
 
-veins-4.4/examples/CrossRoad/*/Log/
+veins-4.4/examples/*/CrossRoad/*/Log/
 veins-4.4/examples/Benchmark_CrossRoad/*/Log
 veins-4.4/examples/CrossRoad/benchmark_results
 
-
+veins-4.4/src/veins/modules/application/Protocolos/Protocolo_VTL_old
 **/.metadata
 
 
