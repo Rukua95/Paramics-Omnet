@@ -13,8 +13,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 //
 
-#ifndef SRC_VEINS_MODULES_APPLICATION_PVEINS_new_VTL_H_
-#define SRC_VEINS_MODULES_APPLICATION_PVEINS_new_VTL_H_
+#ifndef SRC_VEINS_MODULES_APPLICATION_PVEINS_VTL_H_
+#define SRC_VEINS_MODULES_APPLICATION_PVEINS_VTL_H_
 
 #include "veins/modules/application/Protocolos/Base_Protocolo/Base.h"
 #include "veins/modules/mobility/traci/TraCIMobility.h"
@@ -23,7 +23,7 @@
 #include "veins/modules/messages/NodeInfoMessage_m.h"
 #include <mutex>
 
-class new_VTL : public Base
+class VTL : public Base
 {
 protected:
 
@@ -55,6 +55,8 @@ protected:
 	// Tiempo en que comienza lider
 	SimTime stop_time;
 	SimTime lider_start_time;
+
+	double enter_conflict_zone_time;
 
 	// Lista de lideres activos
 	std::vector<int> liders_list;

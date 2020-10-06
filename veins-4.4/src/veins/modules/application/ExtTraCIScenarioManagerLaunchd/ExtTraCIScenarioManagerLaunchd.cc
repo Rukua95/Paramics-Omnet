@@ -109,6 +109,7 @@ void ExtTraCIScenarioManagerLaunchd::finish()
 		int id1 = it->first.first, id2 = it->first.second;
 		recordScalar("Car1", id1);
 		recordScalar("Car2", id2);
+		recordScalar("ImpactTime", it->second);
 	}
 
     TraCIScenarioManagerLaunchd::finish();

@@ -102,9 +102,7 @@ void Base::initialize(int stage)
     case 1:
     {
         // Organizacion de selfbeacons
-		//std::uniform_real_distribution<double> unif(0, 1.0);
-		//std::default_random_engine re;
-		double delta = uniform(0.0, 1.0);//unif(re);
+		double delta = 0.1;//uniform(0.0, 1.0);
 
 		EV << ">>> Delta initial selfmsg: " << delta << "\n";
 		EV << ">>> Interval time: " << sim_update_interval << "\n";
@@ -283,7 +281,7 @@ int Base::finalDirection()
 void Base::detention()
 {
 	// Si esta fuera del radio de seleccion de lider, aun no es necesario que desacelere
-	bool verificador = false; //(distance_to_junction > lider_select_radio);
+	bool verificador = false;
 
 	// Verificar si no hay vehiculo que se este deteniendo mas adelante
 	for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
@@ -309,7 +307,7 @@ void Base::detention()
 	else
 	{
 		stoping = true;
-		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
+		//traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
 
 		if(distance_to_junction > 45)
 			traciVehicle->setSpeed(4.0);
@@ -333,7 +331,7 @@ void Base::detention()
  */
 void Base::continueTravel()
 {
-	traciVehicle->setColor(Veins::TraCIColor(0, 255, 0, 0));
+	traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 	traciVehicle->setSpeed(-1.0);
 	stoped = false;
 	stoping = false;

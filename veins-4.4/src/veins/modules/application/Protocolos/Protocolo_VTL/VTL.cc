@@ -11,9 +11,9 @@ Implementacion de protocolo de semaforos virtuales.
 #include <algorithm>
 
 
-Define_Module(new_VTL);
+Define_Module(VTL);
 
-void new_VTL::initialize(int stage)
+void VTL::initialize(int stage)
 {
     Base::initialize(stage);
 
@@ -25,9 +25,6 @@ void new_VTL::initialize(int stage)
 		is_sub_lider = false;
 		sub_lider_id = -1;
 
-		// Flag de vehiculo al entrar en zona de reparto de informacion
-		first_query = false;
-
 		// Flag de vehiculo al entrar en zona de seleccion de lider
 		first_msg = false;
 
@@ -37,6 +34,7 @@ void new_VTL::initialize(int stage)
 
 		// Tiempo de simulacion cuando vehiculo toma liderazgo
 		stop_time = -1.0;
+		enter_conflict_zone_time = -1.0;
 
 		// Determina si vehiculo dobla a la izquierda
 		direction_to_left = false;
@@ -47,14 +45,15 @@ void new_VTL::initialize(int stage)
 		// Vehiculos a esperar en tiempo de espera extra
 		vehicles_to_wait = std::set<int>();
 
+
 		// Hiperparametros
 		tiempo_semaforo = par("tiempo_semaforo").doubleValue();
 		shared_data_radio = par("shared_data_radio").doubleValue();
 		lider_selection_radio = par("lider_selection_radio").doubleValue();
 
 		// Cantidad de intervalos entre mensajes de vehiculo
-		intervals_per_selfmsg = 2;
-		intervals_counting = 0;//rand() % intervals_per_selfsmg;
+		intervals_per_selfmsg = 1;
+		intervals_counting = 0;		//rand() % intervals_per_selfsmg;
 		
         break;
     default:
@@ -62,13 +61,13 @@ void new_VTL::initialize(int stage)
     }
 }
 
-void new_VTL::finish()
+void VTL::finish()
 {
     Base::finish();
 }
 
 
-void new_VTL::handleSelfMsg(cMessage *msg){
+void VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	// Obtencion de datos basicos.
 	/////////////////////////////////////////////////////////////////
@@ -79,6 +78,9 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 		Base::removeVehicle(0);
 		return;
 	}
+
+	if(distance_to_junction <= lider_selection_radio && enter_conflict_zone_time < 0.0)
+		enter_conflict_zone_time = simTime().dbl();
 
 	intervals_counting++;
 
@@ -91,6 +93,7 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 	EV << "    actual_time: " << simTime().dbl() << "\n";
 	EV << "    Lider siguiente: " << next_lider << "\n";
 	EV << "    Lider anterior: " << last_lider << "\n";
+	EV << "    Enter time conflict zone: " << enter_conflict_zone_time << "\n";
 
 	// Vehiculo verifica si existe algun lider
 	EV << "    Lideres:\n";
@@ -106,12 +109,6 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 		}
 		EV << "\n";
 	}
-
-	if(is_lider)
-		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
-
-	if(is_sub_lider)
-		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("orange"));
 
 
 	/////////////////////////////////////////////////////////////////
@@ -133,147 +130,92 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 		return;
 	}
 
+
 	/////////////////////////////////////////////////////////////////
-	// Vehiculo lider busca un sublider
+	// Acciones de lider
 	/////////////////////////////////////////////////////////////////
-	if(is_lider && sub_lider_id == -1)
+	if(is_lider)
 	{
-		EV << "    No hay sublider, buscando...\n";
+		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
 
-		int d = (direction_junction + 2) % 4;
-		int id_best = -1;
-		double dist_best = 1e8;
+		if(distance_to_junction < lider_selection_radio)
+				Base::detention();
 
-		for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
+		// Verificar existencia de sub lider
+		if(sub_lider_id == -1)
 		{
-			if(it->second.distance_to_junction < dist_best && it->second.distance_to_junction > lider_selection_radio)
+			EV << "    No hay sublider, buscando...\n";
+
+			int d = (direction_junction + 2) % 4;
+			int id_best = -1;
+			double dist_best = 1e8;
+
+			// Iterando sobre los vehiculos en calle opuesta
+			for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 			{
-				id_best = it->first;
-				dist_best = it->second.distance_to_junction;
+				if(it->second.distance_to_junction < dist_best && it->second.distance_to_junction > lider_selection_radio)
+				{
+					id_best = it->first;
+					dist_best = it->second.distance_to_junction;
+				}
+			}
+
+			// Se encontro sublider
+			if(id_best != -1 && sub_lider_id == -1)
+			{
+				EV << "    Sublider encontrado: " << sub_lider_id << "\n";
+
+				sub_lider_id = id_best;
+				prepareMsgData(data, 0);
 			}
 		}
 
-		// Se encontro sublider
-		if(id_best != -1 && sub_lider_id == -1)
+		// Lider se encuentra en tiempo de espera extra
+		if(lider_extra_waiting)
 		{
-			EV << "    Sublider encontrado: " << sub_lider_id << "\n";
+			EV << ">>> Tiempo de espera extra: busqueda de proximo lider\n";
 
-			sub_lider_id = id_best;
-
-			prepareMsgData(data, 0);
-		}
-	}
-
-
-	/////////////////////////////////////////////////////////////////
-	// Espera de vehiculo que faltan por salir de interseccion
-	/////////////////////////////////////////////////////////////////
-	if(is_lider && lider_extra_waiting)
-	{
-		EV << ">>> Tiempo de espera extra: busqueda de proximo lider\n";
-		if(distance_to_junction < lider_selection_radio)
-			Base::detention();
-
-		if(next_lider == -1)
-		{
-			EV << "    Buscando siguiente lider\n";
-			// Se busca siguiente lider y lider de referencia
-			searchNextLider();
-
-			if(next_lider != -1)
+			// Aun no se ha encontrado lider heredero
+			if(next_lider == -1)
 			{
-				EV << "    Siguiente lider encontrado: " << next_lider << "\n";
+				EV << "    Buscando siguiente lider\n";
 
-				// Mensaje para notificar lider heredero
-				prepareMsgData(data, 3);
-
-				info_message->setData(data);
-				sendWSM((WaveShortMessage*) info_message->dup());
-
-				scheduleAt(simTime() + ping_interval, self_beacon);
-
-				return ;
-			}
-		}
-
-		// Vehiculo revisa si aun existen vehiculos a los que esperar
-		if(vehicles_to_wait.empty())
-		{
-			EV << "    Lider no tiene que esperar mas vehiculos\n";
-			EV << "    Soltando liderazgo\n";
-
-			// Eliminamos status de lider
-			is_lider = false;
-			liders_list[direction_junction] = -1;
-
-			Base::continueTravel();
-
-			// Mensaje fin tiempo de lider
-			prepareMsgData(data, 2);
-
-			info_message->setData(data);
-			sendWSM((WaveShortMessage*) info_message->dup());
-
-			scheduleAt(simTime() + ping_interval, self_beacon);
-
-			return ;
-		}
-		else
-		{
-			EV << "    Lider espera salida de vehiculos:\n";
-			for(int id : vehicles_to_wait)
-				EV << "    > " << id << "\n";
-		}
-	}
-
-
-	/////////////////////////////////////////////////////////////////
-	// Fin de tiempo de semaforo y verde rapida
-	/////////////////////////////////////////////////////////////////
-	if(is_lider && !lider_extra_waiting)
-	{
-		EV << ">>> Lider en espera\n";
-		if(distance_to_junction < lider_selection_radio)
-			Base::detention();
-
-		// Solo considerar lideres que no hereden, o que heredan de un lider que ya se fue
-		int d = (direction_junction + 1) % 4;
-		
-		// En caso que lider heredero y lider original estan al mismo tiempo
-		if(last_lider != -1 && (last_lider == liders_list[d] || last_lider == liders_list[(d+2) % 4]))
-		{
-			EV << "    Vehiculo aun tiene que esperar que lider anterior se retire\n";
-			EV << "    No se puede analizar termino de liderazgo\n";
-			stop_time = simTime().dbl();
-
-		}
-		else
-		{
-			EV << ">>> Analizando termino de liderazgo\n";
-
-			// Termino de semaforo
-			bool end_time = ((simTime().dbl() - stop_time.dbl()) >= tiempo_semaforo);
-
-			// Verde rapida 
-			// TODO: adaptar a solo vehiculos en zona de colision
-			bool no_more_cars = (carTable[(direction_junction + 1) % 4].empty() && carTable[(direction_junction + 3) % 4].empty());
-
-			// Termino de liderazgo
-			if(end_time || no_more_cars)
-			{
-				EV << "    Fin de tiempo de lider\n";
-
-				EV << ">>> Busqueda de proximo lider\n";
+				// Se busca siguiente lider y lider de referencia
 				searchNextLider();
 
-				EV << "    Entrando en fase de tiempo extra\n";
-				lider_extra_waiting = true;
-
+				// Se encontro siguiente lider
 				if(next_lider != -1)
+				{
+					EV << "    Siguiente lider encontrado: " << next_lider << "\n";
+
+					// Mensaje para notificar lider heredero
 					prepareMsgData(data, 3);
-				else
-					prepareMsgData(data, 0);
-				
+
+					info_message->setData(data);
+					sendWSM((WaveShortMessage*) info_message->dup());
+
+					scheduleAt(simTime() + ping_interval, self_beacon);
+
+					return ;
+				}
+			}
+
+			// Vehiculo revisa si aun existen vehiculos a los que esperar
+			if(vehicles_to_wait.empty())
+			{
+				EV << "    Lider no tiene que esperar mas vehiculos\n";
+				EV << "    Soltando liderazgo\n";
+
+				// Eliminamos status de lider
+				is_lider = false;
+				lider_extra_waiting = false;
+				liders_list[direction_junction] = -1;
+
+				Base::continueTravel();
+
+				// Mensaje fin tiempo de lider
+				prepareMsgData(data, 2);
+
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
 
@@ -283,12 +225,79 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 			}
 			else
 			{
-				double delta_time = tiempo_semaforo - (simTime().dbl() - stop_time.dbl());
-				EV << "    Aun existen vehiculos, tiempo restante de semaforo: " << delta_time << "\n";
+				EV << "    Lider espera salida de vehiculos:\n";
+				for(int id : vehicles_to_wait)
+					EV << "    > " << id << "\n";
+			}
+		}
+		else
+		{
+			EV << ">>> Lider en espera\n";
+
+			int d = (direction_junction + 1) % 4;
+			
+			// En caso que lider heredero y lider original estan al mismo tiempo
+			if(last_lider != -1 && (last_lider == liders_list[d] || last_lider == liders_list[(d+2) % 4]))
+			{
+				EV << "    Vehiculo aun tiene que esperar que lider anterior se retire\n";
+				EV << "    No se puede analizar termino de liderazgo\n";
+				stop_time = simTime().dbl();
+
+			}
+			else
+			{
+				EV << ">>> Analizando termino de liderazgo\n";
+
+				// Termino de semaforo
+				bool end_time = ((simTime().dbl() - stop_time.dbl()) >= tiempo_semaforo);
+
+				// Verde rapida 
+				bool no_more_cars = (carTable[(direction_junction + 1) % 4].empty() && carTable[(direction_junction + 3) % 4].empty());
+
+				// Termino de liderazgo
+				if(end_time || no_more_cars)
+				{
+					EV << "    Fin de tiempo de lider\n";
+
+					EV << ">>> Busqueda de proximo lider\n";
+					searchNextLider();
+
+					EV << "    Entrando en fase de tiempo extra\n";
+					lider_extra_waiting = true;
+
+					if(next_lider != -1)
+						prepareMsgData(data, 3);
+					else
+						prepareMsgData(data, 0);
+					
+					info_message->setData(data);
+					sendWSM((WaveShortMessage*) info_message->dup());
+
+					scheduleAt(simTime() + ping_interval, self_beacon);
+
+					return ;
+				}
+				else
+				{
+					double delta_time = tiempo_semaforo - (simTime().dbl() - stop_time.dbl());
+					EV << "    Aun existen vehiculos, tiempo restante de semaforo: " << delta_time << "\n";
+				}
 			}
 		}
 	}
 
+
+	/////////////////////////////////////////////////////////////////
+	// Acciones de sub-lider
+	/////////////////////////////////////////////////////////////////
+	if(is_sub_lider)
+	{
+		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("orange"));
+
+		if(distance_to_junction <= lider_selection_radio)
+			Base::detention();
+			
+	}
 
 	/////////////////////////////////////////////////////////////////
 	// Area de seleccion de lider.
@@ -355,118 +364,81 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 		// Si no existe lider, verificamos que vehiculo no colisiona
 		if(!exist_lider)
 		{
-			EV << ">>> No existe lider, calculando si debo ser lider\n";
+			EV << ">>> No existe lider, calculando si es necesario\n";
 
-			// Se reviso si existe colision
-			bool vehicle_other_street = false;
+			// Determinamos si hay vehiculos en ambas calles
+			bool conflict = false;
 			for(int i=1; i<4; i+=2)
 			{
 				int d = (direction_junction + i) % 4;
 				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 				{
-					vehicle_other_street = vehicle_other_street || (it->second.distance_to_junction <= lider_selection_radio);
+					EV << "    " << it->first << "  " << it->second.enter_conflict_zone_time << "\n";
+					if(it->second.enter_conflict_zone_time > 0.0)
+						conflict = true;
 				}
 			}
 
-
-			// Si vehiculo puede llegar a colisionar, y tarda mas en llegar a interseccion, se vuelve lider
-			if(vehicle_other_street && !first_query)
+			if(conflict)
 			{
-				EV << "    Existen vehiculo en la otra calle, puede haber colision => Tomo liderazgo\n";
+				EV << ">>> Existe conflicto, determinando si soy lider\n";
 
-				// Detencion de vehiculo
-				Base::detention();
+				// Si hay conflicto, se elige lider
+				bool is_posible_lider = true;
 
-				// Solo se realiza una query de colision
-				first_query = true;
-
-				// Asignacion de parametros de lider
-				is_lider = true;
-				liders_list[direction_junction] = myId;
-				stop_time = simTime().dbl();
-
-				// Buscar sublider
-				int d = (direction_junction + 2) % 4;
-				int id_best = -1;
-				double dist_best = 1e8;
-
+				// Verificar si este vehiculo es el primero en su pista
+				int d = direction_junction;
 				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 				{
-					if(it->second.distance_to_junction < dist_best && it->second.distance_to_junction > lider_selection_radio)
+					if(distance_to_junction > it->second.distance_to_junction)
+						is_posible_lider = false;
+				}
+				EV << "    Soy primero en pista: " << is_posible_lider << "\n";
+
+				// Verificar si es el primero en la calle
+				d = (direction_junction + 2) % 4;
+				double best_distance = 1e8;
+				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
+				{
+					if(best_distance > it->second.distance_to_junction && !crossing)
+						best_distance = it->second.distance_to_junction;
+				}
+
+				if(best_distance < distance_to_junction)
+					is_posible_lider = false;
+
+				EV << "    Soy primero en calle: " << is_posible_lider << "\n";
+				
+				// Verificar si este vehiculo es ultimo comparado con los primeros
+				best_distance = 1e8;
+				for(int i=1; i<=3; i+=2)
+				{
+					d = (direction_junction + i) % 4;
+					for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 					{
-						id_best = it->first;
-						dist_best = it->second.distance_to_junction;
+						if(best_distance > it->second.distance_to_junction && !crossing)
+							best_distance = it->second.distance_to_junction;
 					}
 				}
 
-				if(id_best != -1 && sub_lider_id == -1)
-					sub_lider_id = id_best;
+				if(best_distance > distance_to_junction && best_distance <= lider_selection_radio)
+					is_posible_lider = false;
 
-				EV << "    Sublider es: " << sub_lider_id << "\n";
+				EV << "    Soy ultimo de los primeros: " << is_posible_lider << "\n";
 
-				// Se manda mensaje para notificar liderazgo
-				prepareMsgData(data, 0);
-				info_message->setData(data);
-				sendWSM((WaveShortMessage*) info_message->dup());
-
-				scheduleAt(simTime() + ping_interval, self_beacon);
-
-				return;
-			}
-		}
-
-
-		// En caso de que no se envie msg de colision, se envia msg para informar entrada en zona de colision
-		if(!first_query)
-		{
-			// Se envia msg al entrar en zona de colision
-			first_query = true;
-
-			// Envio de msg
-			prepareMsgData(data, 0);
-			info_message->setData(data);
-			sendWSM((WaveShortMessage*) info_message->dup());
-
-			scheduleAt(simTime() + ping_interval, self_beacon);
-
-			return;
-		}
-		
-
-		// Detencion de lider y sublider
-		if(is_lider || is_sub_lider)
-		{
-			EV << ">>> Detencion de lider y sublider\n";
-			EV << "    sublider: " << sub_lider_id << "\n";
-
-			// Detencion de vehiculo
-			Base::detention();
-
-			// En caso de que no hay sublider, lider revisa si hay algun candidato
-			if(is_lider && sub_lider_id == -1)
-			{
-				EV << "    No hay sublider, buscando...\n";
-
-				int d = (direction_junction + 2) % 4;
-				int id_best = -1;
-				double dist_best = 1e8;
-
-				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
+				if(is_posible_lider)
 				{
-					if(it->second.distance_to_junction < dist_best && it->second.distance_to_junction > lider_selection_radio)
-					{
-						id_best = it->first;
-						dist_best = it->second.distance_to_junction;
-					}
-				}
+					EV << ">>> Puedo ser el lider\n";
 
-				// Se encontro sublider
-				if(id_best != -1 && sub_lider_id == -1)
-				{
-					EV << "    Sublider encontrado: " << sub_lider_id << "\n";
+					// Detencion de vehiculo
+					Base::detention();
+					
+					// Asignacion de parametros de lider
+					is_lider = true;
+					liders_list[direction_junction] = myId;
+					stop_time = simTime().dbl();
 
-					sub_lider_id = id_best;
-
+					// Se manda mensaje para notificar liderazgo
 					prepareMsgData(data, 0);
 					info_message->setData(data);
 					sendWSM((WaveShortMessage*) info_message->dup());
@@ -519,7 +491,7 @@ void new_VTL::handleSelfMsg(cMessage *msg){
 
 }
 
-void new_VTL::onData(WaveShortMessage *wsm)
+void VTL::onData(WaveShortMessage *wsm)
 {
 	// Auto que recibe mensaje salio de la interseccion.
 	if(outJunction)
@@ -597,8 +569,6 @@ void new_VTL::onData(WaveShortMessage *wsm)
 
 			Base::continueTravel();
 		}
-
-		return;
 	}
 
 
@@ -611,12 +581,13 @@ void new_VTL::onData(WaveShortMessage *wsm)
 		EV << ">>> Lider entrando a tiempo de espera extra, vehiculo " << id_next_lider << " es el siguiente lider\n";
 		EV << "    Lider entrando a tiempo de espera extra, vehiculo " << id_sub_next_lider << " es el siguiente sublider\n";
 
-		// Asignamos el siguiente lider
+		// Este vehiculo es el lider
 		if(myId == id_next_lider)
 		{
 			EV << "    Soy heredero del lider actual\n";
 
 			is_lider = true;
+			first_query = false;
 			sub_lider_id = id_sub_next_lider;
 			liders_list[direction_junction] = id_next_lider;
 
@@ -624,6 +595,7 @@ void new_VTL::onData(WaveShortMessage *wsm)
 			stop_time = simTime().dbl();
 		}
 
+		// Este vehiculo es el sub-lider
 		if(myId == id_sub_next_lider)
 		{
 			EV << "    Soy sublider del lider heredero\n";
@@ -631,6 +603,7 @@ void new_VTL::onData(WaveShortMessage *wsm)
 			is_sub_lider = true;
 		}
 
+		// Busqueda de posicion de lider para poder clasificarlo
 		if(id_next_lider != -1)
 		{
 			for(int i=0; i<4; ++i)
@@ -668,9 +641,9 @@ void new_VTL::onData(WaveShortMessage *wsm)
 		EV << ">>> Existe lider en la interseccion\n";
 
 		// Lider esta en la misma pista
-		if(sender_in == direction_junction)
+		if(sender_in == direction_junction || (sender_in % 2 == direction_junction % 2))
 		{
-			EV << ">>> Mensaje de lider en mi pista\n";
+			EV << ">>> Mensaje de lider en mi pista o pista opuesta\n";
 
 			// Verificar si creo ser lider tambien
 			if(is_lider)
@@ -685,8 +658,12 @@ void new_VTL::onData(WaveShortMessage *wsm)
 					// Reseteando parametros de lider
 					is_lider = false;
 					last_lider = -1;
+					next_lider = -1;
+
 					liders_list[sender_in] = sender;
-					
+					if(sender_in % 2 == direction_junction % 2)
+						liders_list[direction_junction] = -1;
+
 					stop_time = -1.0;
 
 					if(stoping || stoped)
@@ -699,40 +676,7 @@ void new_VTL::onData(WaveShortMessage *wsm)
 			else
 				liders_list[sender_in] = sender;
 
-		}
-		// Lider esta en la misma calle
-		else if(sender_in % 2 == direction_junction % 2)
-		{
-			EV << ">>> Mensaje de lider en otra pista\n";
-
-			if(is_lider)
-			{
-				EV << "> Existe conflicto de liderazgo\n";
-
-				// Elegir el que lleve mas tiempo como lider
-				if(sender_dist < distance_to_junction)
-				{
-					EV << "> Soy el falso lider\n";
-
-					// Reseteando parametros de lider
-					is_lider = false;
-					last_lider = -1;
-					liders_list[sender_in] = sender;
-					liders_list[direction_junction] = -1;
-					
-					stop_time = -1.0;
-
-					if(stoping || stoped)
-					{
-						Base::continueTravel();
-						traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
-					}
-				}
-			}
-			else
-				liders_list[sender_in] = sender;
-
-			if(data.sub_lider == myId)
+			if(data.sub_lider == myId && (sender_in % 2 == direction_junction % 2))
 				is_sub_lider = true;
 				
 		}
@@ -771,7 +715,7 @@ void new_VTL::onData(WaveShortMessage *wsm)
 	}
 }
 
-void new_VTL::onBeacon(WaveShortMessage *wsm)
+void VTL::onBeacon(WaveShortMessage *wsm)
 {
 }
 
@@ -779,7 +723,7 @@ void new_VTL::onBeacon(WaveShortMessage *wsm)
 /**
  * Funcion que prepara contenido de mensaje enviado por los auto.
  */
-void new_VTL::prepareMsgData(vehicleData& data, int msgTipe)
+void VTL::prepareMsgData(vehicleData& data, int msgTipe)
 {
 	Base::prepareMsgData(data, msgTipe);
 
@@ -792,13 +736,15 @@ void new_VTL::prepareMsgData(vehicleData& data, int msgTipe)
 
 	data.stop_time = stop_time.dbl();
 	data.goingLeft = direction_to_left;
+
+	data.enter_conflict_zone_time = enter_conflict_zone_time;
 }
 
 
 /**
  * Determina la direccion final de un auto
  */
-bool new_VTL::isGoingLeft()
+bool VTL::isGoingLeft()
 {
 	bool left = ((direction_junction + 3) % 4 == direction_out);
 	EV << "    arrival direction: " << direction_out << "\n";
@@ -817,7 +763,7 @@ bool new_VTL::isGoingLeft()
  * 
  */
 // TODO: Seleccionar sublider como referencia para elegir los vehiculos que ignoran lideres
-void new_VTL::searchNextLider()
+void VTL::searchNextLider()
 {
 	// Identificadores y distancias
 	int lider1 = -1, lider2 = -1;
@@ -867,13 +813,13 @@ void new_VTL::searchNextLider()
 
 	if(dist_lider1 > dist_lider2)
 	{
-		next_lider = lider2;
-		sub_next_lider = lider1;
+		next_lider = lider1;
+		sub_next_lider = lider2;
 	}
 	else
 	{
-		next_lider = lider1;
-		sub_next_lider = lider2;
+		next_lider = lider2;
+		sub_next_lider = lider1;
 	}
 
 	EV << "    Proximo lider: " << next_lider << ", y sub lider: " << sub_next_lider << "\n";

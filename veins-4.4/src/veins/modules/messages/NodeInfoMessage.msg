@@ -27,12 +27,14 @@ struct vehicleData {
 
 
 	bool isLider = false;
+
 	int last_lider = -1;
 	int next_lider = -1;
 	int sub_next_lider = -1;
-
+	int sub_lider = -1;
 
 	float stop_time = -1.0;
+	float enter_conflict_zone_time = -1.0;
 	bool goingLeft = false;
 
 	bool isLaneLider = false;
