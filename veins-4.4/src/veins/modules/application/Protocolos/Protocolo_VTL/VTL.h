@@ -41,12 +41,6 @@ protected:
 	bool direction_to_left;
 	bool crossing_left;
 
-	// Identificador de primera entrada en zona de colision
-	bool first_query;
-
-	// Estado que permite ignorar existencia de lider, y continuar con el viaje
-	bool block_movement;
-
 	// Identificador de lider anterior y heredero
 	int last_lider;
 	int next_lider;

@@ -102,7 +102,10 @@ void Base::initialize(int stage)
     case 1:
     {
         // Organizacion de selfbeacons
-		double delta = 0.1;//uniform(0.0, 1.0);
+		// Utilizar myId para el delta
+		//double delta = uniform(0.0, 0.25);
+		double delta = (myId + 1) * 0.05;
+		delta = delta - std::floor(delta);
 
 		EV << ">>> Delta initial selfmsg: " << delta << "\n";
 		EV << ">>> Interval time: " << sim_update_interval << "\n";
@@ -156,6 +159,9 @@ void Base::finish()
 
 	recordScalar("IntersectionEnterTime", time_in_junction);
 	recordScalar("IntersectionExitTime", intersection_exit_time);
+
+	double coll_time = sceman->askForCollision(myId);
+	recordScalar("Collision time", coll_time);
 }
 
 

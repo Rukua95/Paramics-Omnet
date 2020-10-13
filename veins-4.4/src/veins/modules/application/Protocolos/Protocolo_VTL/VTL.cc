@@ -52,7 +52,7 @@ void VTL::initialize(int stage)
 		lider_selection_radio = par("lider_selection_radio").doubleValue();
 
 		// Cantidad de intervalos entre mensajes de vehiculo
-		intervals_per_selfmsg = 1;
+		intervals_per_selfmsg = 2;
 		intervals_counting = 0;		//rand() % intervals_per_selfsmg;
 		
         break;
@@ -138,6 +138,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 	{
 		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
 
+		// Detencion de lider
 		if(distance_to_junction < lider_selection_radio)
 				Base::detention();
 
@@ -193,6 +194,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 					info_message->setData(data);
 					sendWSM((WaveShortMessage*) info_message->dup());
+					intervals_counting = 0;
 
 					scheduleAt(simTime() + ping_interval, self_beacon);
 
@@ -218,6 +220,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
+				intervals_counting = 0;
 
 				scheduleAt(simTime() + ping_interval, self_beacon);
 
@@ -230,6 +233,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 					EV << "    > " << id << "\n";
 			}
 		}
+		// Lider aun esta esperando por tiempo de semaforo
 		else
 		{
 			EV << ">>> Lider en espera\n";
@@ -241,6 +245,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 			{
 				EV << "    Vehiculo aun tiene que esperar que lider anterior se retire\n";
 				EV << "    No se puede analizar termino de liderazgo\n";
+				EV << "    Reiniciando tiempo de detencion\n";
 				stop_time = simTime().dbl();
 
 			}
@@ -258,6 +263,8 @@ void VTL::handleSelfMsg(cMessage *msg){
 				if(end_time || no_more_cars)
 				{
 					EV << "    Fin de tiempo de lider\n";
+					EV << "     > end_time: " << end_time << "\n";
+					EV << "     > no_more_cars: " << no_more_cars << "\n";
 
 					EV << ">>> Busqueda de proximo lider\n";
 					searchNextLider();
@@ -265,6 +272,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 					EV << "    Entrando en fase de tiempo extra\n";
 					lider_extra_waiting = true;
 
+					// Aviso si hay lider heredero
 					if(next_lider != -1)
 						prepareMsgData(data, 3);
 					else
@@ -272,6 +280,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 					
 					info_message->setData(data);
 					sendWSM((WaveShortMessage*) info_message->dup());
+					intervals_counting = 0;
 
 					scheduleAt(simTime() + ping_interval, self_beacon);
 
@@ -315,9 +324,6 @@ void VTL::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Zona de cruce <<<\n";
 
-			// Iniciando estado de cruce
-			crossing = true;
-
 			// Registrar entrada en interseccion
 			Base::registerInOfJunction();
 
@@ -325,8 +331,12 @@ void VTL::handleSelfMsg(cMessage *msg){
 			prepareMsgData(data, 0);
 			info_message->setData(data);
 
-			if(intervals_counting % intervals_per_selfmsg == 0)
+			if(!crossing || intervals_counting % intervals_per_selfmsg == 0)
+			{
+				// Iniciando estado de cruce
+				crossing = true;
 				sendWSM((WaveShortMessage*) info_message->dup());
+			}
 
 			scheduleAt(simTime() + ping_interval, self_beacon);
 
@@ -366,7 +376,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> No existe lider, calculando si es necesario\n";
 
-			// Determinamos si hay vehiculos en ambas calles
+			// Determinamos si hay vehiculos calle perpendicular
 			bool conflict = false;
 			for(int i=1; i<4; i+=2)
 			{
@@ -379,6 +389,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 				}
 			}
 
+			// En caso de conflicto, vehiculo verifica si es lider
 			if(conflict)
 			{
 				EV << ">>> Existe conflicto, determinando si soy lider\n";
@@ -390,25 +401,36 @@ void VTL::handleSelfMsg(cMessage *msg){
 				int d = direction_junction;
 				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 				{
-					if(distance_to_junction > it->second.distance_to_junction)
+					//if(distance_to_junction > it->second.distance_to_junction)
+					//	is_posible_lider = false;
+
+					if(enter_conflict_zone_time > it->second.enter_conflict_zone_time && it->second.enter_conflict_zone_time > 0.0)
 						is_posible_lider = false;
 				}
 				EV << "    Soy primero en pista: " << is_posible_lider << "\n";
+
 
 				// Verificar si es el primero en la calle
 				d = (direction_junction + 2) % 4;
 				double best_distance = 1e8;
 				for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 				{
-					if(best_distance > it->second.distance_to_junction && !crossing)
-						best_distance = it->second.distance_to_junction;
+					//if(best_distance > it->second.distance_to_junction && !crossing)
+					//	best_distance = it->second.distance_to_junction;
+
+					if(best_distance > it->second.enter_conflict_zone_time && it->second.enter_conflict_zone_time > 0.0)
+						best_distance = it->second.enter_conflict_zone_time;
 				}
 
-				if(best_distance < distance_to_junction)
+				//if(best_distance < distance_to_junction)
+				//	is_posible_lider = false;
+				
+				if(best_distance < enter_conflict_zone_time)
 					is_posible_lider = false;
 
 				EV << "    Soy primero en calle: " << is_posible_lider << "\n";
 				
+
 				// Verificar si este vehiculo es ultimo comparado con los primeros
 				best_distance = 1e8;
 				for(int i=1; i<=3; i+=2)
@@ -416,12 +438,18 @@ void VTL::handleSelfMsg(cMessage *msg){
 					d = (direction_junction + i) % 4;
 					for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 					{
-						if(best_distance > it->second.distance_to_junction && !crossing)
-							best_distance = it->second.distance_to_junction;
+						//if(best_distance > it->second.distance_to_junction && !crossing)
+						//	best_distance = it->second.distance_to_junction;
+
+						if(best_distance > it->second.enter_conflict_zone_time && it->second.enter_conflict_zone_time > 0.0)
+							best_distance = it->second.enter_conflict_zone_time;
 					}
 				}
 
-				if(best_distance > distance_to_junction && best_distance <= lider_selection_radio)
+				//if(best_distance > distance_to_junction && best_distance <= lider_selection_radio)
+				//	is_posible_lider = false;
+
+				if(best_distance > enter_conflict_zone_time && best_distance < 1e7)
 					is_posible_lider = false;
 
 				EV << "    Soy ultimo de los primeros: " << is_posible_lider << "\n";
@@ -442,6 +470,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 					prepareMsgData(data, 0);
 					info_message->setData(data);
 					sendWSM((WaveShortMessage*) info_message->dup());
+					intervals_counting = 0;
 
 					scheduleAt(simTime() + ping_interval, self_beacon);
 
@@ -501,11 +530,23 @@ void VTL::onData(WaveShortMessage *wsm)
 	}
 
 	// Auto aun no esta en area para compartir informacion.
-	if(!inSharedDataZone)
+	if(!inSharedDataZone)//distance_to_junction > shared_data_radio + 10) //!inSharedDataZone)
 	{
 		EV << ">>> CANT RECEIVE, OUT OF SHARED DATA ZONE <<<\n";
 		return ;
 	}
+	/*
+	else if(distance_to_junction > shared_data_radio && distance_to_junction <= shared_data_radio + 10)
+	{
+		EV << ">>> OBTENCION TEMPRANA DE INFORMACION <<<\n";
+		NodeInfoMessage* msg = check_and_cast<NodeInfoMessage*>(wsm);
+		vehicleData data = msg->getData();
+		int sender = wsm->getSenderAddress();
+		carTable[data.direction_junction][sender] = data;
+
+		return ;
+	}
+	*/
 
 
 	EV << ">>> Data message <<<\n";
@@ -587,7 +628,6 @@ void VTL::onData(WaveShortMessage *wsm)
 			EV << "    Soy heredero del lider actual\n";
 
 			is_lider = true;
-			first_query = false;
 			sub_lider_id = id_sub_next_lider;
 			liders_list[direction_junction] = id_next_lider;
 
@@ -608,13 +648,10 @@ void VTL::onData(WaveShortMessage *wsm)
 		{
 			for(int i=0; i<4; ++i)
 			{
-				for(auto it=carTable[i].begin(); it!=carTable[i].end(); it++)
+				if(carTable[i].count(id_next_lider) != 0)
 				{
-					if(id_next_lider == it->first)
-					{
-						liders_list[i] = id_next_lider;
-						break;
-					}
+					liders_list[i] = id_next_lider;
+					break;
 				}
 			}
 		}
