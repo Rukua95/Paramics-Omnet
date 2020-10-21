@@ -145,7 +145,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	if(is_lider)
 	{
-		//traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
+		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
 		if(crossing_left)
 			crossing_left = false;
 
@@ -273,12 +273,14 @@ void VTL::handleSelfMsg(cMessage *msg){
 				// Termino de liderazgo
 				if(end_time || no_more_cars)
 				{
+					/*
 					if(end_time && no_more_cars)
 						traciVehicle->setColor(Veins::TraCIColor(0, 255, 255, 255)); // cyan
 					else if(end_time)
 						traciVehicle->setColor(Veins::TraCIColor(0, 0, 139, 255)); // dark blue
 					else
 						traciVehicle->setColor(Veins::TraCIColor(104, 0, 139, 255)); // light blue
+					*/
 
 
 					EV << "    Fin de tiempo de lider\n";
@@ -535,12 +537,33 @@ void VTL::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Verificando viraje a izquierda\n";
 
+			// Revisando si soy primer vehiculo en esta direccion
+			bool is_first = true;
+			int id_first_no_left = -1;
+			double time_first_no_left = 1e8;
+
+			for(auto it = carTable[direction_junction].begin(); it!=carTable[direction_junction].end(); it++)
+			{
+				EV << "    Vehiculo en pista " << it->first << "\n";
+				if(it->second.enter_conflict_zone_time < enter_conflict_zone_time && it->second.enter_conflict_zone_time > 0.0 && !it->second.crossing)
+				{
+					EV << "    Vehiculo " << it->first << " esta adelante, no se puede cruzar\n";
+					is_first = false;
+				}
+
+				if(it->second.time_to_junction > time_to_junction && time_first_no_left > it->second.time_to_junction && !it->second.goingLeft)
+				{
+					time_first_no_left = it->second.time_to_junction;
+				}
+			}
+
+
 			// Revisando condicion de primer vehiculo en direccion opuesta
 			bool no_oposition = true;
 
 			int d = (direction_junction + 2) % 4;
-			int id_near = -1;
-			double enter_time = -1.0;
+			int id_near = -1, id_near_no_left = -1;
+			double enter_time = -1.0, enter_time_no_left = -1.0;
 
 			for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 			{
@@ -554,6 +577,12 @@ void VTL::handleSelfMsg(cMessage *msg){
 				{
 					id_near = it->first;
 					enter_time = it->second.time_to_junction;
+				}
+
+				if((it->second.time_to_junction < enter_time_no_left || enter_time_no_left < 0.0) && !it->second.goingLeft)
+				{
+					id_near_no_left = it->first;
+					enter_time_no_left = it->second.time_to_junction;
 				}
 			}
 
@@ -570,16 +599,19 @@ void VTL::handleSelfMsg(cMessage *msg){
 				double oposite_time_to_junction = carTable[d][id_near].time_to_junction;
 
 				// Vehiculos lideres y sublideres siempre se detienen
-				if(oposite_is_lider || oposite_is_sub_lider)
+				if(oposite_is_lider || (oposite_is_sub_lider && id_near != sub_lider_id))
 				{
 					no_oposition = true;
 				}
 				else
 				{
+					double delta_tiempo = 0.3;
+
 					// Caso especial en que primer vehiculo opuesto se mueve a la izquierda
-					if(carTable[d][id_near].goingLeft)
+					if(oposite_going_left)
 					{
-						// TODO: ventana de tiempo para cruzar
+						EV << ">>> Ambos vehiculos viran a izquierda\n";
+
 						if(oposite_enter_time < enter_conflict_zone_time)
 						{
 							no_oposition = false;
@@ -592,7 +624,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 					// Caso general
 					else
 					{
-						if(oposite_time_to_junction - 1 - time_to_junction > 3.0)
+						if(oposite_time_to_junction - delta_tiempo - time_to_junction > 2.5)
 							no_oposition = true;
 						else
 						{
@@ -603,24 +635,9 @@ void VTL::handleSelfMsg(cMessage *msg){
 				}
 			}
 
-			
-			// Revisando si soy primer vehiculo en esta direccion
-			bool is_first = true;
-
-			d = direction_junction;
-			for(auto it = carTable[d].begin(); it!=carTable[d].end(); it++)
-			{
-				EV << "    Vehiculo en pista " << it->first << "\n";
-				if(it->second.enter_conflict_zone_time < enter_conflict_zone_time && it->second.enter_conflict_zone_time > 0.0)
-				{
-					EV << "    Vehiculo " << it->first << " esta adelante, no se puede cruzar\n";
-					is_first = false;
-				}
-			}
 
 			EV << "    no_oposicion: " << no_oposition << "\n";
 			EV << "    is_first: " << is_first << "\n";
-
 
 			if(!crossing_left)
 			{
