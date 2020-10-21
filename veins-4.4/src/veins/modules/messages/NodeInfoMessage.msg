@@ -27,6 +27,7 @@ struct vehicleData {
 
 
 	bool isLider = false;
+	bool is_sub_lider = false;
 
 	int last_lider = -1;
 	int next_lider = -1;

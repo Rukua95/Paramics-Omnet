@@ -191,12 +191,13 @@ void ExtTraCIScenarioManagerLaunchd::detectColision()
 
 			// Angulo a partir de vector de velocidad
 			double theta1 = atan2(v1.y, v1.x), theta2 = atan2(v2.y, v2.x);
+			double delta = 0.85;
 
 			// Posicion de vertices de vehiculo, dado 
-			std::vector<Coord> lim1 = {Coord(1.0, 0.8), Coord(1.0, -0.8), Coord(-1.0, -0.8), Coord(-1.0, 0.8)};
+			std::vector<Coord> lim1 = {Coord(2.0, 0.8)*delta, Coord(2.0, -0.8)*delta, Coord(-2.0, -0.8)*delta, Coord(-2.0, 0.8)*delta};
 			getCarPoint(lim1, theta1);
 
-			std::vector<Coord> lim2 = {Coord(1.0, 0.8), Coord(1.0, -0.8), Coord(-1.0, -0.8), Coord(-1.0, 0.8)};
+			std::vector<Coord> lim2 = {Coord(2.0, 0.8)*delta, Coord(2.0, -0.8)*delta, Coord(-2.0, -0.8)*delta, Coord(-2.0, 0.8)*delta};
 			getCarPoint(lim2, theta2);
 
 			EV << ">>> p1: " << p1 << "   v1: " << v1 << "   theta1: " << theta1 <<"\n";
@@ -362,4 +363,21 @@ void ExtTraCIScenarioManagerLaunchd::calculateMetrics()
 void ExtTraCIScenarioManagerLaunchd::saveWaitingTime(int direction, double time_in_wait)
 {
 	first_car_wait_time[direction] = time_in_wait;
+}
+
+
+double ExtTraCIScenarioManagerLaunchd::askForCollision(int id)
+{
+	for(auto it=collision_register.begin(); it != collision_register.end(); it++)
+	{
+		int car1 = it->first.first;
+		int car2 = it->first.second;
+
+		if(car1 == id || car2 == id)
+		{
+			return it->second;
+		}
+	}
+
+	return -1.0;
 }

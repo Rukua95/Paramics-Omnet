@@ -103,9 +103,9 @@ void Base::initialize(int stage)
     {
         // Organizacion de selfbeacons
 		// Utilizar myId para el delta
-		//double delta = uniform(0.0, 0.25);
-		double delta = (myId + 1) * 0.05;
-		delta = delta - std::floor(delta);
+		double delta = uniform(0.0, 0.25);
+		//double delta = (myId + 1) * 0.03;
+		//delta = delta - std::floor(delta);
 
 		EV << ">>> Delta initial selfmsg: " << delta << "\n";
 		EV << ">>> Interval time: " << sim_update_interval << "\n";
@@ -161,7 +161,7 @@ void Base::finish()
 	recordScalar("IntersectionExitTime", intersection_exit_time);
 
 	double coll_time = sceman->askForCollision(myId);
-	recordScalar("Collision time", coll_time);
+	recordScalar("CollisionTime", coll_time);
 }
 
 
@@ -294,7 +294,7 @@ void Base::detention()
 	{
 		if((it->second.stoping || it->second.stoped) && it->second.distance_to_junction < distance_to_junction)
 		{
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("grey"));
+			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
 			verificador = true;
 			if(stoping)
 				traciVehicle->setSpeed(-1.0);

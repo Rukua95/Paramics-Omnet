@@ -39,6 +39,8 @@ public:
     void detectColision();
     void getCarPoint(std::vector<Coord> &lim, double theta);
 
+    double askForCollision(int id);
+
 private:
     bool shut_down;
     bool registered_stuck;

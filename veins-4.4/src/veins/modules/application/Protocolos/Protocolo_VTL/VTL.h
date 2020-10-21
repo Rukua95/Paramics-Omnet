@@ -28,14 +28,12 @@ class VTL : public Base
 protected:
 
 	// Identificador de lider.
-	int lider_id;
 	int sub_lider_id;
 	bool is_lider;
 	bool is_sub_lider;
 
 	// Identificadores para tiempo extra de espera
 	bool lider_extra_waiting;
-	bool fast_exit;
 
 	// Identificador de viraje a izquierda
 	bool direction_to_left;
@@ -47,8 +45,8 @@ protected:
 	int sub_next_lider;
 
 	// Tiempo en que comienza lider
-	SimTime stop_time;
-	SimTime lider_start_time;
+	double stop_time;
+	double lider_start_time;
 
 	double enter_conflict_zone_time;
 
