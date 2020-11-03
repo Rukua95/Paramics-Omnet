@@ -41,7 +41,7 @@ void Grilla_CCIP::initialize(int stage)
 
 		// Cantidad de intervalos entre mensajes de vehiculo
 		intervals_per_selfmsg = 2;
-		intervals_counting = rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
+		intervals_counting = 0;
 
 		first_msg = false;
 
@@ -122,7 +122,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 		// Vehiculo esta dentro de la interseccion
 		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
 		{
-			EV << ">>> Zona de cruce\n";
+			EV << ">>> Zona de cruce <<<\n";
 			crossing = true;
 			Base::registerInOfJunction();
 
@@ -137,7 +137,7 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 			// Vehiculo salio de la interseccion
 			if(crossing)
 			{
-				EV << ">>> Out of junction <<<\n";
+				EV << ">>> Salida de interseccion <<<\n";
 				Base::registerOutOfJunction();
 
 				crossing = false;
@@ -156,54 +156,55 @@ void Grilla_CCIP::handleSelfMsg(cMessage *msg){
 			// vehiculo entrando a la interseccion.
 			else
 			{
+				EV << ">>> Comparacion de prioridades <<<\n";
+				// Solo comparamos primeros
+				bool is_first = true;
+
+				for(auto it = carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
+					if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
+						is_first = false;
+
+				EV << "    is_first: " << is_first << "\n";
+
 				// Comparacion de prioridades con vehiculos registrados.
-				if(better_priority_cars.size() > 0)
+				if(better_priority_cars.size() > 0 || !is_first)
 				{
 					EV << ">>> Existen vehiculos de mejor prioridad\n";
 					for(auto it=better_priority_cars.begin(); it!=better_priority_cars.end(); it++)
 						EV << "    " << *it << "\n";
+
 					allow_continue = 0;
-					
 					Base::detention();
+
 				}
 				else
 				{
 					if(allow_continue == 2)
 					{
 						EV << ">>> No existe vehiculo con mejor prioridad\n";
-						bool isFirst = true;
-						for(auto it=carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
-							if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
-								isFirst = false;
+						EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
+						
+						priority = -1.0;
+						traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
+						Base::continueTravel();
 
-						if(isFirst)
-						{
-							EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
-							priority = -1.0;
-							//block_time = simTime().dbl();
-							Base::continueTravel();
+						prepareMsgData(data, 0);
+						info_message->setData(data);
+						sendWSM((WaveShortMessage*) info_message->dup());
 
-							prepareMsgData(data, 0);
-							info_message->setData(data);
-							sendWSM((WaveShortMessage*) info_message->dup());
+						scheduleAt(simTime() + ping_interval, self_beacon);
 
-							scheduleAt(simTime() + ping_interval, self_beacon);
+						return;
 
-							return;
-						}
-						else
-						{
-							EV << ">>> No se puede continuar, realizando detencion\n";
-							allow_continue = 0;
-							Base::detention();
-						}
 					}
 					else
 					{
 						EV << ">>> Hasta ahora no hay vehiculo con mejor prioridad\n";
 						EV << ">>> Esperando un ciclo de simulacion para asegurar\n";
+
 						allow_continue++;
 						Base::detention();
+
 					}
 				}
 			}
@@ -323,25 +324,33 @@ void Grilla_CCIP::onData(WaveShortMessage *wsm)
 	EV << "    propia proridad = " << priority << "\n";
 
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
-	double priority_delta = 2.0;
-	bool priority_comp = (sender_priority + priority_delta < priority) || (std::abs(sender_priority - priority) < priority_delta && sender < myId);
+	bool priority_comp = comparePriority(sender_priority, sender);
+
+	if(sender_in == direction_junction)
+	{
+		// Vehiculos que esten atras se ignoran
+		if(sender_dist > distance_to_junction)
+			priority_comp = false;
+
+		// Vehiculos que esten adelante se consideran
+		if(sender_dist < distance_to_junction)
+			priority_comp = true;
+
+	}
 	
-	// Solo se toma en cuenta informacion de los vehiculos que van primeros en pista o estan cruzando.
-	bool is_sender_first = true; 
+	// Solo considerar  informacion de los vehiculos que van primeros en pista o estan cruzando.
 	for(auto it=carTable[sender_in].begin(); it!=carTable[sender_in].end(); it++)
 	{
 		if(it->first == sender)
 			continue;
 
 		if(it->second.distance_to_junction < sender_dist && !it->second.crossing)
-			is_sender_first = false;
+			priority_comp = false;
 	}
 
+	// Siempre considerar vehiculos que cruzan
 	if(data.crossing)
-		is_sender_first = true;
-
-	if(!is_sender_first)
-		priority_comp = false;
+		priority_comp = true;
 
 	// En caso de diferencia de prioridad, se compara las celdas que los vehiculos estan usaran
 	if(priority_comp)
@@ -381,6 +390,20 @@ void Grilla_CCIP::prepareMsgData(vehicleData& data, int msgTipe)
 
 	data.priority = priority;
 	data.id_cell_begin = id_cell_in_use;
+}
+
+
+/**
+ * Funcion que determina si prioridad de otro vehiculo es mejor que la del vehiculo actual.
+ */
+bool Grilla_CCIP::comparePriority(double vhc_priority, int sender_id)
+{
+	double priority_delta = 1.5;
+
+	if(priority < 0.0)
+		return false;
+	else
+		return (vhc_priority <= 0.0 || priority < vhc_priority - priority_delta || (std::abs(priority - vhc_priority) < priority_delta && sender_id < myId));
 }
 
 

@@ -111,10 +111,10 @@ void VTL::handleSelfMsg(cMessage *msg){
 
 	for(int i=0; i<4; i++)
 	{
-		EV << "    Vehiculos en direccion " << i << ":";
+		EV << "    Vehiculos en direccion " << i << ":\n";
 		for(auto it=carTable[i].begin(); it!=carTable[i].end(); it++)
 		{
-			EV << " " << it->first;
+			EV << "    > " << it->first << ") crossing: " << it->second.crossing << " lider: " << it->second.isLider << "\n";
 		}
 		EV << "\n";
 	}
@@ -139,6 +139,38 @@ void VTL::handleSelfMsg(cMessage *msg){
 		return;
 	}
 
+
+	/////////////////////////////////////////////////////////////////
+	// Eliminacion de vehiculos sobrantes en registros
+	/////////////////////////////////////////////////////////////////
+	EV << ">>> Eliminacion de vehiculos inactivos\n";
+	for(int i=0; i<4; i++)
+	{
+		std::queue<int> to_delete;
+		for(auto it=crossing_zone_register[i].begin(); it!=crossing_zone_register[i].end(); it++)
+		{
+			int vh_id = it->first;
+			double vh_time = it->second;
+
+			EV << ">>> Verificando vehiculo " << vh_id << ") dt: " << simTime().dbl() - vh_time << "\n";
+			if(simTime().dbl() - vh_time > 2.5)
+			{
+				EV << "    Eliminado por inactividad\n";
+				to_delete.push(vh_id);
+			}
+		}
+
+		while(!to_delete.empty())
+		{
+			int vh_id = to_delete.front(); to_delete.pop();
+
+			EV << ">>> Eliminando por inactividad vehiculo " << vh_id << "\n";
+
+			carTable[i].erase(vh_id);
+			crossing_zone_register[i].erase(vh_id);
+			vehicles_to_wait.erase(vh_id);
+		}
+	}
 
 	/////////////////////////////////////////////////////////////////
 	// Acciones de lider
@@ -224,6 +256,7 @@ void VTL::handleSelfMsg(cMessage *msg){
 				lider_extra_waiting = false;
 				liders_list[direction_junction] = -1;
 
+				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 				Base::continueTravel();
 
 				// Mensaje fin tiempo de lider
@@ -537,23 +570,16 @@ void VTL::handleSelfMsg(cMessage *msg){
 		{
 			EV << ">>> Verificando viraje a izquierda\n";
 
-			// Revisando si soy primer vehiculo en esta direccion
+			// Verificar si vehiculo es el primero en pista
 			bool is_first = true;
-			int id_first_no_left = -1;
-			double time_first_no_left = 1e8;
-
 			for(auto it = carTable[direction_junction].begin(); it!=carTable[direction_junction].end(); it++)
 			{
 				EV << "    Vehiculo en pista " << it->first << "\n";
+
 				if(it->second.enter_conflict_zone_time < enter_conflict_zone_time && it->second.enter_conflict_zone_time > 0.0 && !it->second.crossing)
 				{
 					EV << "    Vehiculo " << it->first << " esta adelante, no se puede cruzar\n";
 					is_first = false;
-				}
-
-				if(it->second.time_to_junction > time_to_junction && time_first_no_left > it->second.time_to_junction && !it->second.goingLeft)
-				{
-					time_first_no_left = it->second.time_to_junction;
 				}
 			}
 
@@ -562,8 +588,8 @@ void VTL::handleSelfMsg(cMessage *msg){
 			bool no_oposition = true;
 
 			int d = (direction_junction + 2) % 4;
-			int id_near = -1, id_near_no_left = -1;
-			double enter_time = -1.0, enter_time_no_left = -1.0;
+			int id_near = -1;
+			double enter_time = -1.0;
 
 			for(auto it = carTable[d].begin(); it != carTable[d].end(); it++)
 			{
@@ -572,17 +598,18 @@ void VTL::handleSelfMsg(cMessage *msg){
 				if(it->second.goingLeft)
 					EV << "    -> vehiculo vira a izquierda\n";
 
+				// Omision de vehiculos que ya se encuentran cruzando
+				if(it->second.crossing)
+				{
+					EV << "    -> omitiendo vehiculo por estar cruzando\n";
+					continue;
+				}
+
 				// Vehiculo opuesto mas cercano a interseccion
 				if(it->second.time_to_junction < enter_time || enter_time < 0.0)
 				{
 					id_near = it->first;
 					enter_time = it->second.time_to_junction;
-				}
-
-				if((it->second.time_to_junction < enter_time_no_left || enter_time_no_left < 0.0) && !it->second.goingLeft)
-				{
-					id_near_no_left = it->first;
-					enter_time_no_left = it->second.time_to_junction;
 				}
 			}
 
@@ -723,9 +750,11 @@ void VTL::onData(WaveShortMessage *wsm)
 	int sender_in = data.direction_junction;
 	int sender_out = data.direction_out;
 
-	bool sender_lider = data.isLider;
+	bool sender_is_lider = data.isLider;
 	double sender_dist = data.distance_to_junction;
 	double sender_stop_time = data.stop_time;
+
+	bool sender_crossing = data.crossing;
 
 
 	EV << "    tipe: " << tipe << "\n";
@@ -745,7 +774,9 @@ void VTL::onData(WaveShortMessage *wsm)
 	{
 		EV << ">>> Eliminar vehiculo " << sender << " de la tabla <<<\n";
 
-		carTable[data.direction_junction].erase(sender);
+		// Eliminar dentro de tablas de registro de vehiculos
+		carTable[sender_in].erase(sender);
+		crossing_zone_register[sender_in].erase(sender);
 
 		// Eliminar elemento en caso que lider se encuentre en tiempo de espera extra
 		if(is_lider && lider_extra_waiting)
@@ -771,6 +802,9 @@ void VTL::onData(WaveShortMessage *wsm)
 			EV << "    Dejo de ser sublider\n";
 			is_sub_lider = false;
 
+			// TODO: sublider sabe cual es su lider, si su lider deja de serlo, avanza
+			//       -> mover a if sublider arriba
+			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 			Base::continueTravel();
 		}
 	}
@@ -830,15 +864,20 @@ void VTL::onData(WaveShortMessage *wsm)
 	// Guardar informacion de vehiculo
 	carTable[sender_in][sender] = data;
 
+	if(sender_crossing)
+	{
+		crossing_zone_register[sender_in][sender] = simTime().dbl();
+	}
+
 	// Actualizar datos de vehiculo
 	Base::getBasicParameters();
 
 	// En caso recordar un lider incorrecto
-	if(!data.isLider && liders_list[sender_in] == sender)
+	if(!sender_is_lider && liders_list[sender_in] == sender)
 		liders_list[sender_in] = -1;
 
 	// Reaccion a mensaje de un vehiculo lider
-	if(data.isLider && !crossing)
+	if(sender_is_lider && !crossing)
 	{
 		EV << ">>> Existe lider en la interseccion\n";
 

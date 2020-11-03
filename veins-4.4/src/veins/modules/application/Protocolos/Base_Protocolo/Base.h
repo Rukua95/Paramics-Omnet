@@ -109,6 +109,7 @@ protected:
 
 	// Informacion de autos
 	std::vector<std::map<int, vehicleData> > carTable;
+	std::vector<std::map<int, double> > crossing_zone_register;
 
 	// Car lenght & width
 	double car_lenght;

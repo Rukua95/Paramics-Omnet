@@ -70,6 +70,7 @@ void Base::initialize(int stage)
 
 		// Tablas de informacion de vehiculos, separadas segun direccion inicial de los vehiculos.
 		carTable = std::vector<std::map<int, vehicleData> >(4, std::map<int, vehicleData>());
+		crossing_zone_register = std::vector<std::map<int, double> > (4, std::map<int, double>());
 
 		// Tabla que relaciona calle de inicio (arista de termino), con la direccion inicial de un vehiculo.
 		directionMap["18"] = 0; // Sur
@@ -294,7 +295,7 @@ void Base::detention()
 	{
 		if((it->second.stoping || it->second.stoped) && it->second.distance_to_junction < distance_to_junction)
 		{
-			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("yellow"));
+			//traciVehicle->setColor(Veins::TraCIColor::fromTkColor("grey"));
 			verificador = true;
 			if(stoping)
 				traciVehicle->setSpeed(-1.0);
@@ -337,7 +338,7 @@ void Base::detention()
  */
 void Base::continueTravel()
 {
-	traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
+	//traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
 	traciVehicle->setSpeed(-1.0);
 	stoped = false;
 	stoping = false;

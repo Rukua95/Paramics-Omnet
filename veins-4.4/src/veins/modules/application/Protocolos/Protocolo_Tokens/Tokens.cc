@@ -50,7 +50,7 @@ void Tokens::initialize(int stage)
 
 		// Cantidad de intervalos entre mensajes de vehiculo
 		intervals_per_selfmsg = 2;
-		intervals_counting = rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
+		intervals_counting = 0;// rand() % intervals_per_selfmsg;//intervals_per_selfmsg - 1;
 
 		first_msg = false;
 
@@ -74,9 +74,14 @@ void Tokens::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	Base::handleSelfMsg(msg);
 
+	if(outJunction)
+	{
+		Base::removeVehicle(0);
+		return;
+	}
+
 	intervals_counting++;
 	
-
 
 	/////////////////////////////////////////////////////////////////
 	// Calculo de prioridad
@@ -131,23 +136,13 @@ void Tokens::handleSelfMsg(cMessage *msg){
 		// Vehiculo esta dentro de la interseccion
 		if(startId == "1" && dist_x <= 11.4 && dist_y <= 11.4)
 		{
-			EV << ">>> Zona de cruce\n";
+			EV << ">>> Zona de cruce <<<\n";
 			crossing = true;
 			Base::registerInOfJunction();
 
 			// Actualizando indice de tokens que se esta ocupando actualmente.
 			tokenInUse();
-
-/*
-			if(anti_block) 
-			{
-				anti_block = false;
-				Base::continueTravel();
-			}
-
-			if(better_priority_cars.size() > 0)
-				incorrect_exit = true;
-*/
+			
 			traciVehicle->setColor(Veins::TraCIColor::fromTkColor("blue"));
 
 		}
@@ -156,9 +151,10 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			// Vehiculo salio de la interseccion
 			if(crossing)
 			{
-				EV << ">>> Out of junction <<<\n";
+				EV << ">>> Salida de interseccion <<<\n";
 				Base::registerOutOfJunction();
 
+				crossing = false;
 				outJunction = true;
 				traciVehicle->setColor(Veins::TraCIColor::fromTkColor("purple"));
 				
@@ -166,7 +162,7 @@ void Tokens::handleSelfMsg(cMessage *msg){
 				info_message->setData(data);
 				sendWSM((WaveShortMessage*) info_message->dup());
 
-				Base::removeVehicle(0);
+				scheduleAt(simTime() + ping_interval, self_beacon);
 
 				return;
 
@@ -174,46 +170,55 @@ void Tokens::handleSelfMsg(cMessage *msg){
 			// Vehiculo esta entrando a la interseccion.
 			else
 			{
+				EV << ">>> Comparacion de prioridades <<<\n";
+				// Solo comparamos primeros
+				bool is_first = true;
+
+				for(auto it = carTable[direction_junction].begin(); it!= carTable[direction_junction].end(); it++)
+					if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
+						is_first = false;
+
+				EV << "    is_first: " << is_first << "\n";
+
 				// Comparacion de prioridades con vehiculos registrados.
-				if(better_priority_cars.size() > 0)
+				if(better_priority_cars.size() > 0 || !is_first)
 				{
 					EV << ">>> Existen vehiculos de mejor prioridad\n";
 					for(auto it=better_priority_cars.begin(); it!=better_priority_cars.end(); it++)
 						EV << "    " << *it << "\n";
+
 					allow_continue = 0;
-					
 					Base::detention();
+
 				}
 				else
 				{
 					if(allow_continue == 2)
 					{
 						EV << ">>> No existe vehiculo con mejor prioridad\n";
-						bool isFirst = true;
-						for(auto it=carTable[direction_junction].begin(); it != carTable[direction_junction].end(); it++)
-							if(it->second.distance_to_junction < distance_to_junction && !it->second.crossing)
-								isFirst = false;
+						EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
 
-						if(isFirst)
-						{
-							EV << ">>> Continuando con viaje, reservando prioridad maxima\n";
-							priority = -1.0;
-							block_time = simTime().dbl();
-							Base::continueTravel();
-						}
-						else
-						{
-							EV << ">>> No se puede continuar, realizando detencion\n";
-							allow_continue = 0;
-							Base::detention();
-						}
+						priority = -1.0;
+						traciVehicle->setColor(Veins::TraCIColor::fromTkColor("green"));
+						Base::continueTravel();
+
+						prepareMsgData(data, 0);
+						info_message->setData(data);
+						sendWSM((WaveShortMessage*) info_message->dup());
+
+						scheduleAt(simTime() + ping_interval, self_beacon);
+
+						return;
+
 					}
 					else
 					{
 						EV << ">>> Hasta ahora no hay vehiculo con mejor prioridad\n";
 						EV << ">>> Esperando un ciclo de simulacion para asegurar\n";
+
 						allow_continue++;
 						Base::detention();
+
 					}
 				}
 			}
@@ -234,6 +239,8 @@ void Tokens::handleSelfMsg(cMessage *msg){
 		{
 			sendWSM((WaveShortMessage*) info_message->dup());
 			first_msg = true;
+
+			intervals_counting = 0;
 		}
 
 		// Al entrar a la zona para compartir informacion, vehiculo realiza un ciclo de espera
@@ -315,9 +322,15 @@ void Tokens::onData(WaveShortMessage *wsm)
 		return ;
 	}
 
-	// En caso de un vehiculo en la misma pista, revisar si aporta a nuestra prioridad
+	// En caso de un vehiculo en la misma pista, revisar si aporta a nuestra prioridad y actualizar
 	if(sender_in == direction_junction && sender_dist > distance_to_junction)
-		sum_priority += (data.priority - carTable[sender_in][sender].priority);
+	{
+		if(carTable[sender_in].count(sender) == 0)
+			sum_priority += data.priority;
+		else
+			sum_priority += (data.priority - carTable[sender_in][sender].priority);
+	}
+		
 
 	carTable[sender_in][sender] = data;
 
@@ -337,15 +350,35 @@ void Tokens::onData(WaveShortMessage *wsm)
 	// Revisar colisiones con mensajes enviados y guardar aquellos vehiculos con mayor prioridad
 	bool priority_comp = comparePriority(sender_priority, sender);
 
-	if(sender_in == direction_junction && sender_dist > distance_to_junction)
-		priority_comp = false;
+	if(sender_in == direction_junction)
+	{
+		// Vehiculos que esten atras se ignoran
+		if(sender_dist > distance_to_junction)
+			priority_comp = false;
 
-	if(sender_in == direction_junction && sender_dist < distance_to_junction && !data.crossing)
+		// Vehiculos que esten adelante se consideran
+		if(sender_dist < distance_to_junction)
+			priority_comp = true;
+
+	}
+	
+	// Solo considerar informacion de los vehiculos que van primeros en pista o estan cruzando.
+	for(auto it=carTable[sender_in].begin(); it!=carTable[sender_in].end(); it++)
+	{
+		if(it->first == sender)
+			continue;
+
+		if(it->second.distance_to_junction < sender_dist && !it->second.crossing)
+			priority_comp = false;
+	}
+
+	// Siempre considerar vehiculos que cruzan
+	if(data.crossing)
 		priority_comp = true;
 
 	if(priority_comp)
 	{
-		EV << "Comparando posibilidad de colision\n";
+		EV << ">>> Comparando posibilidad de colision\n";
 		if(compareTokens(sender_in, sender_out, sender_token_in_use))
 		{
 			EV << "Existe posible colision\n";
@@ -360,7 +393,7 @@ void Tokens::onData(WaveShortMessage *wsm)
 	}
 	else
 	{
-		EV << "Tengo mejor prioridad, eliminando del registro\n";
+		EV << "Tengo mejor prioridad, ignorando y eliminando del registro\n";
 		better_priority_cars.erase(sender);
 	}
 }

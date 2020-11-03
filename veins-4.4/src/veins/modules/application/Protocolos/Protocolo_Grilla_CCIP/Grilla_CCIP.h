@@ -83,6 +83,7 @@ protected:
 	void getCells();
 	void cellInUse();
 	bool compareCells(int in, int out, int cell_in_use);
+	bool comparePriority(double vhc_priority, int sender_id);
 
 
 public:
