@@ -4,7 +4,15 @@
 	 <basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\veins-4.4\examples\CrossRoad_VTL" /> 
 	 <network name="CrossRoad" /> 
 
-	 <seed value="385779" />
+	<!-- <seed value="216844" /> -->
+	<!-- <seed value="311095" /> -->
+	<!-- <seed value="101010" /> -->
+	<!-- <seed value="210908" /> -->
+	<!-- <seed value="471655" /> -->
+	<!-- <seed value="801419" /> -->
+	<seed value="875297" />
+	
+	
 	
 	<!-- <basedir path="C:\Users\thi-s\Documents\NicLabs\Paramics-Omnet\Omnet-Veins\veins-4.4\examples\Benchmark_CrossRoad" /> -->
 

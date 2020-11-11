@@ -58,7 +58,7 @@ void VTL::initialize(int stage)
 
 		// Cantidad de intervalos entre mensajes de vehiculo
 		intervals_per_selfmsg = 2;
-		intervals_counting = 0;		//rand() % intervals_per_selfsmg;
+		intervals_counting = 0;
 		
         break;
     default:
@@ -177,6 +177,9 @@ void VTL::handleSelfMsg(cMessage *msg){
 	/////////////////////////////////////////////////////////////////
 	if(is_lider)
 	{
+		if(is_sub_lider)
+			is_sub_lider = false;
+			
 		traciVehicle->setColor(Veins::TraCIColor::fromTkColor("red"));
 		if(crossing_left)
 			crossing_left = false;

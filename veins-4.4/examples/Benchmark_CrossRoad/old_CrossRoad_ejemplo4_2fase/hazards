@@ -1,0 +1,13 @@
+## Author thi-s
+## Created Date Wednesday-November-4-2020 15-30-17
+## Modified Date Wednesday-November-4-2020 15-31-07
+## Modified By thi-s
+## Network C:/users/thi-s/Documents/Niclabs/Paramics-Omnet/veins-4.4/examples/Benchmark_CrossRoad/CrossRoad_ejemplo4_2fase
+## Notes 
+Hazards
+
+## warning on a:b at 500 ft, 100 ft
+warning on 13:1 at 30.0 m, 1.0 m
+warning on 14:1 at 30.0 m, 1.0 m
+warning on 15:1 at 30.0 m, 1.0 m
+warning on 16:1 at 30.0 m, 1.0 m

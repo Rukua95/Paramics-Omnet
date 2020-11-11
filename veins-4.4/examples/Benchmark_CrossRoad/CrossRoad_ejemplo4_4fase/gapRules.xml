@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<transfergaps xmlns="http://www.quadstoneparamics.com/gaprules/6.9.3"/>
+<transfergaps xmlns="http://www.quadstoneparamics.com/gaprules/6.9.3">
+ <transfer inlink="13:1">
+  <gap outlink="1:14">
+   <gapData vtype="9" min_transfer_time="6.000000"/>
+  </gap>
+ </transfer>
+ <transfer inlink="16:1">
+  <gap outlink="1:13">
+   <gapData vtype="9" min_transfer_time="6.000000"/>
+  </gap>
+ </transfer>
+</transfergaps>

@@ -1,0 +1,7 @@
+vehicle types
+
+type 1 car 	
+	top speed 160.00 kph crawl speed 80.50 kph 
+	name "Car"
+	matrix 1 proportion 58.700 perturbation 0.0 familiarity 85.00
+

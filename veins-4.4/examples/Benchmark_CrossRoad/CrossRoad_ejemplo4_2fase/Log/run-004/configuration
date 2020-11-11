@@ -18,8 +18,8 @@ maximum diversion 300
 right hand drive
 units metric
 timestep detail  4
-mean headway  5.000
-mean reaction time  10.000
+mean headway  1.000
+mean reaction time  1.000
 gap  2.000 m
 cost coefficients  1.000, 0.000 mins per km, 0.000
 queue speed  7.200 kph

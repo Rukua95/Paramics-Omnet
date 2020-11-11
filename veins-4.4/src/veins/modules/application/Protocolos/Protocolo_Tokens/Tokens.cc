@@ -361,15 +361,17 @@ void Tokens::onData(WaveShortMessage *wsm)
 			priority_comp = true;
 
 	}
-	
-	// Solo considerar informacion de los vehiculos que van primeros en pista o estan cruzando.
-	for(auto it=carTable[sender_in].begin(); it!=carTable[sender_in].end(); it++)
+	else
 	{
-		if(it->first == sender)
-			continue;
+		// Solo considerar informacion de los vehiculos que van primeros en pista o estan cruzando.
+		for(auto it=carTable[sender_in].begin(); it!=carTable[sender_in].end(); it++)
+		{
+			if(it->first == sender)
+				continue;
 
-		if(it->second.distance_to_junction < sender_dist && !it->second.crossing)
-			priority_comp = false;
+			if(it->second.distance_to_junction < sender_dist && !it->second.crossing)
+				priority_comp = false;
+		}
 	}
 
 	// Siempre considerar vehiculos que cruzan
@@ -491,7 +493,7 @@ bool Tokens::comparePriority(double vhc_priority, int sender_id)
 	if(priority < 0.0)
 		return false;
 	else
-		return (vhc_priority <= 0.0 || priority < vhc_priority - priority_delta || (std::abs(priority - vhc_priority) < priority_delta && sender_id < myId));
+		return (vhc_priority < 0.0 || priority < vhc_priority - priority_delta || (std::abs(priority - vhc_priority) < priority_delta && sender_id < myId));
 }
 
 
