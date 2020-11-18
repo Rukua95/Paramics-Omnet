@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regions>
+  <region id="0" type="Demand" objPoint="Edge" updatePoint="Edge" demandType="Both" name="Demand 1">
+   <shape type="polygon">
+    <vertices>
+     <point x="-6.2998000000000047" y="-11.711300000000051" z="0.10000000000000001"/>
+     <point x="-6.2998000000000047" y="-13.211300000000051" z="0.10000000000000001"/>
+     <point x="-3.8998000000000275" y="-13.211300000000051" z="0.10000000000000001"/>
+     <point x="-3.8998000000000275" y="-11.711300000000051" z="0.10000000000000001"/>
+    </vertices>
+   </shape>
+  </region>
+  <region id="0" type="Waypoint" objPoint="Centre" updatePoint="Centre" demandType="ODNull" name="Demand 5">
+   <shape type="polygon">
+    <vertices>
+     <point x="-6.2998000000000047" y="-14.711300000000051" z="0.10000000000000001"/>
+     <point x="-3.8998000000000275" y="-14.711300000000051" z="0.10000000000000001"/>
+     <point x="-3.8998000000000275" y="-17.711300000000051" z="0.10000000000000001"/>
+     <point x="-6.2998000000000047" y="-17.711300000000051" z="0.10000000000000001"/>
+    </vertices>
+   </shape>
+  </region>
+  <region id="1" type="Demand" objPoint="Edge" updatePoint="Edge" demandType="Both" name="Demand 2">
+   <shape type="polygon">
+    <vertices>
+     <point x="-6.2998000000000047" y="-26.711300000000051" z="0.10000000000000001"/>
+     <point x="-6.2998000000000047" y="-25.211300000000051" z="0.10000000000000001"/>
+     <point x="-3.8998000000000275" y="-25.211300000000051" z="0.10000000000000001"/>
+     <point x="-3.8998000000000275" y="-26.711300000000051" z="0.10000000000000001"/>
+    </vertices>
+   </shape>
+  </region>
+  <region id="1" type="Waypoint" objPoint="Centre" updatePoint="Centre" demandType="ODNull" name="Demand 6">
+   <shape type="polygon">
+    <vertices>
+     <point x="3.9001999999999271" y="-14.711300000000051" z="0.10000000000000001"/>
+     <point x="6.3001999999999043" y="-14.711300000000051" z="0.10000000000000001"/>
+     <point x="6.3001999999999043" y="-17.711300000000051" z="0.10000000000000001"/>
+     <point x="3.9001999999999271" y="-17.711300000000051" z="0.10000000000000001"/>
+    </vertices>
+   </shape>
+  </region>
+  <region id="2" type="Demand" objPoint="Edge" updatePoint="Edge" demandType="Both" name="Demand 3">
+   <shape type="polygon">
+    <vertices>
+     <point x="3.9001999999999271" y="-11.711300000000051" z="0.10000000000000001"/>
+     <point x="6.3001999999999043" y="-11.711300000000051" z="0.10000000000000001"/>
+     <point x="6.3001999999999043" y="-13.211300000000051" z="0.10000000000000001"/>
+     <point x="3.9001999999999271" y="-13.211300000000051" z="0.10000000000000001"/>
+    </vertices>
+   </shape>
+  </region>
+  <region id="3" type="Demand" objPoint="Edge" updatePoint="Edge" demandType="Both" name="Demand 4">
+   <shape type="polygon">
+    <vertices>
+     <point x="3.9001999999999271" y="-26.711300000000051" z="0.10000000000000001"/>
+     <point x="3.9001999999999271" y="-25.211300000000051" z="0.10000000000000001"/>
+     <point x="6.3001999999999043" y="-25.211300000000051" z="0.10000000000000001"/>
+     <point x="6.3001999999999043" y="-26.711300000000051" z="0.10000000000000001"/>
+    </vertices>
+   </shape>
+  </region>
+</regions>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regionConnectivity>
+ <objectConnector bidirectional="1">
+  <origin id="0" type="Waypoint"/>
+  <destination id="0" type="Demand"/>
+ </objectConnector>
+ <objectConnector bidirectional="1">
+  <origin id="1" type="Demand"/>
+  <destination id="0" type="Waypoint"/>
+ </objectConnector>
+ <objectConnector bidirectional="1">
+  <origin id="1" type="Waypoint"/>
+  <destination id="0" type="Waypoint"/>
+ </objectConnector>
+ <objectConnector bidirectional="1">
+  <origin id="2" type="Demand"/>
+  <destination id="1" type="Waypoint"/>
+ </objectConnector>
+ <objectConnector bidirectional="1">
+  <origin id="3" type="Demand"/>
+  <destination id="1" type="Waypoint"/>
+ </objectConnector>
+</regionConnectivity>

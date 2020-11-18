@@ -1,0 +1,10 @@
+categories: 1 to 40
+
+category 1 lanes: 1  speed: 30.0 mph width:  3.7 m colour: green type: urban
+category 2 lanes: 2  speed: 30.0 mph width:  7.3 m colour: green type: urban
+category 3 lanes: 3  speed: 30.0 mph width: 11.0 m colour: green type: urban
+category 4 lanes: 4  speed: 30.0 mph width: 14.0 m colour: green type: urban
+category 5 lanes: 1  speed: 60.0 mph width:  3.7 m colour: red type: highway
+category 6 lanes: 2  speed: 60.0 mph width:  7.3 m colour: red type: highway
+category 7 lanes: 3  speed: 60.0 mph width: 11.0 m colour: red type: highway
+category 8 lanes: 4  speed: 40.0 mph width: 14.0 m colour: blue type: highway

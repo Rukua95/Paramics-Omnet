@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<studyArea name="Study Area #1" cellDimensionType="standard">
+  <origin x="-49.6498" y="-74.2613" z="0"/>
+  <parameters additionalStartWidth="0" additionalWidthPrimary="2" additionalEndWidth="100" extensionLengthBufferTime="0" waitForDivergentAgents="0" applySpeedCollisionDetection="0" additionalGapFindingBuffer="0" nearsideLaneBuffer="3" additionalLaneLength="100" additionalWidthSecondary="3" extensionLength="2" additionalNearsideLaneLength="3"/>
+</studyArea>

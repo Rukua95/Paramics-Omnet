@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regionDistributions>
+	<distributions count="6" studyArea="Study Area #1">
+		<distributionsForRegion regionBType="Demand" regionBId="0">
+			<intervals count="1" totalDuration="3601">
+				<interval id="1" duration="3601"/>
+			</intervals>
+			<distributionData count="1">
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Waypoint" regionCId="0">
+					<turnValue interval="1">100</turnValue>
+				</distributionsPerInterval>
+			</distributionData>
+		</distributionsForRegion>
+		<distributionsForRegion regionBType="Waypoint" regionBId="0">
+			<intervals count="1" totalDuration="3601">
+				<interval id="1" duration="3601"/>
+			</intervals>
+			<distributionData count="9">
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Demand" regionCId="0">
+					<turnValue interval="1">0</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Demand" regionCId="1">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Waypoint" regionCId="1">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="1" regionCType="Demand" regionCId="0">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="1" regionCType="Demand" regionCId="1">
+					<turnValue interval="1">0</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="1" regionCType="Waypoint" regionCId="1">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Waypoint" regionAId="1" regionCType="Demand" regionCId="0">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Waypoint" regionAId="1" regionCType="Demand" regionCId="1">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Waypoint" regionAId="1" regionCType="Waypoint" regionCId="1">
+					<turnValue interval="1">0</turnValue>
+				</distributionsPerInterval>
+			</distributionData>
+		</distributionsForRegion>
+		<distributionsForRegion regionBType="Demand" regionBId="1">
+			<intervals count="1" totalDuration="3601">
+				<interval id="1" duration="3601"/>
+			</intervals>
+			<distributionData count="1">
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Waypoint" regionCId="0">
+					<turnValue interval="1">100</turnValue>
+				</distributionsPerInterval>
+			</distributionData>
+		</distributionsForRegion>
+		<distributionsForRegion regionBType="Waypoint" regionBId="1">
+			<intervals count="1" totalDuration="3601">
+				<interval id="1" duration="3601"/>
+			</intervals>
+			<distributionData count="9">
+				<distributionsPerInterval regionAType="Demand" regionAId="2" regionCType="Demand" regionCId="2">
+					<turnValue interval="1">0</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="2" regionCType="Demand" regionCId="3">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="2" regionCType="Waypoint" regionCId="0">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="3" regionCType="Demand" regionCId="2">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="3" regionCType="Demand" regionCId="3">
+					<turnValue interval="1">0</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Demand" regionAId="3" regionCType="Waypoint" regionCId="0">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Waypoint" regionAId="0" regionCType="Demand" regionCId="2">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Waypoint" regionAId="0" regionCType="Demand" regionCId="3">
+					<turnValue interval="1">50</turnValue>
+				</distributionsPerInterval>
+				<distributionsPerInterval regionAType="Waypoint" regionAId="0" regionCType="Waypoint" regionCId="0">
+					<turnValue interval="1">0</turnValue>
+				</distributionsPerInterval>
+			</distributionData>
+		</distributionsForRegion>
+		<distributionsForRegion regionBType="Demand" regionBId="2">
+			<intervals count="1" totalDuration="3601">
+				<interval id="1" duration="3601"/>
+			</intervals>
+			<distributionData count="1">
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Waypoint" regionCId="1">
+					<turnValue interval="1">100</turnValue>
+				</distributionsPerInterval>
+			</distributionData>
+		</distributionsForRegion>
+		<distributionsForRegion regionBType="Demand" regionBId="3">
+			<intervals count="1" totalDuration="3601">
+				<interval id="1" duration="3601"/>
+			</intervals>
+			<distributionData count="1">
+				<distributionsPerInterval regionAType="Demand" regionAId="0" regionCType="Waypoint" regionCId="1">
+					<turnValue interval="1">100</turnValue>
+				</distributionsPerInterval>
+			</distributionData>
+		</distributionsForRegion>
+	</distributions>
+</regionDistributions>
