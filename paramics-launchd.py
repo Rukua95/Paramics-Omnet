@@ -69,6 +69,16 @@ _CMD_FILE_SEND = 0x75
 _SIMULATION_MODE = 'modeller'
 #_SIMULATION_MODE = 'processor'
 
+_SEED_INDEX = 0
+
+_SEED_SET = []
+#_SEED_SET = [216844, 471655, 629442, 425776, 572891, 437719, 801419, 86226, 530575, 96019]
+#_SEED_SET = [693168, 42368, 566521, 667206, 819097, 348168, 442421, 623031, 91890, 875297]
+#_SEED_SET = [26844, 41655, 62942, 42776, 57891, 43779, 80119, 6226, 53075, 9619]
+#_SEED_SET = [63168, 4268, 66521, 66706, 81907, 34868, 44241, 62331, 9189, 75297]
+
+simulation_runs = {}
+
 
 class UnusedPortLock:
     lock = thread.allocate_lock()
@@ -164,7 +174,7 @@ def forward_connection(client_socket, server_socket, process):
 
     logging.debug("Done with proxy mode")
 
-
+# Read launch configuration in XML format
 def parse_launch_configuration(launch_xml_string):
     """
     Returns tuple of options set in launch configuration
@@ -172,13 +182,13 @@ def parse_launch_configuration(launch_xml_string):
 
     p = xml.dom.minidom.parseString(launch_xml_string)
 
-    # get root node "launch"
+    # Get root node "launch"
     launch_node = p.documentElement
     if (launch_node.tagName != "launch"):
         raise RuntimeError(
             "launch config root element not <launch>, but <%s>" % launch_node.tagName)
 
-    # get "launch.basedir"
+    # Get "basedir" directory of network simulation
     basedir = ""
     basedir_nodes = [x for x in launch_node.getElementsByTagName(
         "basedir") if x.parentNode == launch_node]
@@ -189,20 +199,6 @@ def parse_launch_configuration(launch_xml_string):
         basedir = basedir_nodes[0].getAttribute("path")
     logging.debug("Base dir is %s" % basedir)
 
-    # get "launch.seed"
-    seed = 0
-    logging.debug("Initial seed value is %d" % seed)
-    seed_nodes = [x for x in launch_node.getElementsByTagName("seed") if x.parentNode == launch_node]
-    if len(seed_nodes) > 1:
-        raise RuntimeError(
-            'launch config contains %d <seed> nodes, expected at most 1' % (len(seed_nodes)))
-    elif len(seed_nodes) == 1:
-        seed = int(seed_nodes[0].getAttribute("value"))
-
-    if seed == 0:
-        logging.debug("Generating random seed")
-        seed = random.randint(0, 999999)
-    logging.debug("Seed is %d" % seed)
 
     # get "launch.network"
     network = ""
@@ -213,7 +209,51 @@ def parse_launch_configuration(launch_xml_string):
     else:
         network = network_nodes[0].getAttribute("name")
     logging.debug("Network is %s" % network)
-    
+
+
+    # Get "name" for simulation work
+    simulation_name = ""
+    simulation_name_nodes = launch_node.getElementsByTagName("name")
+    if len(simulation_name_nodes) != 1:
+        simulation_name = basedir + "\\" + network
+    else:
+        simulation_name = str(simulation_name_nodes[0].firstChild.data)
+    logging.debug("Simulation name is %s" % simulation_name)
+
+    # Saving simulation data
+    if simulation_name not in simulation_runs.keys():
+        simulation_runs[simulation_name] = {
+            "seed_count": 0,
+            "numbers_of_seeds": -1,
+        }
+
+
+    # Get "seeds" for simulation
+    seed = -1
+    seed_list_nodes = launch_node.getElementsByTagName("seed_list")
+    if len(seed_list_nodes) > 1:
+        raise RuntimeError('launch config contains %d <seed_list> nodes, expected 1' % (len(seed_list_nodes)))
+    elif len(seed_list_nodes) == 0:
+        logging.debug("No given seed list, generating random seed")
+        seed = random.randint(0, 999999)
+    else:
+        seed_list = seed_list_nodes[0].getElementsByTagName("seed")
+        logging.debug("Given %d seeds" % len(seed_list))
+
+        if len(seed_list) == 0:
+            logging.debug("Generating random seed")
+            seed = random.randint(0, 999999)
+
+        else:
+            seed_count = simulation_runs[simulation_name]["seed_count"]
+            seed_list_cant = len(seed_list)
+            simulation_runs[simulation_name]["seed_count"] += 1
+
+            logging.debug("Using given seed number %d" % seed_count)
+
+            seed = int(seed_list[seed_count % seed_list_cant].getAttribute("value"))
+
+    logging.debug("Seed is %d" % seed)
 
     return (basedir, network, seed)
 
